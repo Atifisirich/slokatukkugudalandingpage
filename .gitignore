@@ -1,0 +1,7 @@
+# Local preview settings (Claude Code), not part of the site
+.claude/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,1042 @@
+<!doctype html>
+<!--
+  Sloka International School, Tukkuguda — Admissions 2027–28 landing page
+  Plain HTML / CSS / vanilla JS, no build step. Upload index.html, css/, js/ and images/ to the cPanel subdomain.
+
+  The page is built around four interactive "models" that help parents understand the school
+  and each end in a booking step:
+    1. Grade finder (pick a grade or check by date of birth)  -> "Book a visit for Grade X"
+    2. Campus tour (tap a space to see it)                     -> "See it on a campus visit"
+    3. Distance and transport checker (pick your area)         -> directions / WhatsApp about the bus
+    4. Admission in four steps                                 -> "Book your visit"
+
+  ============================================================================
+  IMAGES  (all in /images, WebP, each under ~165 KB; "-sm" files are the phone versions)
+  Until a file exists, its frame shows a neutral "[PHOTO: slot-name]" placeholder.
+  Photos are cropped by CSS (object-fit), so any landscape photo works; the inline
+  --focus value on each frame picks which part stays in view.
+  ----------------------------------------------------------------------------
+  file                                  status     used in
+  sloka-logo.webp / .png                supplied   header, footer (corners made transparent)
+  sloka-flower.webp                     supplied   loading screen (flower cut from the logo)
+  favicon-64.png, apple-touch-icon.png  supplied   browser tab and home-screen icons (the flower)
+  tukkuguda-hero(.webp / -sm.webp)      supplied   hero arch; campus tour (basketball court)
+  campus-entrance(.webp / -sm.webp)     supplied   "Step inside" doorway scene
+  campus-walkway.webp                   supplied   campus tour (CCTV-secured campus)
+  assembly(.webp / -sm.webp)            supplied   approach
+  football-sm.webp, cricket-sm.webp     supplied   approach (Body); cricket.webp in campus tour
+  early-years(.webp / -sm.webp)         supplied   grade finder; campus tour (Play Land)
+  primary(.webp / -sm.webp)             supplied   grade finder; campus tour (classrooms)
+  science-labs(.webp / -sm.webp)        supplied   grade finder (Middle School); campus tour
+  aero-bay-lab-wide.webp  1200 x 900    TO ADD     campus tour
+  ict-lab.webp            1200 x 900    TO ADD     campus tour
+  skating-rink.webp       1200 x 900    TO ADD     campus tour
+  og-image.jpg            1200 x 630    TO ADD     WhatsApp / social sharing (JPG)
+  ============================================================================
+-->
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sloka International School Tukkuguda | CBSE School near Maheshwaram | Admissions 2027–28</title>
+  <meta name="description" content="Admissions open 2027–28 at Sloka International School, Tukkuguda: a CBSE school from Nursery to Grade 8, close to Maheshwaram, Adibatla and Kongara Kalan. Book a campus visit or request a call back.">
+  <meta name="theme-color" content="#971B1E">
+  <meta name="color-scheme" content="light">
+  <!-- [LANDING-PAGE-URL] Add once the subdomain is live:
+  <link rel="canonical" href="https://[LANDING-PAGE-URL]/"> -->
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn previews) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sloka International School">
+  <meta property="og:title" content="Admissions Open 2027–28 | Sloka International School, Tukkuguda">
+  <meta property="og:description" content="CBSE school in Tukkuguda, Nursery to Grade 8. Book a campus visit and see the labs, sports grounds and Early Years Play Land.">
+  <meta property="og:image" content="https://[LANDING-PAGE-URL]/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="images/favicon-64.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+  <!-- Loading screen: the Sloka flower on the logo yellow. Styles are inline so it shows before
+       styles.css arrives. Shown once per visit, never with reduced motion; lifts itself at 2.6 s
+       even if main.js fails. -->
+  <style>
+    .loader{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:#F9C500;
+      animation:loader-out .8s cubic-bezier(.7,0,.25,1) 2.6s forwards}
+    .loader__flower{width:132px;height:132px;animation:flower-in .9s cubic-bezier(.2,.8,.2,1) both,flower-spin 7s linear .9s infinite}
+    .loader-done .loader{animation:loader-out .8s cubic-bezier(.7,0,.25,1) forwards;pointer-events:none}
+    .loader-done .loader__flower{animation:flower-away .6s ease forwards}
+    .loader-skip .loader{display:none}
+    @keyframes flower-in{from{opacity:0;transform:scale(.3) rotate(-160deg)}to{opacity:1;transform:none}}
+    @keyframes flower-spin{to{transform:rotate(360deg)}}
+    @keyframes flower-away{to{opacity:0;transform:scale(1.5) rotate(90deg)}}
+    @keyframes loader-out{0%{clip-path:inset(0 0 0 0 round 0 0 0 0)}100%{clip-path:inset(0 0 100% 0 round 0 0 50% 50%);visibility:hidden}}
+  </style>
+  <script>(function(d){try{if(sessionStorage.getItem('sloka_seen')||matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('loader-skip')}else{sessionStorage.setItem('sloka_seen','1')}}catch(e){d.classList.add('loader-skip')}})(document.documentElement);</script>
+
+  <!-- Google Tag Manager. Replace GTM-XXXXXXX with the real container ID. -->
+  <script>window.dataLayer = window.dataLayer || [];</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Fonts: one weight of Young Serif, three of Mukta. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css?v=4">
+
+  <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
+  <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
+
+  <script defer src="js/main.js?v=4"></script>
+
+  <!-- Structured data: School -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "School",
+    "name": "Sloka International School, Tukkuguda",
+    "url": "https://slokainternational.com/",
+    "logo": "https://[LANDING-PAGE-URL]/images/sloka-logo.png",
+    "image": "https://[LANDING-PAGE-URL]/images/og-image.jpg",
+    "telephone": "+91-85200-71222",
+    "email": "admissionstukkuguda@slokainternational.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Exit ORR 14, Laxmi Nagar, opp. Sri Visista Hospital Lane",
+      "addressLocality": "Tukkuguda, Maheshwaram",
+      "addressRegion": "Telangana",
+      "postalCode": "501359",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 17.2079,
+      "longitude": 78.4792
+    },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=6F5H%2B4M5%2C+Tukkuguda%2C+Telangana+501359",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "08:30",
+      "closes": "17:20"
+    }
+  }
+  </script>
+
+  <!-- Structured data: FAQPage (keep in sync with the visible FAQ section) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Which grades does Sloka Tukkuguda offer?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Sloka International School, Tukkuguda is a CBSE school offering classes from Nursery to Grade 8, with a Montessori-inspired Early Years programme."}},
+      {"@type": "Question", "name": "Is the curriculum CBSE and NEP 2020 aligned?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Yes. The school follows the CBSE curriculum, aligned with NEP 2020, with activity-based and technology-integrated learning."}},
+      {"@type": "Question", "name": "What is the admission process for 2027–28?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Book a campus visit online or by phone, meet the admissions counsellor and tour the campus, then complete the application and submit the required documents."}},
+      {"@type": "Question", "name": "Is school transport available?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Yes. Transport covers nearby areas including Imamguda, Gangaram, Sreenagar, Shaheen Nagar, Pedda Golconda, Balapur, Maheshwaram, Mankhal, Raviryala, Kongara Kalan, Adibatla and Mucherla. Please confirm your route with the admissions team."}},
+      {"@type": "Question", "name": "How far is the school from Adibatla, Kongara Kalan and Maheshwaram?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Approximately 10–12 km from Adibatla, 8–10 km from Kongara Kalan and 6–8 km from Maheshwaram."}},
+      {"@type": "Question", "name": "Is the campus safe?",
+       "acceptedAnswer": {"@type": "Answer", "text": "The campus has CCTV surveillance across classrooms, corridors, entry and exit points and outdoor areas, with a supervised environment throughout the day."}},
+      {"@type": "Question", "name": "What sports facilities are available?",
+       "acceptedAnswer": {"@type": "Answer", "text": "A football ground, basketball courts, a skating rink and a cricket ground, with sports as part of every student's regular schedule."}},
+      {"@type": "Question", "name": "What are Words Warrior, Podcast and Spinning Tales?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Sloka's communication programmes. Words Warrior is a gamified vocabulary programme, Podcast has students script and record their own shows, and Spinning Tales builds storytelling skills."}},
+      {"@type": "Question", "name": "What is the Aero Bay Innovation Lab?",
+       "acceptedAnswer": {"@type": "Answer", "text": "An aerospace-inspired innovation lab where students work on robotics, coding, AI projects and hands-on STEM challenges."}},
+      {"@type": "Question", "name": "What is the Early Years programme like?",
+       "acceptedAnswer": {"@type": "Answer", "text": "A Montessori-inspired, play-based programme with a dedicated Play Land and Activity Hall, where children learn through exploration and sensory play."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <img class="loader__flower" src="images/sloka-flower.webp" width="240" height="240" alt="">
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===================================================== HEADER -->
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="#top">
+        <img class="brand__logo" src="images/sloka-logo.webp" alt="Sloka International School" width="600" height="211">
+        <span class="brand__fallback" aria-hidden="true">Sloka International School</span>
+      </a>
+      <nav class="site-header__nav" aria-label="Page sections">
+        <a href="#pathway">Grades</a>
+        <a href="#campus">Campus</a>
+        <a href="#visit">Transport</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="site-header__actions">
+        <a class="header-phone" href="tel:+918520071222" aria-label="Call admissions on +91 85200 71222" data-track="call_click">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+          <span class="header-phone__number">+91 85200 71222</span>
+        </a>
+        <a class="btn btn--yellow btn--sm" href="#enquiry-form" data-to-form>
+          <span class="only-wide">Enquire Now</span><span class="only-narrow">Enquire</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===================================================== HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="badge-open">Admissions Open 2027–28</p>
+          <h1 id="hero-title" class="hero__title">Future-Ready CBSE Education in <span class="hl">Tukkuguda</span></h1>
+          <p class="hero__sub"><strong>Admissions Open 2027–28</strong> <span class="hero__sep" aria-hidden="true">|</span> Early Years to Grade 8</p>
+          <p class="hero__areas">Serving families from Maheshwaram, Balapur, Adibatla, Kongara Kalan, Raviryala and nearby areas.</p>
+        </div>
+
+        <div class="hero__media">
+          <div class="hero__photo">
+            <div class="hero__disc" aria-hidden="true"></div>
+            <div class="photo arch" data-slot="tukkuguda-hero" style="--ar:4/5;--focus:66% 50%">
+              <img src="images/tukkuguda-hero-sm.webp"
+                   srcset="images/tukkuguda-hero-sm.webp 800w, images/tukkuguda-hero.webp 1600w"
+                   sizes="(min-width: 960px) 450px, 260px"
+                   width="1600" height="900" alt="The Sloka Tukkuguda campus building and grounds at sunrise" fetchpriority="high" decoding="async">
+            </div>
+          </div>
+          <div class="hero__side">
+            <p class="hero__note">Visit us. See the labs and the football ground for yourself.</p>
+            <!-- Shortcuts into the two most useful tools -->
+            <ul class="hero__tools">
+              <li>
+                <a href="#pathway" class="tool-link">
+                  <span class="tool-link__num" aria-hidden="true">1</span>
+                  <span><strong>Which grade fits my child?</strong> Check by date of birth</span>
+                </a>
+              </li>
+              <li>
+                <a href="#visit" class="tool-link">
+                  <span class="tool-link__num" aria-hidden="true">2</span>
+                  <span><strong>How far is it from home?</strong> Check your area</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ============ ENQUIRY FORM (isolated component; CRM settings live in ENQUIRY_CONFIG in js/main.js) -->
+        <section id="enquiry-form" class="hero__form" aria-labelledby="enquiry-title">
+          <div class="enquiry-card" data-enquiry>
+            <h2 class="enquiry-card__title" id="enquiry-title" tabindex="-1">Book a Campus Visit / Request a Call Back</h2>
+            <p class="enquiry-card__context" data-form-context hidden></p>
+
+            <!-- Everything inside [data-enquiry-body] is replaced by the CRM widget when ENQUIRY_CONFIG.mode = "widget". -->
+            <div class="enquiry-card__body" data-enquiry-body>
+              <form class="enquiry" id="enquiry" action="#" method="post" novalidate>
+                <div class="field">
+                  <label class="field__label" for="f-name">Parent Name</label>
+                  <input class="field__input" id="f-name" name="parent_name" type="text" autocomplete="name" required maxlength="80" aria-describedby="err-name">
+                  <p class="field__error" id="err-name" hidden></p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="f-mobile">Mobile Number</label>
+                  <div class="field__phone">
+                    <span class="field__prefix" aria-hidden="true">+91</span>
+                    <input class="field__input" id="f-mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" required maxlength="14" aria-describedby="hint-mobile err-mobile">
+                  </div>
+                  <p class="field__hint" id="hint-mobile">10-digit mobile number</p>
+                  <p class="field__error" id="err-mobile" hidden></p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="f-email">Email <span class="field__optional" data-email-optional>(optional)</span></label>
+                  <input class="field__input" id="f-email" name="email" type="email" autocomplete="email" maxlength="120" aria-describedby="err-email">
+                  <p class="field__error" id="err-email" hidden></p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="f-grade">Grade Applying For</label>
+                  <div class="field__select">
+                    <select class="field__input" id="f-grade" name="grade" required aria-describedby="err-grade">
+                      <option value="" selected disabled>Select a grade</option>
+                      <option>Nursery</option>
+                      <option>PP1 / LKG</option>
+                      <option>PP2 / UKG</option>
+                      <option>Grade 1</option>
+                      <option>Grade 2</option>
+                      <option>Grade 3</option>
+                      <option>Grade 4</option>
+                      <option>Grade 5</option>
+                      <option>Grade 6</option>
+                      <option>Grade 7</option>
+                      <option>Grade 8</option>
+                    </select>
+                  </div>
+                  <p class="field__error" id="err-grade" hidden></p>
+                </div>
+
+                <!-- Attribution, filled from the page address by js/main.js -->
+                <input type="hidden" name="utm_source">
+                <input type="hidden" name="utm_medium">
+                <input type="hidden" name="utm_campaign">
+                <input type="hidden" name="utm_content">
+                <input type="hidden" name="utm_term">
+                <input type="hidden" name="gclid">
+                <input type="hidden" name="fbclid">
+                <input type="hidden" name="page_url">
+                <!-- Filled when the parent uses the distance checker -->
+                <input type="hidden" name="area">
+
+                <!-- Spam trap: people never see or fill this. -->
+                <div class="hp" aria-hidden="true">
+                  <label for="f-website">Website</label>
+                  <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+
+                <button class="btn btn--maroon btn--block" type="submit" data-submit>Submit</button>
+
+                <p class="enquiry__status" role="alert" data-status hidden></p>
+                <p class="enquiry__promise">Our admissions team will call you within one working day. <span class="tbc">[CONFIRM WITH SCHOOL]</span></p>
+                <p class="enquiry__consent">By submitting, you agree to be contacted by Sloka International School about admissions. <a href="#privacy-policy-url">Privacy policy</a></p>
+              </form>
+            </div>
+
+            <!-- Success state -->
+            <div class="enquiry-card__success" data-enquiry-success hidden>
+              <div class="received-stamp" aria-hidden="true">
+                <span class="received-stamp__word">Received</span>
+                <span class="received-stamp__date" data-received-date></span>
+              </div>
+              <p class="enquiry-card__thanks" tabindex="-1" data-thanks>Thank you. Our admissions team will contact you shortly.</p>
+              <a class="btn btn--whatsapp" href="https://wa.me/918520071222" data-whatsapp data-track="whatsapp_click" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.8a9.2 9.2 0 0 0-7.9 13.9L3 21l4.4-1.1A9.2 9.2 0 1 0 12 2.8zm0 1.8a7.4 7.4 0 1 1-3.8 13.8l-.3-.2-2.4.6.6-2.3-.2-.3A7.4 7.4 0 0 1 12 4.6zm-3 3.6c-.2 0-.5 0-.7.3-.3.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 1.9 3 4.7 4.1 2.3.9 2.8.7 3.3.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3l-.4-.3-1.9-.9c-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.4l-.9-2.1c-.2-.5-.4-.5-.6-.5z"/></svg>
+                Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ===================================================== TRUST STRIP -->
+    <section class="trust" aria-label="Affiliation and key facts">
+      <ul class="wrap trust__list">
+        <li class="trust__item trust__item--main">
+          <svg class="trust__seal" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle cx="20" cy="20" r="19"/><path d="M12.5 20.5l5 5 10-10.5" fill="none" stroke="#FBF5E9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          CBSE Affiliated
+        </li>
+        <li class="trust__item trust__item--main">
+          <svg class="trust__seal" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle cx="20" cy="20" r="19"/><path d="M12.5 20.5l5 5 10-10.5" fill="none" stroke="#FBF5E9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          NEP 2020 Aligned
+        </li>
+        <li class="trust__item">Nursery to Grade 8</li>
+        <li class="trust__item">Montessori-Inspired Early Years</li>
+        <li class="trust__item">CCTV-Secured Campus</li>
+      </ul>
+    </section>
+
+    <!-- ===================================================== SIGNATURE MOMENT: STEP INSIDE
+         As the parent scrolls, the arch-shaped doorway opens until the campus fills the screen.
+         The same doorway opening is reused for every photo on the page.
+         Without JS, or with reduced motion, this renders as a plain full-width photo. -->
+    <section class="doorway" aria-labelledby="doorway-title" data-doorway>
+      <div class="doorway__stage">
+        <div class="doorway__frame">
+          <img src="images/campus-entrance-sm.webp"
+               srcset="images/campus-entrance-sm.webp 900w, images/campus-entrance.webp 1672w"
+               sizes="100vw" width="1672" height="941" loading="lazy" decoding="async"
+               alt="The main entrance of the Sloka Tukkuguda campus">
+          <div class="doorway__shade" aria-hidden="true"></div>
+        </div>
+
+        <h2 class="doorway__title" id="doorway-title">
+          <span class="doorway__word doorway__word--a">Step inside</span>
+          <span class="doorway__word doorway__word--b">Sloka Tukkuguda</span>
+        </h2>
+        <p class="doorway__hint" aria-hidden="true">Scroll to open the doors</p>
+
+        <div class="doorway__reveal">
+          <p class="doorway__line">Labs, sports grounds, an Early Years Play Land and a CCTV-secured campus, just off ORR Exit 14.</p>
+          <ul class="doorway__facts">
+            <li>CBSE Affiliated</li>
+            <li>Nursery to Grade 8</li>
+            <li>Admissions Open 2027–28</li>
+          </ul>
+          <a class="btn btn--yellow" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== APPROACH -->
+    <section class="section" id="approach" aria-labelledby="approach-title">
+      <div class="wrap approach">
+        <div class="approach__intro" data-reveal>
+          <p class="eyebrow">Our approach</p>
+          <h2 id="approach-title">Education for the Real World</h2>
+          <p class="section-lead">At Sloka Tukkuguda, children learn to think, speak, build and play, not just memorise.</p>
+          <div class="approach__photo">
+            <div class="photo arch" data-slot="assembly" style="--ar:4/5;--focus:22% 50%">
+              <img src="images/assembly-sm.webp" srcset="images/assembly-sm.webp 700w, images/assembly.webp 1200w" sizes="(min-width: 960px) 360px, 180px"
+                   width="1200" height="600" loading="lazy" decoding="async" alt="Students in Sloka uniform standing for the morning assembly">
+            </div>
+          </div>
+        </div>
+
+        <ol class="pillars">
+          <li class="pillar" data-reveal>
+            <span class="pillar__num" aria-hidden="true">01</span>
+            <div>
+              <h3 class="pillar__title">Concept-driven learning</h3>
+              <p>NEP 2020-aligned CBSE classes where children understand ideas, not just memorise answers.</p>
+              <p>Hands-on skill building for primary learners through Kaushal Bodh and Kaushal Vikas: creativity, problem-solving, life skills, early coding and robotics.</p>
+              <ul class="tags" aria-label="Programmes">
+                <li>Kaushal Bodh</li><li>Kaushal Vikas</li><li>Early coding</li><li>Robotics</li>
+              </ul>
+            </div>
+          </li>
+          <li class="pillar" data-reveal>
+            <span class="pillar__num" aria-hidden="true">02</span>
+            <div>
+              <h3 class="pillar__title">AI-enabled classrooms</h3>
+              <p>Smart classrooms and the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
+              <p>Ekalavya gives students recorded video lessons in Science and Maths to revise at their own pace. <span class="tbc">[CONFIRM GRADE RANGES FOR WORDSWORTH AND EKALAVYA WITH SCHOOL]</span></p>
+              <ul class="tags" aria-label="Programmes">
+                <li>Wordsworth AI</li><li>Ekalavya</li><li>Smart classrooms</li>
+              </ul>
+            </div>
+          </li>
+          <li class="pillar" data-reveal>
+            <span class="pillar__num" aria-hidden="true">03</span>
+            <div>
+              <h3 class="pillar__title">Holistic development of mind, body and values</h3>
+              <div class="mbv">
+                <div class="mbv__item mbv__item--mind">
+                  <h4 class="mbv__label">Mind and voice</h4>
+                  <p>Words Warrior (a gamified vocabulary programme), Podcast (students script and record their own shows) and Spinning Tales (storytelling), plus daily theme-based morning assemblies that students lead.</p>
+                </div>
+                <div class="mbv__item mbv__item--body">
+                  <h4 class="mbv__label">Body</h4>
+                  <p>Football ground, basketball courts, skating rink and cricket ground.</p>
+                </div>
+                <div class="mbv__item mbv__item--values">
+                  <h4 class="mbv__label">Values</h4>
+                  <p>Four inter-house teams that compete in academics, sports, arts and leadership, with house captains and student council roles.</p>
+                </div>
+              </div>
+              <div class="pillar__photos">
+                <div class="photo" data-slot="football" style="--ar:4/3">
+                  <img src="images/football-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="Students in house colours playing football">
+                </div>
+                <div class="photo" data-slot="cricket" style="--ar:4/3;--focus:62% 50%">
+                  <img src="images/cricket-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="Students in house colours playing cricket">
+                </div>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================================================== MODEL 1: GRADE FINDER / PATHWAY -->
+    <section class="section section--sand" id="pathway" aria-labelledby="pathway-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Find your child's stage</p>
+          <h2 id="pathway-title">A Complete Pathway Under One Roof</h2>
+          <p class="section-lead">Nursery to Grade 8 on one campus. Choose the grade your child will join in 2027–28 to see what their school life includes.</p>
+        </div>
+
+        <div class="finder" data-finder>
+          <!-- Step A: choose a grade, or work it out from date of birth -->
+          <div class="finder__controls">
+            <fieldset class="finder__grades">
+              <legend class="finder__label">Grade for 2027–28</legend>
+              <div class="chips">
+                <label class="chip"><input type="radio" name="finder-grade" value="Nursery" data-stage="early" data-index="0"><span>Nursery</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="PP1 / LKG" data-stage="early" data-index="1"><span>PP1 / LKG</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="PP2 / UKG" data-stage="early" data-index="2"><span>PP2 / UKG</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 1" data-stage="primary" data-index="3"><span>Grade 1</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 2" data-stage="primary" data-index="4"><span>Grade 2</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 3" data-stage="primary" data-index="5"><span>Grade 3</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 4" data-stage="primary" data-index="6"><span>Grade 4</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 5" data-stage="primary" data-index="7"><span>Grade 5</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 6" data-stage="middle" data-index="8"><span>Grade 6</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 7" data-stage="middle" data-index="9"><span>Grade 7</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 8" data-stage="middle" data-index="10"><span>Grade 8</span></label>
+              </div>
+            </fieldset>
+
+            <div class="agecheck" data-agecheck-box>
+              <p class="finder__label" id="agecheck-label">Not sure? Check by date of birth</p>
+              <div class="agecheck__row" role="group" aria-labelledby="agecheck-label">
+                <label class="visually-hidden" for="dob-month">Birth month</label>
+                <div class="field__select">
+                  <select class="field__input" id="dob-month">
+                    <option value="">Month</option>
+                    <option value="1">January</option><option value="2">February</option><option value="3">March</option>
+                    <option value="4">April</option><option value="5">May</option><option value="6">June</option>
+                    <option value="7">July</option><option value="8">August</option><option value="9">September</option>
+                    <option value="10">October</option><option value="11">November</option><option value="12">December</option>
+                  </select>
+                </div>
+                <label class="visually-hidden" for="dob-year">Birth year</label>
+                <div class="field__select">
+                  <select class="field__input" id="dob-year" data-year-options>
+                    <option value="">Year</option>
+                  </select>
+                </div>
+                <button class="btn btn--ink btn--sm" type="button" data-agecheck>Check</button>
+              </div>
+              <p class="agecheck__result" data-age-result role="status" hidden></p>
+              <p class="agecheck__note">Based on your child's age on 1 June 2027. Final placement is confirmed by the admissions team. <span class="tbc">[CONFIRM AGE CRITERIA WITH SCHOOL]</span></p>
+            </div>
+          </div>
+
+          <!-- Step B: the pathway track, with a marker at the chosen grade -->
+          <div class="track" data-track>
+            <div class="track__bar" aria-hidden="true">
+              <span class="track__seg track__seg--early"></span>
+              <span class="track__seg track__seg--primary"></span>
+              <span class="track__seg track__seg--middle"></span>
+              <span class="track__marker" data-track-marker hidden></span>
+            </div>
+            <div class="track__stages">
+              <button class="track__stage" type="button" data-stage-btn="early" aria-controls="stage-early" aria-pressed="true">
+                <span class="track__name">Early Years</span><span class="track__range">Nursery to UKG</span>
+              </button>
+              <button class="track__stage" type="button" data-stage-btn="primary" aria-controls="stage-primary" aria-pressed="false">
+                <span class="track__name">Primary</span><span class="track__range">Grades 1–5</span>
+              </button>
+              <button class="track__stage" type="button" data-stage-btn="middle" aria-controls="stage-middle" aria-pressed="false">
+                <span class="track__name">Middle School</span><span class="track__range">Grades 6–8</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step C: what this stage looks like -->
+          <div class="stages" aria-live="polite">
+            <article class="stage stage--early" id="stage-early" data-stage-panel="early">
+              <div class="stage__photo">
+                <div class="photo arch" data-slot="early-years" style="--ar:4/5;--focus:40% 50%">
+                  <img src="images/early-years-sm.webp" srcset="images/early-years-sm.webp 700w, images/early-years.webp 1200w" sizes="(min-width: 760px) 320px, 150px"
+                       width="1200" height="676" loading="lazy" decoding="async" alt="An Early Years child working on a picture book with an abacus and counting toys">
+                </div>
+              </div>
+              <div class="stage__body">
+                <p class="stage__tag">Play &amp; Wonder</p>
+                <h3 class="stage__title">Early Years <span>Nursery to UKG</span></h3>
+                <p>A Montessori-inspired, play-based programme with a dedicated Play Land and Activity Hall, where children learn through exploration, sensory play and child-led discovery.</p>
+                <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
+                <ul class="checks">
+                  <li>Learn through exploration and sensory play</li>
+                  <li>Follow their curiosity with Montessori-inspired, child-led activities</li>
+                  <li>Play and move every day in the Play Land and Activity Hall</li>
+                </ul>
+                <h4 class="stage__subhead">Spaces they'll use</h4>
+                <ul class="tags"><li>Play Land</li><li>Activity Hall</li><li>CCTV-secured campus</li></ul>
+                <div class="stage__cta">
+                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade>Book a visit<span data-grade-suffix></span></a>
+                  <a class="text-link" href="#campus" data-tour-jump="playland">See the Play Land</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="stage stage--primary" id="stage-primary" data-stage-panel="primary">
+              <div class="stage__photo">
+                <div class="photo arch" data-slot="primary" style="--ar:4/5;--focus:42% 50%">
+                  <img src="images/primary-sm.webp" srcset="images/primary-sm.webp 700w, images/primary.webp 1200w" sizes="(min-width: 760px) 320px, 150px"
+                       width="1200" height="677" loading="lazy" decoding="async" alt="Primary students colouring in class">
+                </div>
+              </div>
+              <div class="stage__body">
+                <p class="stage__tag">Foundations</p>
+                <h3 class="stage__title">Primary <span>Grades 1–5</span></h3>
+                <p>Strong foundations in Maths, Science, English and EVS through activity-based, inquiry-driven learning, with Kaushal Bodh and Kaushal Vikas skill-building and Wordsworth AI language support.</p>
+                <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
+                <ul class="checks">
+                  <li>Build Maths, Science, English and EVS foundations through activities and questions</li>
+                  <li>Practise creativity, problem-solving, life skills, early coding and robotics in Kaushal Bodh and Kaushal Vikas</li>
+                  <li>Grow reading fluency, vocabulary and spoken English with Wordsworth AI</li>
+                </ul>
+                <h4 class="stage__subhead">Spaces they'll use</h4>
+                <ul class="tags"><li>Smart classrooms</li><li>Football ground</li><li>Skating rink</li><li>Basketball courts</li></ul>
+                <div class="stage__cta">
+                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade>Book a visit<span data-grade-suffix></span></a>
+                  <a class="text-link" href="#campus" data-tour-jump="classroom">See a smart classroom</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="stage stage--middle" id="stage-middle" data-stage-panel="middle">
+              <div class="stage__photo">
+                <div class="photo arch" data-slot="science-labs" style="--ar:4/5;--focus:44% 50%">
+                  <img src="images/science-labs-sm.webp" srcset="images/science-labs-sm.webp 700w, images/science-labs.webp 1200w" sizes="(min-width: 760px) 320px, 150px"
+                       width="1200" height="676" loading="lazy" decoding="async" alt="Middle school students running an experiment in the science lab">
+                </div>
+              </div>
+              <div class="stage__body">
+                <p class="stage__tag">Inquiry</p>
+                <h3 class="stage__title">Middle School <span>Grades 6–8</span></h3>
+                <p>Inquiry-based, concept-led learning with Aero Bay Innovation Lab projects (robotics, coding, AI and hands-on STEM challenges), Physics, Chemistry and Biology labs, and an ICT lab with high-end systems.</p>
+                <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
+                <ul class="checks">
+                  <li>Build robotics, coding and AI projects in the Aero Bay Innovation Lab</li>
+                  <li>Run experiments in separate Physics, Chemistry and Biology labs</li>
+                  <li>Revise Science and Maths at their own pace with Ekalavya video lessons</li>
+                </ul>
+                <h4 class="stage__subhead">Spaces they'll use</h4>
+                <ul class="tags"><li>Aero Bay Innovation Lab</li><li>Science labs</li><li>ICT lab</li><li>Sports grounds</li></ul>
+                <div class="stage__cta">
+                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade>Book a visit<span data-grade-suffix></span></a>
+                  <a class="text-link" href="#campus" data-tour-jump="aero">See the Aero Bay Lab</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <p class="finder__every"><strong>In every grade:</strong> student-led morning assemblies, four inter-house teams, sports on the regular schedule and a CCTV-secured campus.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== MODEL 2: CAMPUS TOUR -->
+    <section class="section" id="campus" aria-labelledby="campus-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Campus tour</p>
+          <h2 id="campus-title">Explore the Campus</h2>
+          <p class="section-lead">Tap a space to see what happens there. Then come and see it in person.</p>
+        </div>
+
+        <div class="tour" data-tour>
+          <div class="tour__tabs" role="tablist" aria-label="Campus spaces">
+            <button class="tour__tab" role="tab" type="button" id="tab-aero" aria-controls="panel-aero" aria-selected="true" data-tour-key="aero"><span class="tour__group">Learn</span>Aero Bay Innovation Lab</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-labs" aria-controls="panel-labs" aria-selected="false" tabindex="-1" data-tour-key="labs"><span class="tour__group">Learn</span>Science Labs</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-ict" aria-controls="panel-ict" aria-selected="false" tabindex="-1" data-tour-key="ict"><span class="tour__group">Learn</span>ICT Lab</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-classroom" aria-controls="panel-classroom" aria-selected="false" tabindex="-1" data-tour-key="classroom"><span class="tour__group">Learn</span>Smart Classrooms</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-playland" aria-controls="panel-playland" aria-selected="false" tabindex="-1" data-tour-key="playland"><span class="tour__group">Early Years</span>Play Land &amp; Activity Hall</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-grounds" aria-controls="panel-grounds" aria-selected="false" tabindex="-1" data-tour-key="grounds"><span class="tour__group">Play</span>Football &amp; Cricket Grounds</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-basketball" aria-controls="panel-basketball" aria-selected="false" tabindex="-1" data-tour-key="basketball"><span class="tour__group">Play</span>Basketball Courts</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-skating" aria-controls="panel-skating" aria-selected="false" tabindex="-1" data-tour-key="skating"><span class="tour__group">Play</span>Skating Rink</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-safety" aria-controls="panel-safety" aria-selected="false" tabindex="-1" data-tour-key="safety"><span class="tour__group">Safety</span>CCTV-Secured Campus</button>
+          </div>
+
+          <div class="tour__panels">
+            <div class="tour__panel" role="tabpanel" id="panel-aero" aria-labelledby="tab-aero" tabindex="0">
+              <div class="photo" data-slot="aero-bay-lab-wide" style="--ar:4/3"><img src="images/aero-bay-lab-wide.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The Aero Bay Innovation Lab"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: Middle School, Grades 6–8</p>
+                <h3 class="tour__title">Aero Bay Innovation Lab</h3>
+                <p>An aerospace-inspired innovation lab where students work on robotics, coding, AI projects and hands-on STEM challenges.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-labs" aria-labelledby="tab-labs" tabindex="0">
+              <div class="photo" data-slot="science-labs" style="--ar:4/3"><img src="images/science-labs.webp" width="1200" height="676" loading="lazy" decoding="async" alt="Students using a microscope and lab glassware in the science lab"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: Middle School, Grades 6–8</p>
+                <h3 class="tour__title">Physics, Chemistry and Biology Labs</h3>
+                <p>Separate labs for each science, so concepts from class are tested with real experiments.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-ict" aria-labelledby="tab-ict" tabindex="0">
+              <div class="photo" data-slot="ict-lab" style="--ar:4/3"><img src="images/ict-lab.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The ICT lab at Sloka Tukkuguda"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: Middle School, Grades 6–8 <span class="tbc">[CONFIRM GRADES]</span></p>
+                <h3 class="tour__title">ICT Lab</h3>
+                <p>An ICT lab with high-end systems for computing and coding work.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-classroom" aria-labelledby="tab-classroom" tabindex="0">
+              <div class="photo" data-slot="primary" style="--ar:4/3"><img src="images/primary.webp" width="1200" height="677" loading="lazy" decoding="async" alt="Students at work in a Sloka classroom"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: <span class="tbc">[CONFIRM GRADES]</span></p>
+                <h3 class="tour__title">Smart Classrooms</h3>
+                <p>Smart classrooms with the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-playland" aria-labelledby="tab-playland" tabindex="0">
+              <div class="photo" data-slot="early-years" style="--ar:4/3"><img src="images/early-years.webp" width="1200" height="676" loading="lazy" decoding="async" alt="An Early Years classroom with counting toys and an abacus"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: Early Years, Nursery to UKG</p>
+                <h3 class="tour__title">Play Land and Activity Hall</h3>
+                <p>Dedicated spaces for the youngest learners, where they learn through exploration, sensory play and child-led discovery.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-grounds" aria-labelledby="tab-grounds" tabindex="0">
+              <div class="photo" data-slot="cricket" style="--ar:4/3"><img src="images/cricket.webp" width="1200" height="675" loading="lazy" decoding="async" alt="Students playing cricket on the school ground"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: All grades</p>
+                <h3 class="tour__title">Football and Cricket Grounds</h3>
+                <p>Open grounds for football and cricket. Sports are part of every student's regular schedule.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-basketball" aria-labelledby="tab-basketball" tabindex="0">
+              <div class="photo" data-slot="basketball-court" style="--ar:4/3;--focus:12% 70%"><img src="images/tukkuguda-hero.webp" width="1600" height="900" loading="lazy" decoding="async" alt="The basketball court beside the main building"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: All grades</p>
+                <h3 class="tour__title">Basketball Courts</h3>
+                <p>Courts for regular games and inter-house matches.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-skating" aria-labelledby="tab-skating" tabindex="0">
+              <div class="photo" data-slot="skating-rink" style="--ar:4/3"><img src="images/skating-rink.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The skating rink"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: All grades</p>
+                <h3 class="tour__title">Skating Rink</h3>
+                <p>A skating rink on campus, part of the regular sports schedule.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-safety" aria-labelledby="tab-safety" tabindex="0">
+              <div class="photo" data-slot="campus-walkway" style="--ar:4/3"><img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway along the campus buildings"></div>
+              <div class="tour__info">
+                <p class="tour__for">Across the whole campus</p>
+                <h3 class="tour__title">CCTV-Secured Campus</h3>
+                <p>CCTV surveillance across classrooms, corridors, entry and exit points and outdoor areas, with a supervised environment throughout the day.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="tour__cta"><a class="btn btn--yellow" href="#enquiry-form" data-to-form>See it on a campus visit</a></p>
+      </div>
+    </section>
+
+    <!-- ===================================================== PARENTS -->
+    <section class="section section--sand" id="parents" aria-labelledby="parents-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Parent voices</p>
+          <h2 id="parents-title">Hear From Our Parents</h2>
+        </div>
+
+        <!-- Use only testimonials supplied and approved by the school. -->
+        <div class="quotes" role="region" aria-label="Parent testimonials" tabindex="0" data-reveal>
+          <figure class="quote quote--feature">
+            <p class="quote__topic">Confidence</p>
+            <blockquote><p>My daughter was very shy before joining Sloka. Today she leads the morning assembly, competes in Words Warrior and even hosts the school podcast.</p></blockquote>
+            <figcaption>Parent of a Grade 5 student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
+          </figure>
+          <figure class="quote">
+            <p class="quote__topic">Labs and academics</p>
+            <blockquote><p>The Aero Bay Lab and the science labs are excellent. My son comes home every day excited to build, experiment and code.</p></blockquote>
+            <figcaption>Parent of a Grade 6 student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
+          </figure>
+          <figure class="quote">
+            <p class="quote__topic">Early Years</p>
+            <blockquote><p>My son wakes up every morning asking if it is a school day. The play-based learning, the activity hall and the play land make him happy and curious.</p></blockquote>
+            <figcaption>Parent of a Pre-Primary student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
+          </figure>
+          <figure class="quote quote--pending">
+            <p class="quote__topic">Safety and transport</p>
+            <blockquote><p>A parent's review about safety and transport.</p></blockquote>
+            <figcaption>Parent, <span class="tbc">[GRADE, AREA]</span><br><span class="tbc">[TO BE SUPPLIED BY SCHOOL]</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== MODEL 3: DISTANCE AND TRANSPORT -->
+    <section class="section" id="visit" aria-labelledby="visit-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Distance and transport</p>
+          <h2 id="visit-title">Close to Home in Tukkuguda</h2>
+          <p class="section-lead">Pick your area to see how far the school is, get directions, or ask about the school bus.</p>
+        </div>
+
+        <div class="commute" data-commute>
+          <!-- Rings at 4, 8 and 12 km. Area positions are approximate and not to scale. -->
+          <div class="radar" aria-label="Areas around the school, by approximate distance">
+            <svg class="radar__rings" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle cx="50" cy="50" r="44.2"/><circle cx="50" cy="50" r="29.4"/><circle cx="50" cy="50" r="14.7"/>
+              <text x="50" y="35" text-anchor="middle">4 km</text>
+              <text x="50" y="20.3" text-anchor="middle">8 km</text>
+              <text x="50" y="5.5" text-anchor="middle">12 km</text>
+            </svg>
+            <span class="radar__school" aria-hidden="true">Sloka</span>
+            <ul class="radar__areas">
+              <li style="--x:50;--y:24.2"><button type="button" data-area="Balapur" data-km="6–8 km">Balapur</button></li>
+              <li style="--x:31;--y:14.2"><button type="button" data-area="Shaheen Nagar" data-km="10–12 km">Shaheen Nagar</button></li>
+              <li style="--x:35.5;--y:38.7"><button type="button" data-area="Mankhal" data-km="5 km">Mankhal</button></li>
+              <li style="--x:61.7;--y:31.3"><button type="button" data-area="Raviryala" data-km="5–7 km">Raviryala</button></li>
+              <li style="--x:78.7;--y:33.4"><button type="button" data-area="Kongara Kalan" data-km="8–10 km">Kongara Kalan</button></li>
+              <li style="--x:90.5;--y:50"><button type="button" data-area="Adibatla" data-km="10–12 km">Adibatla</button></li>
+              <li style="--x:76;--y:81"><button type="button" data-area="Mucherla" data-km="10–12 km">Mucherla</button></li>
+              <li style="--x:47.8;--y:75.7"><button type="button" data-area="Maheshwaram" data-km="6–8 km">Maheshwaram</button></li>
+              <li style="--x:34.5;--y:63"><button type="button" data-area="Sreenagar" data-km="5–6 km">Sreenagar</button></li>
+              <li style="--x:27.9;--y:50"><button type="button" data-area="Pedda Golconda" data-km="5–7 km">Pedda Golconda</button></li>
+              <li style="--x:62;--y:58.4"><button type="button" data-area="Imamguda &amp; Gangaram" data-km="3–5 km">Imamguda &amp; Gangaram</button></li>
+            </ul>
+            <p class="radar__note">Not to scale. Distances are approximate.</p>
+          </div>
+
+          <div class="commute__panel">
+            <label class="finder__label" for="area-select">Where do you live?</label>
+            <div class="field__select">
+              <select class="field__input" id="area-select" data-area-select>
+                <option value="">Choose your area</option>
+                <option value="Imamguda &amp; Gangaram">Imamguda &amp; Gangaram</option>
+                <option value="Mankhal">Mankhal</option>
+                <option value="Sreenagar">Sreenagar</option>
+                <option value="Raviryala">Raviryala</option>
+                <option value="Pedda Golconda">Pedda Golconda</option>
+                <option value="Maheshwaram">Maheshwaram</option>
+                <option value="Balapur">Balapur</option>
+                <option value="Kongara Kalan">Kongara Kalan</option>
+                <option value="Adibatla">Adibatla</option>
+                <option value="Shaheen Nagar">Shaheen Nagar</option>
+                <option value="Mucherla">Mucherla</option>
+                <option value="other">Somewhere else</option>
+              </select>
+            </div>
+
+            <div class="commute__result" data-commute-result role="status">
+              <p class="commute__km"><span data-km-out>3–12</span> <small>km</small></p>
+              <p class="commute__line" data-commute-line>Most families we serve live 3 to 12 km from the school.</p>
+              <p class="commute__bus"><strong>School transport available across these areas.</strong> <span class="tbc">[CONFIRM ROUTES WITH SCHOOL]</span></p>
+              <div class="commute__actions">
+                <a class="btn btn--maroon btn--sm" href="https://www.google.com/maps/dir/?api=1&amp;destination=6F5H%2B4M5%2C+Tukkuguda%2C+Telangana+501359" target="_blank" rel="noopener" data-directions>Get Directions</a>
+                <a class="btn btn--whatsapp btn--sm" href="https://wa.me/918520071222" target="_blank" rel="noopener" data-whatsapp data-whatsapp-topic="bus" data-track="whatsapp_click">Ask about the school bus</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="visit" data-reveal>
+          <div class="visit__map">
+            <iframe title="Google Map showing Sloka International School, Tukkuguda"
+                    src="https://maps.google.com/maps?q=6F5H%2B4M5%2C%20Tukkuguda%2C%20Telangana%20501359&amp;z=15&amp;output=embed"
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
+          <div class="visit__info">
+            <h3 class="visit__title">Visit the campus</h3>
+            <address class="visit__address">
+              Sloka International School, Tukkuguda<br>
+              6F5H+4M5, Tukkuguda, Maheshwaram,<br>
+              Telangana 501359
+            </address>
+            <p class="visit__landmark">Exit ORR 14, Laxmi Nagar, opp. Sri Visista Hospital Lane</p>
+            <p class="visit__hours">Monday to Saturday, 8:30 am to 5:20 pm</p>
+            <a class="btn btn--maroon" href="https://www.google.com/maps/dir/?api=1&amp;destination=6F5H%2B4M5%2C+Tukkuguda%2C+Telangana+501359" target="_blank" rel="noopener">Get Directions</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== MODEL 4: ADMISSION STEPS -->
+    <section class="section section--maroon" id="steps" aria-labelledby="steps-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--light">How admission works</p>
+          <h2 id="steps-title">Admission in Four Steps</h2>
+        </div>
+        <ol class="steps" data-reveal>
+          <li class="step step--now">
+            <span class="step__num" aria-hidden="true">1</span>
+            <h3 class="step__title">Book a campus visit</h3>
+            <p>Online or by phone. It takes under a minute.</p>
+            <a class="btn btn--yellow btn--sm" href="#enquiry-form" data-to-form>Book your visit</a>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">2</span>
+            <h3 class="step__title">Meet and tour</h3>
+            <p>Meet the admissions counsellor and tour the labs, classrooms and grounds.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">3</span>
+            <h3 class="step__title">Apply</h3>
+            <p>Complete the application form for 2027–28.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">4</span>
+            <h3 class="step__title">Submit documents</h3>
+            <p>Hand in the required documents to confirm the seat. <span class="tbc">[DOCUMENT LIST TO BE SUPPLIED BY SCHOOL]</span></p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================================================== FAQ: "Ask Sloka" chat
+         Each question is a parent's message; opening it shows the school's reply.
+         Parents can filter by topic or type their own question. If nothing matches,
+         the typed question goes straight into a WhatsApp message to admissions.
+         Keep answers in sync with the FAQPage schema in <head>. -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq-wrap">
+        <div class="faq-side">
+          <div class="section-head" data-reveal>
+            <p class="eyebrow">Questions parents ask</p>
+            <h2 id="faq-title">Frequently Asked Questions</h2>
+            <p class="section-lead">Tap a question to see our answer, or type your own.</p>
+          </div>
+
+          <div class="faq-tools" data-faq-tools>
+            <label class="finder__label" for="faq-search">Search questions</label>
+            <div class="faq-search">
+              <svg class="faq-search__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+              <input class="field__input" id="faq-search" type="search" placeholder="Try &quot;bus&quot;, &quot;Grade 6&quot; or &quot;safety&quot;" autocomplete="off" data-faq-search>
+            </div>
+            <div class="faq-topics" role="group" aria-label="Filter questions by topic">
+              <button type="button" class="faq-topic" aria-pressed="true" data-faq-topic="all">All</button>
+              <button type="button" class="faq-topic" aria-pressed="false" data-faq-topic="admissions">Admissions</button>
+              <button type="button" class="faq-topic" aria-pressed="false" data-faq-topic="learning">Learning</button>
+              <button type="button" class="faq-topic" aria-pressed="false" data-faq-topic="transport">Transport</button>
+              <button type="button" class="faq-topic" aria-pressed="false" data-faq-topic="campus">Safety &amp; sports</button>
+            </div>
+            <p class="faq-count" role="status" data-faq-count></p>
+          </div>
+        </div>
+
+        <div class="chat">
+          <div class="chat__head">
+            <span class="chat__avatar" aria-hidden="true">S</span>
+            <p class="chat__who"><strong>Sloka Tukkuguda Admissions</strong><span>Answers to the questions parents ask most</span></p>
+          </div>
+
+          <div class="chat__body faq" data-faq>
+            <details class="faq__item" name="faq" data-topic="admissions" data-keywords="classes standard class nursery lkg ukg grade 8 9 10 high school">
+              <summary><span class="bubble bubble--parent">Which grades does Sloka Tukkuguda offer?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>Sloka International School, Tukkuguda is a CBSE school offering classes from Nursery to Grade 8, with a Montessori-inspired Early Years programme. <span class="tbc">[CONFIRM IF GRADE 9–10 ARE OFFERED FOR 2027–28]</span></p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="learning" data-keywords="syllabus board curriculum cbse nep">
+              <summary><span class="bubble bubble--parent">Is the curriculum CBSE and NEP 2020 aligned?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>Yes. The school follows the CBSE curriculum, aligned with NEP 2020, with activity-based and technology-integrated learning.</p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="admissions" data-keywords="apply application join admission process documents visit counsellor">
+              <summary><span class="bubble bubble--parent">What is the admission process for 2027–28?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>Book a campus visit online or by phone, meet the admissions counsellor and tour the campus, then complete the application and submit the required documents.</p><p><a class="text-link" href="#enquiry-form" data-to-form>Book a campus visit</a></p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="transport" data-keywords="bus van pickup drop route transport">
+              <summary><span class="bubble bubble--parent">Is school transport available?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>Yes. Transport covers nearby areas including Imamguda, Gangaram, Sreenagar, Shaheen Nagar, Pedda Golconda, Balapur, Maheshwaram, Mankhal, Raviryala, Kongara Kalan, Adibatla and Mucherla. Please confirm your route with the admissions team.</p><p><a class="text-link" href="#visit">Check the distance from your area</a></p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="transport" data-keywords="distance far km location how far adibatla kongara kalan maheshwaram">
+              <summary><span class="bubble bubble--parent">How far is the school from Adibatla, Kongara Kalan and Maheshwaram?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>Approximately 10–12 km from Adibatla, 8–10 km from Kongara Kalan and 6–8 km from Maheshwaram.</p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="campus" data-keywords="safety safe security cctv camera guard supervision">
+              <summary><span class="bubble bubble--parent">Is the campus safe?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>The campus has CCTV surveillance across classrooms, corridors, entry and exit points and outdoor areas, with a supervised environment throughout the day.</p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="campus" data-keywords="sports games football cricket basketball skating ground play pe">
+              <summary><span class="bubble bubble--parent">What sports facilities are available?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>A football ground, basketball courts, a skating rink and a cricket ground, with sports as part of every student's regular schedule.</p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="learning" data-keywords="english speaking communication confidence vocabulary storytelling podcast">
+              <summary><span class="bubble bubble--parent">What are Words Warrior, Podcast and Spinning Tales?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>Sloka's communication programmes. Words Warrior is a gamified vocabulary programme, Podcast has students script and record their own shows, and Spinning Tales builds storytelling skills.</p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="learning" data-keywords="robotics coding ai stem lab science innovation aero bay">
+              <summary><span class="bubble bubble--parent">What is the Aero Bay Innovation Lab?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>An aerospace-inspired innovation lab where students work on robotics, coding, AI projects and hands-on STEM challenges.</p></div></div></div>
+            </details>
+            <details class="faq__item" name="faq" data-topic="learning" data-keywords="preschool pre-primary nursery lkg ukg montessori play kindergarten toddler">
+              <summary><span class="bubble bubble--parent">What is the Early Years programme like?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>A Montessori-inspired, play-based programme with a dedicated Play Land and Activity Hall, where children learn through exploration and sensory play.</p></div></div></div>
+            </details>
+
+            <!-- Shown when a search finds nothing: the parent's own question becomes a WhatsApp message -->
+            <div class="chat__empty" data-faq-empty hidden>
+              <p class="bubble bubble--parent bubble--static" data-faq-echo></p>
+              <div class="faq__answer faq__answer--static"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><div class="bubble__text"><p>That one isn't answered here yet. Send it to our admissions team on WhatsApp and they will reply.</p></div></div></div>
+            </div>
+          </div>
+
+          <div class="chat__foot">
+            <p>Can't see your question?</p>
+            <a class="btn btn--whatsapp btn--sm" href="https://wa.me/918520071222" target="_blank" rel="noopener" data-faq-ask data-track="whatsapp_click">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.8a9.2 9.2 0 0 0-7.9 13.9L3 21l4.4-1.1A9.2 9.2 0 1 0 12 2.8zm0 1.8a7.4 7.4 0 1 1-3.8 13.8l-.3-.2-2.4.6.6-2.3-.2-.3A7.4 7.4 0 0 1 12 4.6zm-3 3.6c-.2 0-.5 0-.7.3-.3.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 1.9 3 4.7 4.1 2.3.9 2.8.7 3.3.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3l-.4-.3-1.9-.9c-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.4l-.9-2.1c-.2-.5-.4-.5-.6-.5z"/></svg>
+              <span data-faq-ask-label>Ask on WhatsApp</span>
+            </a>
+            <a class="text-link" href="tel:+918520071222" data-track="call_click">or call +91 85200 71222</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== FINAL CTA -->
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="wrap cta__inner" data-reveal>
+        <h2 class="cta__title" id="cta-title">Come and see it for yourself.</h2>
+        <p class="cta__text">See the Aero Bay Lab, science labs, sports facilities and Early Years Play Land in person.</p>
+        <div class="cta__actions">
+          <a class="btn btn--maroon" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
+          <a class="btn btn--outline" href="tel:+918520071222" data-track="call_click">Call +91 85200 71222</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================== FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <div class="site-footer__brand">
+        <span class="logo-plate">
+          <img src="images/sloka-logo.webp" alt="Sloka International School" width="600" height="211" loading="lazy" decoding="async">
+          <span class="logo-plate__fallback" aria-hidden="true">Sloka International School</span>
+        </span>
+        <p class="site-footer__affil">CBSE Affiliation No. <span class="tbc">[TO BE ADDED]</span></p>
+      </div>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Address</h2>
+        <address>
+          6F5H+4M5, Tukkuguda, Maheshwaram,<br>
+          Telangana 501359<br>
+          Exit ORR 14, Laxmi Nagar,<br>
+          opp. Sri Visista Hospital Lane
+        </address>
+      </div>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Admissions</h2>
+        <ul class="site-footer__list">
+          <li><a href="tel:+918520071222" data-track="call_click">+91 85200 71222</a></li>
+          <li><a href="tel:+918520087222" data-track="call_click">+91 85200 87222</a></li>
+          <li><a href="mailto:admissionstukkuguda@slokainternational.com" class="break">admissionstukkuguda@slokainternational.com</a></li>
+          <li>Monday to Saturday, 8:30 am to 5:20 pm</li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Links</h2>
+        <ul class="site-footer__list">
+          <li><a href="https://slokainternational.com" target="_blank" rel="noopener">slokainternational.com</a></li>
+          <li><a href="#cbse-mandatory-disclosure-url">CBSE Mandatory Disclosure (Tukkuguda)</a></li>
+          <li><a href="#privacy-policy-url">Privacy policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="wrap site-footer__copy">Copyright &copy; <span data-year>2026</span> Sloka International School. All rights reserved.</p>
+  </footer>
+
+  <!-- ===================================================== MOBILE CONTACT BAR -->
+  <nav class="mobile-bar" aria-label="Quick contact">
+    <a class="mobile-bar__btn" href="tel:+918520071222" data-track="call_click">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+      Call
+    </a>
+    <a class="mobile-bar__btn mobile-bar__btn--wa" href="https://wa.me/918520071222" data-whatsapp data-track="whatsapp_click" target="_blank" rel="noopener">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.8a9.2 9.2 0 0 0-7.9 13.9L3 21l4.4-1.1A9.2 9.2 0 1 0 12 2.8zm0 1.8a7.4 7.4 0 1 1-3.8 13.8l-.3-.2-2.4.6.6-2.3-.2-.3A7.4 7.4 0 0 1 12 4.6zm-3 3.6c-.2 0-.5 0-.7.3-.3.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 1.9 3 4.7 4.1 2.3.9 2.8.7 3.3.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3l-.4-.3-1.9-.9c-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.4l-.9-2.1c-.2-.5-.4-.5-.6-.5z"/></svg>
+      WhatsApp
+    </a>
+  </nav>
+</body>
+</html>
