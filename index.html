@@ -90,12 +90,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=4">
+  <link rel="stylesheet" href="css/styles.css?v=5">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=4"></script>
+  <script defer src="js/main.js?v=5"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -181,8 +181,9 @@
         <span class="brand__fallback" aria-hidden="true">Sloka International School</span>
       </a>
       <nav class="site-header__nav" aria-label="Page sections">
-        <a href="#pathway">Grades</a>
-        <a href="#campus">Campus</a>
+        <a href="#infrastructure">Campus</a>
+        <a href="#campus">Facilities</a>
+        <a href="#pathway">Grades &amp; Fees</a>
         <a href="#visit">Transport</a>
         <a href="#faq">FAQ</a>
       </nav>
@@ -200,8 +201,16 @@
 
   <main id="main">
 
-    <!-- ===================================================== HERO -->
+    <!-- ===================================================== HERO
+         The campus building fills the hero; copy sits on the photo (desktop) or under it (phones). -->
     <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__bg">
+        <img src="images/tukkuguda-hero-sm.webp"
+             srcset="images/tukkuguda-hero-sm.webp 800w, images/tukkuguda-hero.webp 1600w"
+             sizes="100vw" width="1600" height="900"
+             alt="The Sloka Tukkuguda campus building and grounds at sunrise" fetchpriority="high" decoding="async">
+      </div>
+
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <p class="badge-open">Admissions Open 2027–28</p>
@@ -210,34 +219,23 @@
           <p class="hero__areas">Serving families from Maheshwaram, Balapur, Adibatla, Kongara Kalan, Raviryala and nearby areas.</p>
         </div>
 
-        <div class="hero__media">
-          <div class="hero__photo">
-            <div class="hero__disc" aria-hidden="true"></div>
-            <div class="photo arch" data-slot="tukkuguda-hero" style="--ar:4/5;--focus:66% 50%">
-              <img src="images/tukkuguda-hero-sm.webp"
-                   srcset="images/tukkuguda-hero-sm.webp 800w, images/tukkuguda-hero.webp 1600w"
-                   sizes="(min-width: 960px) 450px, 260px"
-                   width="1600" height="900" alt="The Sloka Tukkuguda campus building and grounds at sunrise" fetchpriority="high" decoding="async">
-            </div>
-          </div>
-          <div class="hero__side">
-            <p class="hero__note">Visit us. See the labs and the football ground for yourself.</p>
-            <!-- Shortcuts into the two most useful tools -->
-            <ul class="hero__tools">
-              <li>
-                <a href="#pathway" class="tool-link">
-                  <span class="tool-link__num" aria-hidden="true">1</span>
-                  <span><strong>Which grade fits my child?</strong> Check by date of birth</span>
-                </a>
-              </li>
-              <li>
-                <a href="#visit" class="tool-link">
-                  <span class="tool-link__num" aria-hidden="true">2</span>
-                  <span><strong>How far is it from home?</strong> Check your area</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div class="hero__more">
+          <p class="hero__note">Visit us. See the labs and the football ground for yourself.</p>
+          <!-- Shortcuts into the two most useful tools -->
+          <ul class="hero__tools">
+            <li>
+              <a href="#pathway" class="tool-link">
+                <span class="tool-link__num" aria-hidden="true">1</span>
+                <span><strong>Which grade fits my child?</strong> Fees and parent reviews by grade</span>
+              </a>
+            </li>
+            <li>
+              <a href="#visit" class="tool-link">
+                <span class="tool-link__num" aria-hidden="true">2</span>
+                <span><strong>How far is it from home?</strong> Check your area</span>
+              </a>
+            </li>
+          </ul>
         </div>
 
         <!-- ============ ENQUIRY FORM (isolated component; CRM settings live in ENQUIRY_CONFIG in js/main.js) -->
@@ -384,83 +382,160 @@
       </div>
     </section>
 
-    <!-- ===================================================== APPROACH -->
-    <section class="section" id="approach" aria-labelledby="approach-title">
-      <div class="wrap approach">
-        <div class="approach__intro" data-reveal>
-          <p class="eyebrow">Our approach</p>
-          <h2 id="approach-title">Education for the Real World</h2>
-          <p class="section-lead">At Sloka Tukkuguda, children learn to think, speak, build and play, not just memorise.</p>
-          <div class="approach__photo">
-            <div class="photo arch" data-slot="assembly" style="--ar:4/5;--focus:22% 50%">
-              <img src="images/assembly-sm.webp" srcset="images/assembly-sm.webp 700w, images/assembly.webp 1200w" sizes="(min-width: 960px) 360px, 180px"
-                   width="1200" height="600" loading="lazy" decoding="async" alt="Students in Sloka uniform standing for the morning assembly">
+    <!-- ===================================================== INFRASTRUCTURE GALLERY -->
+    <section class="section" id="infrastructure" aria-labelledby="infra-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Infrastructure</p>
+          <h2 id="infra-title">A Campus Built for Learning and Play</h2>
+          <p class="section-lead">Classroom blocks, labs, courts and open grounds on one campus, just off ORR Exit 14.</p>
+        </div>
+
+        <div class="gallery">
+          <figure class="gallery__item gallery__item--big">
+            <div class="photo" data-slot="campus-walkway">
+              <img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway running along the campus buildings">
+            </div>
+            <figcaption>Landscaped walkways</figcaption>
+          </figure>
+          <figure class="gallery__item">
+            <div class="photo" data-slot="basketball-court" style="--focus:10% 72%">
+              <img src="images/tukkuguda-hero-sm.webp" srcset="images/tukkuguda-hero-sm.webp 800w, images/tukkuguda-hero.webp 1600w" sizes="(min-width: 960px) 25vw, 50vw"
+                   width="1600" height="900" loading="lazy" decoding="async" alt="The main school block with the basketball court in front">
+            </div>
+            <figcaption>Main block and court</figcaption>
+          </figure>
+          <figure class="gallery__item">
+            <div class="photo" data-slot="science-labs">
+              <img src="images/science-labs-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="A science lab with microscopes and lab glassware">
+            </div>
+            <figcaption>Science labs</figcaption>
+          </figure>
+          <figure class="gallery__item">
+            <div class="photo" data-slot="cricket" style="--focus:50% 60%">
+              <img src="images/cricket-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="The cricket ground in use">
+            </div>
+            <figcaption>Cricket ground</figcaption>
+          </figure>
+          <figure class="gallery__item">
+            <div class="photo" data-slot="early-years">
+              <img src="images/early-years-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="An Early Years activity room with counting toys">
+            </div>
+            <figcaption>Early Years spaces</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== FACILITIES (campus tour) -->
+    <section class="section" id="campus" aria-labelledby="campus-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Facilities</p>
+          <h2 id="campus-title">Explore Our Facilities</h2>
+          <p class="section-lead">Tap a space to see what happens there. Then come and see it in person.</p>
+        </div>
+
+        <div class="tour" data-tour>
+          <div class="tour__tabs" role="tablist" aria-label="Campus spaces">
+            <button class="tour__tab" role="tab" type="button" id="tab-aero" aria-controls="panel-aero" aria-selected="true" data-tour-key="aero"><span class="tour__group">Learn</span>Aero Bay Innovation Lab</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-labs" aria-controls="panel-labs" aria-selected="false" tabindex="-1" data-tour-key="labs"><span class="tour__group">Learn</span>Science Labs</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-ict" aria-controls="panel-ict" aria-selected="false" tabindex="-1" data-tour-key="ict"><span class="tour__group">Learn</span>ICT Lab</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-classroom" aria-controls="panel-classroom" aria-selected="false" tabindex="-1" data-tour-key="classroom"><span class="tour__group">Learn</span>Smart Classrooms</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-playland" aria-controls="panel-playland" aria-selected="false" tabindex="-1" data-tour-key="playland"><span class="tour__group">Early Years</span>Play Land &amp; Activity Hall</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-grounds" aria-controls="panel-grounds" aria-selected="false" tabindex="-1" data-tour-key="grounds"><span class="tour__group">Play</span>Football &amp; Cricket Grounds</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-basketball" aria-controls="panel-basketball" aria-selected="false" tabindex="-1" data-tour-key="basketball"><span class="tour__group">Play</span>Basketball Courts</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-skating" aria-controls="panel-skating" aria-selected="false" tabindex="-1" data-tour-key="skating"><span class="tour__group">Play</span>Skating Rink</button>
+            <button class="tour__tab" role="tab" type="button" id="tab-safety" aria-controls="panel-safety" aria-selected="false" tabindex="-1" data-tour-key="safety"><span class="tour__group">Safety</span>CCTV-Secured Campus</button>
+          </div>
+
+          <div class="tour__panels">
+            <div class="tour__panel" role="tabpanel" id="panel-aero" aria-labelledby="tab-aero" tabindex="0">
+              <div class="photo" data-slot="aero-bay-lab-wide" style="--ar:4/3"><img src="images/aero-bay-lab-wide.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The Aero Bay Innovation Lab"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: Middle School, Grades 6–8</p>
+                <h3 class="tour__title">Aero Bay Innovation Lab</h3>
+                <p>An aerospace-inspired innovation lab where students work on robotics, coding, AI projects and hands-on STEM challenges.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-labs" aria-labelledby="tab-labs" tabindex="0">
+              <div class="photo" data-slot="science-labs" style="--ar:4/3"><img src="images/science-labs.webp" width="1200" height="676" loading="lazy" decoding="async" alt="Students using a microscope and lab glassware in the science lab"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: Middle School, Grades 6–8</p>
+                <h3 class="tour__title">Physics, Chemistry and Biology Labs</h3>
+                <p>Separate labs for each science, so concepts from class are tested with real experiments.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-ict" aria-labelledby="tab-ict" tabindex="0">
+              <div class="photo" data-slot="ict-lab" style="--ar:4/3"><img src="images/ict-lab.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The ICT lab at Sloka Tukkuguda"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: Middle School, Grades 6–8 <span class="tbc">[CONFIRM GRADES]</span></p>
+                <h3 class="tour__title">ICT Lab</h3>
+                <p>An ICT lab with high-end systems for computing and coding work.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-classroom" aria-labelledby="tab-classroom" tabindex="0">
+              <div class="photo" data-slot="primary" style="--ar:4/3"><img src="images/primary.webp" width="1200" height="677" loading="lazy" decoding="async" alt="Students at work in a Sloka classroom"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: <span class="tbc">[CONFIRM GRADES]</span></p>
+                <h3 class="tour__title">Smart Classrooms</h3>
+                <p>Smart classrooms with the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-playland" aria-labelledby="tab-playland" tabindex="0">
+              <div class="photo" data-slot="early-years" style="--ar:4/3"><img src="images/early-years.webp" width="1200" height="676" loading="lazy" decoding="async" alt="An Early Years classroom with counting toys and an abacus"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: Early Years, Nursery to UKG</p>
+                <h3 class="tour__title">Play Land and Activity Hall</h3>
+                <p>Dedicated spaces for the youngest learners, where they learn through exploration, sensory play and child-led discovery.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-grounds" aria-labelledby="tab-grounds" tabindex="0">
+              <div class="photo" data-slot="cricket" style="--ar:4/3"><img src="images/cricket.webp" width="1200" height="675" loading="lazy" decoding="async" alt="Students playing cricket on the school ground"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: All grades</p>
+                <h3 class="tour__title">Football and Cricket Grounds</h3>
+                <p>Open grounds for football and cricket. Sports are part of every student's regular schedule.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-basketball" aria-labelledby="tab-basketball" tabindex="0">
+              <div class="photo" data-slot="basketball-court" style="--ar:4/3;--focus:12% 70%"><img src="images/tukkuguda-hero.webp" width="1600" height="900" loading="lazy" decoding="async" alt="The main school block with the basketball court in front"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: All grades</p>
+                <h3 class="tour__title">Basketball Courts</h3>
+                <p>Courts for regular games and inter-house matches.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-skating" aria-labelledby="tab-skating" tabindex="0">
+              <div class="photo" data-slot="skating-rink" style="--ar:4/3"><img src="images/skating-rink.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The skating rink"></div>
+              <div class="tour__info">
+                <p class="tour__for">Used by: All grades</p>
+                <h3 class="tour__title">Skating Rink</h3>
+                <p>A skating rink on campus, part of the regular sports schedule.</p>
+              </div>
+            </div>
+            <div class="tour__panel" role="tabpanel" id="panel-safety" aria-labelledby="tab-safety" tabindex="0">
+              <div class="photo" data-slot="campus-walkway" style="--ar:4/3"><img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway along the campus buildings"></div>
+              <div class="tour__info">
+                <p class="tour__for">Across the whole campus</p>
+                <h3 class="tour__title">CCTV-Secured Campus</h3>
+                <p>CCTV surveillance across classrooms, corridors, entry and exit points and outdoor areas, with a supervised environment throughout the day.</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <ol class="pillars">
-          <li class="pillar" data-reveal>
-            <span class="pillar__num" aria-hidden="true">01</span>
-            <div>
-              <h3 class="pillar__title">Concept-driven learning</h3>
-              <p>NEP 2020-aligned CBSE classes where children understand ideas, not just memorise answers.</p>
-              <p>Hands-on skill building for primary learners through Kaushal Bodh and Kaushal Vikas: creativity, problem-solving, life skills, early coding and robotics.</p>
-              <ul class="tags" aria-label="Programmes">
-                <li>Kaushal Bodh</li><li>Kaushal Vikas</li><li>Early coding</li><li>Robotics</li>
-              </ul>
-            </div>
-          </li>
-          <li class="pillar" data-reveal>
-            <span class="pillar__num" aria-hidden="true">02</span>
-            <div>
-              <h3 class="pillar__title">AI-enabled classrooms</h3>
-              <p>Smart classrooms and the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
-              <p>Ekalavya gives students recorded video lessons in Science and Maths to revise at their own pace. <span class="tbc">[CONFIRM GRADE RANGES FOR WORDSWORTH AND EKALAVYA WITH SCHOOL]</span></p>
-              <ul class="tags" aria-label="Programmes">
-                <li>Wordsworth AI</li><li>Ekalavya</li><li>Smart classrooms</li>
-              </ul>
-            </div>
-          </li>
-          <li class="pillar" data-reveal>
-            <span class="pillar__num" aria-hidden="true">03</span>
-            <div>
-              <h3 class="pillar__title">Holistic development of mind, body and values</h3>
-              <div class="mbv">
-                <div class="mbv__item mbv__item--mind">
-                  <h4 class="mbv__label">Mind and voice</h4>
-                  <p>Words Warrior (a gamified vocabulary programme), Podcast (students script and record their own shows) and Spinning Tales (storytelling), plus daily theme-based morning assemblies that students lead.</p>
-                </div>
-                <div class="mbv__item mbv__item--body">
-                  <h4 class="mbv__label">Body</h4>
-                  <p>Football ground, basketball courts, skating rink and cricket ground.</p>
-                </div>
-                <div class="mbv__item mbv__item--values">
-                  <h4 class="mbv__label">Values</h4>
-                  <p>Four inter-house teams that compete in academics, sports, arts and leadership, with house captains and student council roles.</p>
-                </div>
-              </div>
-              <div class="pillar__photos">
-                <div class="photo" data-slot="football" style="--ar:4/3">
-                  <img src="images/football-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="Students in house colours playing football">
-                </div>
-                <div class="photo" data-slot="cricket" style="--ar:4/3;--focus:62% 50%">
-                  <img src="images/cricket-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="Students in house colours playing cricket">
-                </div>
-              </div>
-            </div>
-          </li>
-        </ol>
+        <p class="tour__cta"><a class="btn btn--yellow" href="#enquiry-form" data-to-form>See it on a campus visit</a></p>
       </div>
     </section>
 
-    <!-- ===================================================== MODEL 1: GRADE FINDER / PATHWAY -->
+    <!-- ===================================================== GRADES: about each stage, approximate fees, parent reviews -->
     <section class="section section--sand" id="pathway" aria-labelledby="pathway-title">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <p class="eyebrow">Find your child's stage</p>
+          <p class="eyebrow">Grades, fees and parent reviews</p>
           <h2 id="pathway-title">A Complete Pathway Under One Roof</h2>
-          <p class="section-lead">Nursery to Grade 8 on one campus. Choose the grade your child will join in 2027–28 to see what their school life includes.</p>
+          <p class="section-lead">Nursery to Grade 8 on one campus. Choose the grade your child will join in 2027–28 to see what they will learn, the approximate fee and what parents say.</p>
         </div>
 
         <div class="finder" data-finder>
@@ -552,7 +627,7 @@
                 <h4 class="stage__subhead">Spaces they'll use</h4>
                 <ul class="tags"><li>Play Land</li><li>Activity Hall</li><li>CCTV-secured campus</li></ul>
                 <div class="stage__cta">
-                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade>Book a visit<span data-grade-suffix></span></a>
+                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade><span>Book a visit<span data-grade-suffix></span></span></a>
                   <a class="text-link" href="#campus" data-tour-jump="playland">See the Play Land</a>
                 </div>
               </div>
@@ -578,7 +653,7 @@
                 <h4 class="stage__subhead">Spaces they'll use</h4>
                 <ul class="tags"><li>Smart classrooms</li><li>Football ground</li><li>Skating rink</li><li>Basketball courts</li></ul>
                 <div class="stage__cta">
-                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade>Book a visit<span data-grade-suffix></span></a>
+                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade><span>Book a visit<span data-grade-suffix></span></span></a>
                   <a class="text-link" href="#campus" data-tour-jump="classroom">See a smart classroom</a>
                 </div>
               </div>
@@ -604,150 +679,75 @@
                 <h4 class="stage__subhead">Spaces they'll use</h4>
                 <ul class="tags"><li>Aero Bay Innovation Lab</li><li>Science labs</li><li>ICT lab</li><li>Sports grounds</li></ul>
                 <div class="stage__cta">
-                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade>Book a visit<span data-grade-suffix></span></a>
+                  <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade><span>Book a visit<span data-grade-suffix></span></span></a>
                   <a class="text-link" href="#campus" data-tour-jump="aero">See the Aero Bay Lab</a>
                 </div>
               </div>
             </article>
           </div>
 
-          <p class="finder__every"><strong>In every grade:</strong> student-led morning assemblies, four inter-house teams, sports on the regular schedule and a CCTV-secured campus.</p>
-        </div>
-      </div>
-    </section>
+          <!-- Step D: approximate fee and what parents of this grade say.
+               Fee ranges live in FEES in js/main.js; reviews are the figures below. -->
+          <div class="finder__more">
+            <div class="fee-card" aria-live="polite">
+              <p class="fee-card__label">Approximate annual fee</p>
+              <p class="fee-card__for" data-fee-for>Early Years (Nursery to UKG)</p>
+              <p class="fee-card__amount" data-fee-amount><span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span></p>
+              <p class="fee-card__note">Indicative range for 2027–28. The exact fee structure for your child's grade is shared at the campus visit.</p>
+              <a class="btn btn--yellow btn--sm" href="#enquiry-form" data-to-form data-book-grade><span>Get the exact fees<span data-grade-suffix></span></span></a>
+            </div>
 
-    <!-- ===================================================== MODEL 2: CAMPUS TOUR -->
-    <section class="section" id="campus" aria-labelledby="campus-title">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Campus tour</p>
-          <h2 id="campus-title">Explore the Campus</h2>
-          <p class="section-lead">Tap a space to see what happens there. Then come and see it in person.</p>
-        </div>
-
-        <div class="tour" data-tour>
-          <div class="tour__tabs" role="tablist" aria-label="Campus spaces">
-            <button class="tour__tab" role="tab" type="button" id="tab-aero" aria-controls="panel-aero" aria-selected="true" data-tour-key="aero"><span class="tour__group">Learn</span>Aero Bay Innovation Lab</button>
-            <button class="tour__tab" role="tab" type="button" id="tab-labs" aria-controls="panel-labs" aria-selected="false" tabindex="-1" data-tour-key="labs"><span class="tour__group">Learn</span>Science Labs</button>
-            <button class="tour__tab" role="tab" type="button" id="tab-ict" aria-controls="panel-ict" aria-selected="false" tabindex="-1" data-tour-key="ict"><span class="tour__group">Learn</span>ICT Lab</button>
-            <button class="tour__tab" role="tab" type="button" id="tab-classroom" aria-controls="panel-classroom" aria-selected="false" tabindex="-1" data-tour-key="classroom"><span class="tour__group">Learn</span>Smart Classrooms</button>
-            <button class="tour__tab" role="tab" type="button" id="tab-playland" aria-controls="panel-playland" aria-selected="false" tabindex="-1" data-tour-key="playland"><span class="tour__group">Early Years</span>Play Land &amp; Activity Hall</button>
-            <button class="tour__tab" role="tab" type="button" id="tab-grounds" aria-controls="panel-grounds" aria-selected="false" tabindex="-1" data-tour-key="grounds"><span class="tour__group">Play</span>Football &amp; Cricket Grounds</button>
-            <button class="tour__tab" role="tab" type="button" id="tab-basketball" aria-controls="panel-basketball" aria-selected="false" tabindex="-1" data-tour-key="basketball"><span class="tour__group">Play</span>Basketball Courts</button>
-            <button class="tour__tab" role="tab" type="button" id="tab-skating" aria-controls="panel-skating" aria-selected="false" tabindex="-1" data-tour-key="skating"><span class="tour__group">Play</span>Skating Rink</button>
-            <button class="tour__tab" role="tab" type="button" id="tab-safety" aria-controls="panel-safety" aria-selected="false" tabindex="-1" data-tour-key="safety"><span class="tour__group">Safety</span>CCTV-Secured Campus</button>
-          </div>
-
-          <div class="tour__panels">
-            <div class="tour__panel" role="tabpanel" id="panel-aero" aria-labelledby="tab-aero" tabindex="0">
-              <div class="photo" data-slot="aero-bay-lab-wide" style="--ar:4/3"><img src="images/aero-bay-lab-wide.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The Aero Bay Innovation Lab"></div>
-              <div class="tour__info">
-                <p class="tour__for">Used by: Middle School, Grades 6–8</p>
-                <h3 class="tour__title">Aero Bay Innovation Lab</h3>
-                <p>An aerospace-inspired innovation lab where students work on robotics, coding, AI projects and hands-on STEM challenges.</p>
-              </div>
-            </div>
-            <div class="tour__panel" role="tabpanel" id="panel-labs" aria-labelledby="tab-labs" tabindex="0">
-              <div class="photo" data-slot="science-labs" style="--ar:4/3"><img src="images/science-labs.webp" width="1200" height="676" loading="lazy" decoding="async" alt="Students using a microscope and lab glassware in the science lab"></div>
-              <div class="tour__info">
-                <p class="tour__for">Used by: Middle School, Grades 6–8</p>
-                <h3 class="tour__title">Physics, Chemistry and Biology Labs</h3>
-                <p>Separate labs for each science, so concepts from class are tested with real experiments.</p>
-              </div>
-            </div>
-            <div class="tour__panel" role="tabpanel" id="panel-ict" aria-labelledby="tab-ict" tabindex="0">
-              <div class="photo" data-slot="ict-lab" style="--ar:4/3"><img src="images/ict-lab.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The ICT lab at Sloka Tukkuguda"></div>
-              <div class="tour__info">
-                <p class="tour__for">Used by: Middle School, Grades 6–8 <span class="tbc">[CONFIRM GRADES]</span></p>
-                <h3 class="tour__title">ICT Lab</h3>
-                <p>An ICT lab with high-end systems for computing and coding work.</p>
-              </div>
-            </div>
-            <div class="tour__panel" role="tabpanel" id="panel-classroom" aria-labelledby="tab-classroom" tabindex="0">
-              <div class="photo" data-slot="primary" style="--ar:4/3"><img src="images/primary.webp" width="1200" height="677" loading="lazy" decoding="async" alt="Students at work in a Sloka classroom"></div>
-              <div class="tour__info">
-                <p class="tour__for">Used by: <span class="tbc">[CONFIRM GRADES]</span></p>
-                <h3 class="tour__title">Smart Classrooms</h3>
-                <p>Smart classrooms with the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
-              </div>
-            </div>
-            <div class="tour__panel" role="tabpanel" id="panel-playland" aria-labelledby="tab-playland" tabindex="0">
-              <div class="photo" data-slot="early-years" style="--ar:4/3"><img src="images/early-years.webp" width="1200" height="676" loading="lazy" decoding="async" alt="An Early Years classroom with counting toys and an abacus"></div>
-              <div class="tour__info">
-                <p class="tour__for">Used by: Early Years, Nursery to UKG</p>
-                <h3 class="tour__title">Play Land and Activity Hall</h3>
-                <p>Dedicated spaces for the youngest learners, where they learn through exploration, sensory play and child-led discovery.</p>
-              </div>
-            </div>
-            <div class="tour__panel" role="tabpanel" id="panel-grounds" aria-labelledby="tab-grounds" tabindex="0">
-              <div class="photo" data-slot="cricket" style="--ar:4/3"><img src="images/cricket.webp" width="1200" height="675" loading="lazy" decoding="async" alt="Students playing cricket on the school ground"></div>
-              <div class="tour__info">
-                <p class="tour__for">Used by: All grades</p>
-                <h3 class="tour__title">Football and Cricket Grounds</h3>
-                <p>Open grounds for football and cricket. Sports are part of every student's regular schedule.</p>
-              </div>
-            </div>
-            <div class="tour__panel" role="tabpanel" id="panel-basketball" aria-labelledby="tab-basketball" tabindex="0">
-              <div class="photo" data-slot="basketball-court" style="--ar:4/3;--focus:12% 70%"><img src="images/tukkuguda-hero.webp" width="1600" height="900" loading="lazy" decoding="async" alt="The basketball court beside the main building"></div>
-              <div class="tour__info">
-                <p class="tour__for">Used by: All grades</p>
-                <h3 class="tour__title">Basketball Courts</h3>
-                <p>Courts for regular games and inter-house matches.</p>
-              </div>
-            </div>
-            <div class="tour__panel" role="tabpanel" id="panel-skating" aria-labelledby="tab-skating" tabindex="0">
-              <div class="photo" data-slot="skating-rink" style="--ar:4/3"><img src="images/skating-rink.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The skating rink"></div>
-              <div class="tour__info">
-                <p class="tour__for">Used by: All grades</p>
-                <h3 class="tour__title">Skating Rink</h3>
-                <p>A skating rink on campus, part of the regular sports schedule.</p>
-              </div>
-            </div>
-            <div class="tour__panel" role="tabpanel" id="panel-safety" aria-labelledby="tab-safety" tabindex="0">
-              <div class="photo" data-slot="campus-walkway" style="--ar:4/3"><img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway along the campus buildings"></div>
-              <div class="tour__info">
-                <p class="tour__for">Across the whole campus</p>
-                <h3 class="tour__title">CCTV-Secured Campus</h3>
-                <p>CCTV surveillance across classrooms, corridors, entry and exit points and outdoor areas, with a supervised environment throughout the day.</p>
+            <div class="grade-reviews">
+              <h3 class="grade-reviews__title">Hear From Our Parents</h3>
+              <p class="grade-reviews__for" data-reviews-for>Parents of Early Years children</p>
+              <!-- Use only reviews supplied and approved by the school. Add 1–2 per grade:
+                   data-grade must match a grade chip value exactly (e.g. "Grade 2");
+                   data-stage is early | primary | middle, or "all" for reviews shown with every grade. -->
+              <div class="grade-reviews__list" aria-live="polite">
+                <figure class="quote" data-grade="PP1 / LKG" data-stage="early">
+                  <p class="quote__topic">Early Years</p>
+                  <blockquote><p>My son wakes up every morning asking if it is a school day. The play-based learning, the activity hall and the play land make him happy and curious.</p></blockquote>
+                  <figcaption>Parent of a Pre-Primary student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
+                </figure>
+                <figure class="quote" data-grade="Grade 5" data-stage="primary">
+                  <p class="quote__topic">Confidence</p>
+                  <blockquote><p>My daughter was very shy before joining Sloka. Today she leads the morning assembly, competes in Words Warrior and even hosts the school podcast.</p></blockquote>
+                  <figcaption>Parent of a Grade 5 student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
+                </figure>
+                <figure class="quote" data-grade="Grade 6" data-stage="middle">
+                  <p class="quote__topic">Labs and academics</p>
+                  <blockquote><p>The Aero Bay Lab and the science labs are excellent. My son comes home every day excited to build, experiment and code.</p></blockquote>
+                  <figcaption>Parent of a Grade 6 student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
+                </figure>
+                <figure class="quote quote--pending" data-grade="" data-stage="all">
+                  <p class="quote__topic">Safety and transport</p>
+                  <blockquote><p>A parent's review about safety and transport.</p></blockquote>
+                  <figcaption>Parent, <span class="tbc">[GRADE, AREA]</span><br><span class="tbc">[TO BE SUPPLIED BY SCHOOL]</span></figcaption>
+                </figure>
               </div>
             </div>
           </div>
-        </div>
 
-        <p class="tour__cta"><a class="btn btn--yellow" href="#enquiry-form" data-to-form>See it on a campus visit</a></p>
-      </div>
-    </section>
-
-    <!-- ===================================================== PARENTS -->
-    <section class="section section--sand" id="parents" aria-labelledby="parents-title">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Parent voices</p>
-          <h2 id="parents-title">Hear From Our Parents</h2>
-        </div>
-
-        <!-- Use only testimonials supplied and approved by the school. -->
-        <div class="quotes" role="region" aria-label="Parent testimonials" tabindex="0" data-reveal>
-          <figure class="quote quote--feature">
-            <p class="quote__topic">Confidence</p>
-            <blockquote><p>My daughter was very shy before joining Sloka. Today she leads the morning assembly, competes in Words Warrior and even hosts the school podcast.</p></blockquote>
-            <figcaption>Parent of a Grade 5 student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
-          </figure>
-          <figure class="quote">
-            <p class="quote__topic">Labs and academics</p>
-            <blockquote><p>The Aero Bay Lab and the science labs are excellent. My son comes home every day excited to build, experiment and code.</p></blockquote>
-            <figcaption>Parent of a Grade 6 student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
-          </figure>
-          <figure class="quote">
-            <p class="quote__topic">Early Years</p>
-            <blockquote><p>My son wakes up every morning asking if it is a school day. The play-based learning, the activity hall and the play land make him happy and curious.</p></blockquote>
-            <figcaption>Parent of a Pre-Primary student, <span class="tbc">[AREA]</span><br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span></figcaption>
-          </figure>
-          <figure class="quote quote--pending">
-            <p class="quote__topic">Safety and transport</p>
-            <blockquote><p>A parent's review about safety and transport.</p></blockquote>
-            <figcaption>Parent, <span class="tbc">[GRADE, AREA]</span><br><span class="tbc">[TO BE SUPPLIED BY SCHOOL]</span></figcaption>
-          </figure>
+          <!-- What every child gets, whatever the grade -->
+          <div class="every-grade">
+            <div class="every-grade__text">
+              <h3 class="every-grade__title">In every grade</h3>
+              <ul class="every-grade__list">
+                <li><strong>Mind and voice:</strong> Words Warrior (a gamified vocabulary programme), Podcast (students script and record their own shows) and Spinning Tales (storytelling), plus daily theme-based morning assemblies that students lead.</li>
+                <li><strong>Body:</strong> football ground, basketball courts, skating rink and cricket ground, with sports on the regular schedule.</li>
+                <li><strong>Values:</strong> four inter-house teams that compete in academics, sports, arts and leadership, with house captains and student council roles.</li>
+                <li><strong>Safety:</strong> CCTV across classrooms, corridors, entry and exit points and outdoor areas.</li>
+              </ul>
+            </div>
+            <div class="every-grade__photos">
+              <div class="photo" data-slot="assembly" style="--ar:4/3;--focus:22% 50%">
+                <img src="images/assembly-sm.webp" width="700" height="350" loading="lazy" decoding="async" alt="Students in Sloka uniform standing for the morning assembly">
+              </div>
+              <div class="photo" data-slot="football" style="--ar:4/3">
+                <img src="images/football-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="Students in house colours playing football">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

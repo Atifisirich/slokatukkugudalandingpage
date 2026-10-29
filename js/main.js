@@ -142,6 +142,27 @@ var AGE_RULES = {
 };
 
 
+/* 2b. FEES  [CONFIRM FEE RANGES WITH SCHOOL]
+   --------------------------------------------------------------------------
+   Approximate annual fee for 2027–28, in rupees, as [lowest, highest].
+   Leave a grade as null and the page shows the placeholder instead of a number.
+   Example: 'Grade 2': [65000, 80000]  ->  "₹65,000 – ₹80,000 per year"
+   -------------------------------------------------------------------------- */
+var FEES = {
+  'Nursery':   null,
+  'PP1 / LKG': null,
+  'PP2 / UKG': null,
+  'Grade 1':   null,
+  'Grade 2':   null,
+  'Grade 3':   null,
+  'Grade 4':   null,
+  'Grade 5':   null,
+  'Grade 6':   null,
+  'Grade 7':   null,
+  'Grade 8':   null
+};
+
+
 (function () {
   'use strict';
 
@@ -618,6 +639,53 @@ var AGE_RULES = {
 
     finder.classList.add('finder--ready');
 
+    // Approximate fee and parent reviews for the chosen grade (or the whole stage)
+    var STAGE_INFO = {
+      early:   { name: 'Early Years (Nursery to UKG)', parents: 'Parents of Early Years children' },
+      primary: { name: 'Primary (Grades 1–5)',         parents: 'Parents of Primary students' },
+      middle:  { name: 'Middle School (Grades 6–8)',   parents: 'Parents of Middle School students' }
+    };
+    var feeFor = finder.querySelector('[data-fee-for]');
+    var feeAmount = finder.querySelector('[data-fee-amount]');
+    var reviewsFor = finder.querySelector('[data-reviews-for]');
+    var reviews = finder.querySelectorAll('.grade-reviews__list .quote');
+    var gradesInStage = function (stage) {
+      return Array.prototype.filter.call(radios, function (r) { return r.getAttribute('data-stage') === stage; })
+        .map(function (r) { return r.value; });
+    };
+    var rupees = function (n) { return '₹' + Number(n).toLocaleString('en-IN'); };
+
+    var showDetails = function (grade, stage) {
+      // Fee: the grade's own range, or the span of the stage's ranges when every grade is filled in
+      var range = null;
+      if (grade) {
+        range = FEES[grade];
+      } else {
+        var ranges = gradesInStage(stage).map(function (g) { return FEES[g]; });
+        if (ranges.every(Boolean)) {
+          range = [Math.min.apply(null, ranges.map(function (r) { return r[0]; })),
+                   Math.max.apply(null, ranges.map(function (r) { return r[1]; }))];
+        }
+      }
+      feeFor.textContent = grade || STAGE_INFO[stage].name;
+      feeAmount.innerHTML = range
+        ? rupees(range[0]) + ' – ' + rupees(range[1]) + '<small>per year (approximate)</small>'
+        : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
+
+      // Reviews: this grade first, then the rest of the stage, then the ones for every grade; at most two
+      var byGrade = [], byStage = [], general = [];
+      each(reviews, function (q) {
+        var g = q.getAttribute('data-grade');
+        var st = q.getAttribute('data-stage');
+        if (grade && g === grade) byGrade.push(q);
+        else if (st === stage) byStage.push(q);
+        else if (st === 'all') general.push(q);
+      });
+      var shown = byGrade.concat(byStage, general).slice(0, 2);
+      each(reviews, function (q) { q.classList.toggle('is-hidden', shown.indexOf(q) === -1); });
+      reviewsFor.textContent = byGrade.length ? 'Parents of ' + grade + ' students' : STAGE_INFO[stage].parents;
+    };
+
     var currentStage = '';
     var showStage = function (stage) {
       if (stage === currentStage) return;
@@ -629,12 +697,16 @@ var AGE_RULES = {
         if (on && switching) reopenPhotos(p);
       });
       each(stageBtns, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-stage-btn') === stage)); });
+      // A stage picked on the track shows stage-wide details unless the chosen grade belongs to it
+      var gradeHere = choice.grade && gradesInStage(stage).indexOf(choice.grade) > -1 ? choice.grade : '';
+      showDetails(gradeHere, stage);
     };
 
     var setGrade = function (radio, source) {
       choice.grade = radio.value;
       radio.checked = true;
       showStage(radio.getAttribute('data-stage'));
+      showDetails(choice.grade, radio.getAttribute('data-stage'));
 
       marker.hidden = false;
       marker.style.setProperty('--pos', radio.getAttribute('data-index'));
