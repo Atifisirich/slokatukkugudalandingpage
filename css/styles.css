@@ -721,6 +721,62 @@ strong { font-weight: 700; }
   .hero :focus-visible { outline-color: var(--yellow); }
 }
 
+/* Fly-in: as the parent scrolls, the building zooms toward the entrance.
+   main.js sets --hz (zoom), --shade and --arrive. Phones get a light zoom on
+   the photo band; from 960px the photo stays pinned while the copy and form
+   scroll away, then zooms on for a short stretch before the page moves on. */
+.hero__bg img {
+  transform: scale(var(--hz, 1));
+  transform-origin: 44% 60%;
+  will-change: transform;
+}
+.hero__arrive { display: none; }
+
+@media (min-width: 960px) {
+  .hero__bg::after { opacity: var(--shade, 1); }
+
+  .hero--zoom {
+    display: block;
+    min-height: 0;
+    padding: 0 0 75vh;          /* the extra scroll where only the building is on screen */
+  }
+  .hero--zoom .hero__bg {
+    inset: auto;                /* clear the absolute fill first, then pin */
+    position: sticky;
+    top: var(--header-h);
+    height: calc(100vh - var(--header-h));
+    margin-bottom: calc(var(--header-h) - 100vh);
+  }
+  .hero--zoom .hero__grid {
+    min-height: clamp(620px, calc(100vh - var(--header-h)), 900px);
+    padding-top: 56px;
+    padding-bottom: 56px;
+    align-content: center;
+  }
+  .hero--zoom .hero__arrive {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 9%;
+    margin: 0;
+    color: var(--paper);
+    font: 400 clamp(1.6rem, 1rem + 2vw, 2.6rem)/1.15 var(--serif);
+    text-align: center;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.55);
+    opacity: var(--arrive, 0);
+    translate: 0 calc((1 - var(--arrive, 0)) * 20px);
+  }
+  .hero__arrive small {
+    display: block;
+    margin-top: 8px;
+    font: 700 0.85rem/1 var(--sans);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+}
+
 /* Large screens: a little more room for everything */
 @media (min-width: 1440px) {
   .wrap { max-width: 1320px; }
@@ -732,6 +788,7 @@ strong { font-weight: 700; }
 
 .enquiry-card {
   position: relative;
+  color: var(--ink);            /* the hero sets light text for the photo; the card stays dark-on-white */
   padding: 26px 20px 22px;
   border: 2px solid var(--ink);
   border-radius: var(--radius);
