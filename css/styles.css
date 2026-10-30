@@ -16,10 +16,9 @@
    7.  Hero
    8.  Enquiry card (form)
    9.  Trust strip
-   10. Infrastructure gallery
    11. Model 1: grade finder
    12. Facilities (campus tour)
-   13. Grades: fees, parent reviews, every grade
+   13. Grade sheet (stage, fee, parent review)
    14. Model 3: distance and transport
    15. Model 4: admission steps
    16. FAQ (Ask Sloka chat)
@@ -430,7 +429,6 @@ strong { font-weight: 700; }
 .doorway :focus-visible { outline-color: var(--yellow); }
 
 /* Live version: the scroll distance is the "walk" through the doors */
-.doorway--live { height: 280vh; }
 .doorway--live .doorway__stage {
   position: sticky;
   top: 0;
@@ -506,6 +504,123 @@ strong { font-weight: 700; }
   .doorway--live .doorway__reveal { padding-bottom: calc(var(--bar-h) + 28px); }
 }
 
+
+/* Campus story slides (inside the doorway scene)
+   Static: a column of full-width photos with captions.
+   Live: each slide rises from the bottom with an arched top edge as the page scrolls,
+   settling from a slight zoom; the one beneath eases back and darkens.
+   main.js sets --t (rise), --o (being covered), --c (caption) and --v per slide. */
+.doorway__slide {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--ink);
+}
+@media (max-width: 759px) {
+  .doorway__slide { aspect-ratio: 4 / 5; }
+}
+.doorway__slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus, 50% 50%);
+}
+/* Shade under the caption */
+.doorway__slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(26, 17, 16, 0.82) 0%, rgba(26, 17, 16, 0.35) 38%, rgba(26, 17, 16, 0) 62%);
+}
+.doorway__cap {
+  position: absolute;
+  left: var(--pad);
+  right: var(--pad);
+  bottom: 32px;
+  z-index: 2;
+  max-width: 560px;
+  color: var(--paper);
+}
+.doorway__count {
+  margin-bottom: 8px;
+  font: 700 0.8rem/1 var(--sans);
+  letter-spacing: 0.18em;
+  color: var(--yellow);
+}
+.doorway__cap-title {
+  margin-bottom: 8px;
+  font-size: clamp(2rem, 1.3rem + 3vw, 3.6rem);
+  color: var(--paper);
+}
+.doorway__cap p:not(.doorway__count) { font-size: 1.08rem; line-height: 1.5; }
+.doorway__cap .btn { margin-top: 18px; box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5); }
+@media (min-width: 960px) {
+  .doorway__cap { left: max(var(--pad), calc((100vw - 1200px) / 2 + var(--pad))); bottom: 56px; }
+}
+.doorway__dots { display: none; }
+
+/* Live: the slides stack over the opened doorway */
+.doorway--live { height: calc(100vh * (3.2 + var(--n, 6) * 0.8)); }
+.doorway--live .doorway__slide {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  aspect-ratio: auto;
+  visibility: var(--v, hidden);
+  clip-path: inset(calc((1 - var(--t, 0)) * 100%) 0 0 0 round calc((1 - var(--t, 0)) * 50vw) calc((1 - var(--t, 0)) * 50vw) 0 0);
+  will-change: clip-path;
+}
+.doorway--live .doorway__slide img {
+  transform: scale(calc((1.15 - 0.15 * var(--t, 0)) * (1 - 0.06 * var(--o, 0))));
+  will-change: transform;
+}
+/* Darkens a slide as the next one covers it */
+.doorway--live .doorway__slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--ink);
+  opacity: calc(var(--o, 0) * 0.55);
+  pointer-events: none;
+}
+.doorway--live .doorway__cap {
+  opacity: var(--c, 0);
+  translate: 0 calc((1 - var(--c, 0)) * 28px);
+}
+.doorway--live .doorway__slide:last-of-type .doorway__cap:focus-within { opacity: 1; }
+
+.doorway--live .doorway__dots {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  translate: 0 -50%;
+  opacity: var(--dots, 0);
+}
+.doorway__dots li {
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--paper);
+  border-radius: 999px;
+  background: rgba(26, 17, 16, 0.3);
+  transition: height 0.3s ease, background-color 0.3s ease;
+}
+.doorway__dots li.is-on { height: 26px; background: var(--yellow); border-color: var(--yellow); }
+
+@media (max-width: 759px) {
+  .doorway--live .doorway__cap { bottom: calc(var(--bar-h) + 28px); }
+  .doorway--live .doorway__dots { right: 10px; }
+}
 
 /* 6. Header
    ========================================================================== */
@@ -1041,47 +1156,6 @@ strong { font-weight: 700; }
 }
 
 
-/* 10. Infrastructure gallery
-   One large photo and four smaller ones in a tiled grid, each with a caption chip.
-   ========================================================================== */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: 150px;
-  gap: 12px;
-}
-.gallery__item--big { grid-column: 1 / -1; grid-row: span 2; }
-@media (min-width: 760px) {
-  .gallery { grid-auto-rows: 210px; gap: 16px; }
-}
-@media (min-width: 960px) {
-  .gallery {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-auto-rows: clamp(200px, 17vw, 260px);
-  }
-  .gallery__item--big { grid-column: span 2; grid-row: span 2; }
-}
-
-.gallery__item { position: relative; margin: 0; }
-.gallery__item .photo {
-  height: 100%;
-  aspect-ratio: auto;
-  border: 2px solid var(--ink);
-}
-.gallery__item figcaption {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  z-index: 2;
-  padding: 4px 12px 2px;
-  border: 1.5px solid var(--ink);
-  border-radius: 999px;
-  background: var(--paper);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-.gallery__item--big figcaption { font-size: 0.95rem; }
-
 /* 11. Model 1: grade finder
    ========================================================================== */
 .finder__controls {
@@ -1394,53 +1468,96 @@ strong { font-weight: 700; }
 }
 
 
-/* 13. Grades: approximate fee, parent reviews, "in every grade"
+/* 13. Grade sheet: everything for the chosen grade in one card
+   Left: the stage (photo, about, what they will do, spaces, booking).
+   Right: approximate annual fee and one parent review for that grade.
+   A coloured top edge follows the stage: yellow, orange or maroon.
    ========================================================================== */
-.finder__more {
+.grade-sheet {
   display: grid;
-  gap: 24px;
-  margin-top: 28px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-top-width: 8px;
+  border-top-color: var(--sheet-colour, var(--yellow));
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  transition: border-top-color 0.3s ease;
 }
-@media (min-width: 900px) {
-  .finder__more { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 32px; align-items: start; }
+.grade-sheet:has(.stage--primary.is-active) { --sheet-colour: var(--orange); }
+.grade-sheet:has(.stage--middle.is-active) { --sheet-colour: var(--maroon); }
+@media (min-width: 1040px) {
+  .grade-sheet { grid-template-columns: minmax(0, 1fr) 340px; }
 }
 
-.fee-card {
-  padding: 26px 22px 24px;
-  border: 2px solid var(--ink);
-  border-radius: var(--radius);
-  background: var(--maroon);
-  color: var(--paper);
-  box-shadow: var(--shadow);
+/* The stage panel loses its own card inside the sheet */
+.grade-sheet .stages { display: block; }
+.grade-sheet .stage {
+  padding: 24px 20px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 @media (min-width: 760px) {
-  .fee-card { padding: 30px 30px 28px; }
+  .grade-sheet .stage { grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding: 32px; }
 }
-.fee-card__label {
-  margin-bottom: 4px;
-  font-size: 0.8rem;
+@media (min-width: 1040px) {
+  .grade-sheet .stage { grid-template-columns: 240px minmax(0, 1fr); gap: 36px; padding: 36px; }
+}
+.grade-sheet .stage__photo { max-width: 240px; }
+@media (max-width: 759px) {
+  .grade-sheet .stage { grid-template-columns: 120px minmax(0, 1fr); gap: 16px; align-items: start; }
+  .grade-sheet .stage__photo { max-width: none; }
+  .grade-sheet .stage__photo::before { display: none; }
+  /* On phones the text runs full width under the photo and title */
+  .grade-sheet .stage__body { display: contents; }
+  .grade-sheet .stage__body > :not(.stage__tag):not(.stage__title) { grid-column: 1 / -1; }
+  .grade-sheet .stage__tag { grid-column: 2; grid-row: 1; align-self: end; margin: 0; justify-self: start; }
+  .grade-sheet .stage__title { grid-column: 2; grid-row: 2; align-self: start; }
+  .grade-sheet .stage__photo { grid-row: 1 / span 2; }
+}
+.grade-sheet .stage__subhead { margin-top: 20px; }
+.grade-sheet .stage__cta { margin-top: 24px; }
+
+/* Side column */
+.grade-sheet__side {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+  padding: 24px 20px;
+  border-top: 2px dashed var(--rule);
+  background: var(--paper);
+}
+@media (min-width: 1040px) {
+  .grade-sheet__side { padding: 36px 28px; border-top: 0; border-left: 2px dashed var(--rule); }
+}
+
+.fee-box {
+  padding: 20px 20px 18px;
+  border-radius: 12px;
+  background: var(--maroon);
+  color: var(--paper);
+}
+.fee-box__label {
+  margin-bottom: 2px;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--yellow);
 }
-.fee-card__for { margin-bottom: 14px; font: 400 1.3rem/1.25 var(--serif); }
-.fee-card__amount {
-  margin-bottom: 14px;
-  font: 400 clamp(1.9rem, 1.4rem + 1.8vw, 2.6rem)/1.1 var(--serif);
-  color: var(--paper);
+.fee-box__for { margin-bottom: 10px; font: 400 1.15rem/1.25 var(--serif); }
+.fee-box__amount {
+  margin-bottom: 10px;
+  font: 400 clamp(1.6rem, 1.3rem + 1vw, 2rem)/1.15 var(--serif);
 }
-.fee-card__amount small { display: block; margin-top: 6px; font: 500 0.95rem/1.3 var(--sans); color: rgba(251, 245, 233, 0.85); }
-.fee-card__note { margin-bottom: 20px; font-size: 0.92rem; line-height: 1.5; color: rgba(251, 245, 233, 0.9); }
-.fee-card .btn--yellow { box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45); }
-.fee-card :focus-visible { outline-color: var(--yellow); }
+.fee-box__amount small { display: block; margin-top: 4px; font: 500 0.88rem/1.3 var(--sans); color: rgba(251, 245, 233, 0.85); }
+.fee-box__note { font-size: 0.86rem; line-height: 1.45; color: rgba(251, 245, 233, 0.9); }
 
-.grade-reviews__title { font-size: clamp(1.5rem, 1.2rem + 1vw, 1.9rem); }
-.grade-reviews__for { margin: 6px 0 16px; font-weight: 500; color: var(--ink-soft); }
-.grade-reviews__list { display: grid; gap: 16px; }
-@media (min-width: 560px) {
-  .grade-reviews__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+.grade-reviews__title { font-size: 1.35rem; }
+.grade-reviews__for { margin: 4px 0 12px; font-size: 0.92rem; font-weight: 500; color: var(--ink-soft); }
+.grade-reviews__list { display: grid; gap: 14px; }
 .grade-reviews__list .quote.is-hidden { display: none; }
 .grade-reviews__list .quote:not(.is-hidden) { animation: panel-in 0.35s ease both; }
 
@@ -1450,30 +1567,30 @@ strong { font-weight: 700; }
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding: 22px 20px 18px;
-  border: 2px solid var(--ink);
-  border-radius: var(--radius);
+  padding: 18px 18px 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
   background: var(--white);
 }
-.quote blockquote { margin: 0 0 16px; flex: 1; }
-.quote blockquote p { font: 400 1.05rem/1.55 var(--serif); }
+.quote blockquote { margin: 0 0 14px; flex: 1; }
+.quote blockquote p { font: 400 1rem/1.55 var(--serif); }
 .quote blockquote p::before { content: "\201C"; }
 .quote blockquote p::after { content: "\201D"; }
 .quote figcaption {
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid var(--rule);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 500;
   line-height: 1.7;
   color: var(--ink-soft);
 }
 .quote__topic {
   align-self: flex-start;
-  margin-bottom: 12px;
-  padding: 3px 12px 1px;
+  margin-bottom: 10px;
+  padding: 3px 10px 1px;
   border-radius: 999px;
   background: var(--yellow);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1482,36 +1599,6 @@ strong { font-weight: 700; }
 .quote--pending blockquote p { color: var(--ink-soft); }
 .quote--pending blockquote p::before,
 .quote--pending blockquote p::after { content: none; }
-
-/* In every grade */
-.every-grade {
-  display: grid;
-  gap: 24px;
-  margin-top: 36px;
-  padding-top: 32px;
-  border-top: 2px solid var(--ink);
-}
-@media (min-width: 900px) {
-  .every-grade { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: center; }
-}
-.every-grade__title { margin-bottom: 14px; font-size: 1.6rem; }
-.every-grade__list { margin: 0; padding: 0; list-style: none; }
-.every-grade__list li {
-  padding: 10px 0 10px 18px;
-  border-left: 5px solid var(--yellow);
-  margin-bottom: 10px;
-  background: var(--white);
-  border-radius: 0 10px 10px 0;
-  padding-right: 14px;
-  color: var(--ink-soft);
-  font-size: 0.98rem;
-}
-.every-grade__list li:nth-child(2) { border-left-color: var(--orange); }
-.every-grade__list li:nth-child(3) { border-left-color: var(--maroon); }
-.every-grade__list li:nth-child(4) { border-left-color: var(--ink); }
-.every-grade__list strong { color: var(--ink); }
-.every-grade__photos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.every-grade__photos .photo { border: 2px solid var(--ink); }
 
 /* 14. Model 3: distance and transport
    ========================================================================== */

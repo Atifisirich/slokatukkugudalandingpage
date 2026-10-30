@@ -672,7 +672,7 @@ var FEES = {
         ? rupees(range[0]) + ' – ' + rupees(range[1]) + '<small>per year (approximate)</small>'
         : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
 
-      // Reviews: this grade first, then the rest of the stage, then the ones for every grade; at most two
+      // Review: this grade first, then the rest of the stage, then one for every grade
       var byGrade = [], byStage = [], general = [];
       each(reviews, function (q) {
         var g = q.getAttribute('data-grade');
@@ -681,7 +681,7 @@ var FEES = {
         else if (st === stage) byStage.push(q);
         else if (st === 'all') general.push(q);
       });
-      var shown = byGrade.concat(byStage, general).slice(0, 2);
+      var shown = byGrade.concat(byStage, general).slice(0, 1);   // one review keeps the sheet simple
       each(reviews, function (q) { q.classList.toggle('is-hidden', shown.indexOf(q) === -1); });
       reviewsFor.textContent = byGrade.length ? 'Parents of ' + grade + ' students' : STAGE_INFO[stage].parents;
     };
@@ -967,13 +967,38 @@ var FEES = {
     var clamp = function (v) { return Math.min(1, Math.max(0, v)); };
     var ease = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
 
+    // Campus story: slides that follow the opening, each with its own stretch of scroll
+    var slides = Array.prototype.slice.call(doorway.querySelectorAll('.doorway__slide'));
+    var dots = doorway.querySelectorAll('.doorway__dots li');
+    var easeSlide = function (t) { return 1 - Math.pow(1 - t, 3); };
+
     var paint = function () {
       ticking = false;
       var vw = doorway.clientWidth;
       var vh = window.innerHeight;
       var rect = doorway.getBoundingClientRect();
-      var p = clamp(-rect.top / (rect.height - vh));
+      var scrolled = -rect.top;
+      var OPEN = vh * 1.8;                   // scroll used by the doors opening (matches the CSS height)
+      var SLIDE = vh * 0.8;                  // scroll per campus photo
+      var p = clamp(scrolled / OPEN);
       var phone = vw < 760;
+
+      // Each slide rises over 70% of its stretch, then holds
+      var rise = slides.map(function (el, i) {
+        return easeSlide(clamp((scrolled - OPEN - i * SLIDE) / (SLIDE * 0.7)));
+      });
+      slides.forEach(function (el, i) {
+        var t = rise[i];
+        var covered = rise[i + 1] || 0;
+        el.style.setProperty('--t', t.toFixed(4));
+        el.style.setProperty('--o', covered.toFixed(3));
+        el.style.setProperty('--c', (clamp((t - 0.55) / 0.35) * (1 - covered)).toFixed(3));
+        el.style.setProperty('--v', t > 0.001 ? 'visible' : 'hidden');
+      });
+      var firstRise = rise[0] || 0;
+      var shown = rise.filter(function (t) { return t > 0.5; }).length;
+      each(dots, function (d, i) { d.classList.toggle('is-on', i === shown); });
+      doorway.style.setProperty('--dots', clamp((p - 0.7) / 0.2).toFixed(3));
       var header = document.querySelector('.site-header').offsetHeight;
 
       // Closed doorway size
@@ -987,9 +1012,9 @@ var FEES = {
       s.setProperty('--cb', ((vh - top - archH) * (1 - o)).toFixed(1) + 'px');
       s.setProperty('--cs', (((vw - archW) / 2) * (1 - o)).toFixed(1) + 'px');
       s.setProperty('--cr', ((archW / 2) * (1 - o)).toFixed(1) + 'px');
-      s.setProperty('--zoom', (1.18 - 0.18 * o).toFixed(3));
+      s.setProperty('--zoom', ((1.18 - 0.18 * o) * (1 - 0.06 * firstRise)).toFixed(3));
       s.setProperty('--wo', (1 - clamp((p - 0.25) / 0.3)).toFixed(3));
-      var ro = clamp((p - 0.62) / 0.25);
+      var ro = clamp((p - 0.62) / 0.25) * (1 - firstRise);   // the entrance caption gives way to the first photo
       s.setProperty('--ro', ro.toFixed(3));
       s.setProperty('--rv', ro > 0.02 ? 'visible' : 'hidden');
     };

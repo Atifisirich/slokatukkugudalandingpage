@@ -90,12 +90,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=6">
+  <link rel="stylesheet" href="css/styles.css?v=8">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=6"></script>
+  <script defer src="js/main.js?v=8"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -181,7 +181,7 @@
         <span class="brand__fallback" aria-hidden="true">Sloka International School</span>
       </a>
       <nav class="site-header__nav" aria-label="Page sections">
-        <a href="#infrastructure">Campus</a>
+        <a href="#campus-story">Campus</a>
         <a href="#campus">Facilities</a>
         <a href="#pathway">Grades &amp; Fees</a>
         <a href="#visit">Transport</a>
@@ -353,10 +353,11 @@
     </section>
 
     <!-- ===================================================== SIGNATURE MOMENT: STEP INSIDE
-         As the parent scrolls, the arch-shaped doorway opens until the campus fills the screen.
+         As the parent scrolls, the arch-shaped doorway opens until the campus fills the screen,
+         then each further scroll brings in the next campus photo (the campus story).
          The same doorway opening is reused for every photo on the page.
          Without JS, or with reduced motion, this renders as a plain full-width photo. -->
-    <section class="doorway" aria-labelledby="doorway-title" data-doorway>
+    <section class="doorway" id="campus-story" aria-labelledby="doorway-title" data-doorway style="--n:6">
       <div class="doorway__stage">
         <div class="doorway__frame">
           <img src="images/campus-entrance-sm.webp"
@@ -381,51 +382,69 @@
           </ul>
           <a class="btn btn--yellow" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
         </div>
-      </div>
-    </section>
 
-    <!-- ===================================================== INFRASTRUCTURE GALLERY -->
-    <section class="section" id="infrastructure" aria-labelledby="infra-title">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Infrastructure</p>
-          <h2 id="infra-title">A Campus Built for Learning and Play</h2>
-          <p class="section-lead">Classroom blocks, labs, courts and open grounds on one campus, just off ORR Exit 14.</p>
+        <!-- Campus story: after the doors open, each scroll brings in the next photo, rising
+             like a doorway from the bottom. Add or remove slides freely; --n on the section
+             must match the number of slides. -->
+        <div class="doorway__slide">
+          <img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway running along the campus buildings">
+          <div class="doorway__cap">
+            <p class="doorway__count">01 / 06</p>
+            <h3 class="doorway__cap-title">Landscaped walkways</h3>
+            <p>Green, landscaped paths connect the classroom blocks and the grounds.</p>
+          </div>
+        </div>
+        <div class="doorway__slide" style="--focus:12% 70%">
+          <img src="images/tukkuguda-hero-sm.webp" srcset="images/tukkuguda-hero-sm.webp 800w, images/tukkuguda-hero.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="The main school block with the basketball court in front">
+          <div class="doorway__cap">
+            <p class="doorway__count">02 / 06</p>
+            <h3 class="doorway__cap-title">Main block and courts</h3>
+            <p>Basketball courts sit right beside the main academic block.</p>
+          </div>
+        </div>
+        <div class="doorway__slide">
+          <img src="images/science-labs-sm.webp" srcset="images/science-labs-sm.webp 700w, images/science-labs.webp 1200w" sizes="100vw"
+               width="1200" height="676" loading="lazy" decoding="async" alt="Students running an experiment in the science lab">
+          <div class="doorway__cap">
+            <p class="doorway__count">03 / 06</p>
+            <h3 class="doorway__cap-title">Science labs</h3>
+            <p>Separate Physics, Chemistry and Biology labs for hands-on experiments.</p>
+          </div>
+        </div>
+        <div class="doorway__slide">
+          <img src="images/football-sm.webp" srcset="images/football-sm.webp 700w, images/football.webp 1200w" sizes="100vw"
+               width="1200" height="676" loading="lazy" decoding="async" alt="Students in house colours playing football on the school ground">
+          <div class="doorway__cap">
+            <p class="doorway__count">04 / 06</p>
+            <h3 class="doorway__cap-title">Football ground</h3>
+            <p>Sports are part of every student's regular schedule.</p>
+          </div>
+        </div>
+        <div class="doorway__slide">
+          <img src="images/cricket-sm.webp" srcset="images/cricket-sm.webp 700w, images/cricket.webp 1200w" sizes="100vw"
+               width="1200" height="675" loading="lazy" decoding="async" alt="Students playing cricket on the school ground">
+          <div class="doorway__cap">
+            <p class="doorway__count">05 / 06</p>
+            <h3 class="doorway__cap-title">Cricket ground</h3>
+            <p>Room for practice sessions and inter-house matches.</p>
+          </div>
+        </div>
+        <div class="doorway__slide">
+          <img src="images/early-years-sm.webp" srcset="images/early-years-sm.webp 700w, images/early-years.webp 1200w" sizes="100vw"
+               width="1200" height="676" loading="lazy" decoding="async" alt="An Early Years activity room with counting toys and an abacus">
+          <div class="doorway__cap">
+            <p class="doorway__count">06 / 06</p>
+            <h3 class="doorway__cap-title">Early Years spaces</h3>
+            <p>A dedicated Play Land and Activity Hall for the youngest learners.</p>
+            <a class="btn btn--yellow" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
+          </div>
         </div>
 
-        <div class="gallery">
-          <figure class="gallery__item gallery__item--big">
-            <div class="photo" data-slot="campus-walkway">
-              <img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway running along the campus buildings">
-            </div>
-            <figcaption>Landscaped walkways</figcaption>
-          </figure>
-          <figure class="gallery__item">
-            <div class="photo" data-slot="basketball-court" style="--focus:10% 72%">
-              <img src="images/tukkuguda-hero-sm.webp" srcset="images/tukkuguda-hero-sm.webp 800w, images/tukkuguda-hero.webp 1600w" sizes="(min-width: 960px) 25vw, 50vw"
-                   width="1600" height="900" loading="lazy" decoding="async" alt="The main school block with the basketball court in front">
-            </div>
-            <figcaption>Main block and court</figcaption>
-          </figure>
-          <figure class="gallery__item">
-            <div class="photo" data-slot="science-labs">
-              <img src="images/science-labs-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="A science lab with microscopes and lab glassware">
-            </div>
-            <figcaption>Science labs</figcaption>
-          </figure>
-          <figure class="gallery__item">
-            <div class="photo" data-slot="cricket" style="--focus:50% 60%">
-              <img src="images/cricket-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="The cricket ground in use">
-            </div>
-            <figcaption>Cricket ground</figcaption>
-          </figure>
-          <figure class="gallery__item">
-            <div class="photo" data-slot="early-years">
-              <img src="images/early-years-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="An Early Years activity room with counting toys">
-            </div>
-            <figcaption>Early Years spaces</figcaption>
-          </figure>
-        </div>
+        <!-- Progress dots for the story -->
+        <ol class="doorway__dots" aria-hidden="true">
+          <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+        </ol>
       </div>
     </section>
 
@@ -607,7 +626,9 @@
             </div>
           </div>
 
-          <!-- Step C: what this stage looks like -->
+          <!-- Step C: one sheet for the chosen grade - about the stage, what they will do,
+               spaces they will use, the approximate fee and a parent review -->
+          <div class="grade-sheet">
           <div class="stages" aria-live="polite">
             <article class="stage stage--early" id="stage-early" data-stage-panel="early">
               <div class="stage__photo">
@@ -688,15 +709,13 @@
             </article>
           </div>
 
-          <!-- Step D: approximate fee and what parents of this grade say.
-               Fee ranges live in FEES in js/main.js; reviews are the figures below. -->
-          <div class="finder__more">
-            <div class="fee-card" aria-live="polite">
-              <p class="fee-card__label">Approximate annual fee</p>
-              <p class="fee-card__for" data-fee-for>Early Years (Nursery to UKG)</p>
-              <p class="fee-card__amount" data-fee-amount><span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span></p>
-              <p class="fee-card__note">Indicative range for 2027–28. The exact fee structure for your child's grade is shared at the campus visit.</p>
-              <a class="btn btn--yellow btn--sm" href="#enquiry-form" data-to-form data-book-grade><span>Get the exact fees<span data-grade-suffix></span></span></a>
+            <!-- Side column: approximate fee (FEES in js/main.js) and one parent review for the grade -->
+            <aside class="grade-sheet__side" aria-label="Approximate fee and parent review">
+            <div class="fee-box" aria-live="polite">
+              <p class="fee-box__label">Approximate annual fee</p>
+              <p class="fee-box__for" data-fee-for>Early Years (Nursery to UKG)</p>
+              <p class="fee-box__amount" data-fee-amount><span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span></p>
+              <p class="fee-box__note">Indicative range for 2027–28. The exact fee structure is shared at your campus visit.</p>
             </div>
 
             <div class="grade-reviews">
@@ -728,28 +747,9 @@
                 </figure>
               </div>
             </div>
+            </aside>
           </div>
 
-          <!-- What every child gets, whatever the grade -->
-          <div class="every-grade">
-            <div class="every-grade__text">
-              <h3 class="every-grade__title">In every grade</h3>
-              <ul class="every-grade__list">
-                <li><strong>Mind and voice:</strong> Words Warrior (a gamified vocabulary programme), Podcast (students script and record their own shows) and Spinning Tales (storytelling), plus daily theme-based morning assemblies that students lead.</li>
-                <li><strong>Body:</strong> football ground, basketball courts, skating rink and cricket ground, with sports on the regular schedule.</li>
-                <li><strong>Values:</strong> four inter-house teams that compete in academics, sports, arts and leadership, with house captains and student council roles.</li>
-                <li><strong>Safety:</strong> CCTV across classrooms, corridors, entry and exit points and outdoor areas.</li>
-              </ul>
-            </div>
-            <div class="every-grade__photos">
-              <div class="photo" data-slot="assembly" style="--ar:4/3;--focus:22% 50%">
-                <img src="images/assembly-sm.webp" width="700" height="350" loading="lazy" decoding="async" alt="Students in Sloka uniform standing for the morning assembly">
-              </div>
-              <div class="photo" data-slot="football" style="--ar:4/3">
-                <img src="images/football-sm.webp" width="700" height="394" loading="lazy" decoding="async" alt="Students in house colours playing football">
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
