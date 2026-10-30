@@ -913,6 +913,48 @@ var FEES = {
     each(photos, function (el) { photoIo.observe(el); });
   }
 
+  // Hero fly-in: the building zooms toward the entrance as the page starts to scroll.
+  // Desktop pins the photo (.hero--zoom) while the copy and form scroll away; phones
+  // get a lighter zoom on the photo band. Values go to CSS variables on the hero.
+  var hero = document.querySelector('.hero');
+  if (hero && !reduceMotion) {
+    var heroBg = hero.querySelector('.hero__bg');
+    var wideHero = window.matchMedia('(min-width: 960px)');
+    var heroTick = false;
+    var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
+    var easeInOut = function (t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; };
+
+    var paintHero = function () {
+      heroTick = false;
+      var rect = hero.getBoundingClientRect();
+      var hs = hero.style;
+      if (wideHero.matches) {
+        var travel = hero.offsetHeight - heroBg.offsetHeight;      // how long the photo stays pinned
+        var p = clamp01(-rect.top / travel);
+        hs.setProperty('--hz', (1 + 0.85 * easeInOut(p)).toFixed(4));
+        // Keep the shade while the headline and form are still on screen, so they stay readable
+        var gridBottom = hero.querySelector('.hero__grid').getBoundingClientRect().bottom;
+        hs.setProperty('--shade', clamp01(gridBottom / (window.innerHeight * 0.85)).toFixed(3));
+        hs.setProperty('--arrive', clamp01((p - 0.6) / 0.3).toFixed(3));
+      } else {
+        var q = clamp01(-rect.top / heroBg.offsetHeight);
+        hs.setProperty('--hz', (1 + 0.3 * q).toFixed(4));
+      }
+    };
+
+    var setHeroMode = function () {
+      hero.classList.toggle('hero--zoom', wideHero.matches);
+      paintHero();
+    };
+    if (wideHero.addEventListener) wideHero.addEventListener('change', setHeroMode);
+    setHeroMode();
+
+    window.addEventListener('scroll', function () {
+      if (!heroTick && hero.getBoundingClientRect().bottom > 0) { heroTick = true; requestAnimationFrame(paintHero); }
+    }, { passive: true });
+    window.addEventListener('resize', paintHero);
+  }
+
   // Signature moment: the "Step inside" doorway opens as the page scrolls.
   // Values are written as CSS variables; the stylesheet turns them into the arch.
   var doorway = document.querySelector('[data-doorway]');

@@ -20,8 +20,7 @@
   sloka-logo.webp / .png                supplied   header, footer (corners made transparent)
   sloka-flower.webp                     supplied   loading screen (flower cut from the logo)
   favicon-64.png, apple-touch-icon.png  supplied   browser tab and home-screen icons (the flower)
-  campus-aerial.webp      630 x 410     supplied   hero intro, first shot (send a 1920px+ version for sharpness)
-  tukkuguda-hero(.webp / -sm.webp)      supplied   hero (intro end shot); infrastructure; campus tour
+  tukkuguda-hero(.webp / -sm.webp)      supplied   hero arch; campus tour (basketball court)
   campus-entrance(.webp / -sm.webp)     supplied   "Step inside" doorway scene
   campus-walkway.webp                   supplied   campus tour (CCTV-secured campus)
   assembly(.webp / -sm.webp)            supplied   approach
@@ -87,19 +86,16 @@
   <!-- End Google Tag Manager -->
 
   <!-- Fonts: one weight of Young Serif, three of Mukta. -->
-  <!-- First frame of the hero intro -->
-  <link rel="preload" as="image" href="images/campus-aerial.webp">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=7">
+  <link rel="stylesheet" href="css/styles.css?v=6">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=7"></script>
+  <script defer src="js/main.js?v=6"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -208,16 +204,13 @@
     <!-- ===================================================== HERO
          The campus building fills the hero; copy sits on the photo (desktop) or under it (phones). -->
     <section class="hero" id="top" aria-labelledby="hero-title">
-      <!-- Cinematic intro: plays once behind the headline and form (CSS keyframes, no video file).
-           1) aerial view, camera glides in toward the buildings  2) dissolve to the ground-level shot
-           3) that shot pulls back and settles. With reduced motion only the building photo shows. -->
       <div class="hero__bg">
-        <img class="hero__shot hero__shot--building" src="images/tukkuguda-hero-sm.webp"
+        <img src="images/tukkuguda-hero-sm.webp"
              srcset="images/tukkuguda-hero-sm.webp 800w, images/tukkuguda-hero.webp 1600w"
              sizes="100vw" width="1600" height="900"
              alt="The Sloka Tukkuguda campus building and grounds at sunrise" fetchpriority="high" decoding="async">
-        <img class="hero__shot hero__shot--aerial" src="images/campus-aerial.webp" width="630" height="410"
-             alt="" aria-hidden="true" decoding="async">
+        <!-- Appears once the fly-in has reached the building (desktop scroll zoom) -->
+        <p class="hero__arrive" aria-hidden="true">Sloka International School, Tukkuguda<small>Exit ORR 14, Laxmi Nagar</small></p>
       </div>
 
       <div class="wrap hero__grid">
