@@ -4,12 +4,12 @@
 
    1. ENQUIRY_CONFIG   CRM settings (the only part to edit when the CRM is ready)
    2. AGE_RULES        age-to-grade guide used by the grade finder
+   2b. FEES, PARENT_VOICES  grade-wise fee range and parent testimonial
    3. Attribution      UTM / click-ID capture into hidden fields
    4. Shared choices   grade and area the parent picked, reused across the page
    5. Enquiry form     validation, sending, success state, dataLayer event
    6. CRM widget mode  swaps the built-in fields for the CRM's embed
-   7. Grade finder     grade chips, date-of-birth check, pathway track, stage panels
-   8. Campus tour      accessible tabs
+   7. Grade finder     grade chips, date-of-birth check, grade sheet (stage panels, fee, parent voice)
    9. Distance check   area picker, directions, WhatsApp about the bus
    10. Page behaviour  reveal-on-scroll, FAQ accordion, mobile bar, tracking
    ========================================================================== */
@@ -137,8 +137,74 @@ var AGE_RULES = {
     { grade: 'Grade 5',   minAge: 10 },
     { grade: 'Grade 6',   minAge: 11 },
     { grade: 'Grade 7',   minAge: 12 },
-    { grade: 'Grade 8',   minAge: 13 }
+    { grade: 'Grade 8',   minAge: 13 },
+    { grade: 'Grade 9',   minAge: 14 },
+    { grade: 'Grade 10',  minAge: 15 }
   ]
+};
+
+
+/* 2b. FEES and PARENT_VOICES  [CONFIRM WITH SCHOOL]
+   --------------------------------------------------------------------------
+   Both are keyed by the grade names used on the grade chips, so each grade
+   shows its own fee range and its own parent testimonial.
+
+   FEES: approximate annual fee for 2027-28 in rupees, as [lowest, highest].
+   Leave a grade as null and the page shows a "to be confirmed" note.
+   Example: 'Grade 2': [65000, 80000]  ->  "Rs 65,000 - Rs 80,000 per year"
+
+   PARENT_VOICES: one testimonial per grade. Use only reviews supplied and
+   approved by the school.
+     topic   short label on the card, e.g. 'Confidence'
+     quote   the parent's words
+     parent  how to name them, e.g. 'Parent of a Grade 5 student'
+     area    where they live, e.g. 'Maheshwaram'
+     photo   optional picture of the parent, e.g. 'images/parents/grade-5.webp'
+     draft   true while the wording still needs the school's approval
+   Leave a grade as null until its testimonial arrives.
+   -------------------------------------------------------------------------- */
+var FEES = {
+  'Nursery':   null,
+  'PP1 / LKG': null,
+  'PP2 / UKG': null,
+  'Grade 1':   null,
+  'Grade 2':   null,
+  'Grade 3':   null,
+  'Grade 4':   null,
+  'Grade 5':   null,
+  'Grade 6':   null,
+  'Grade 7':   null,
+  'Grade 8':   null,
+  'Grade 9':   null,
+  'Grade 10':  null
+};
+
+var PARENT_VOICES = {
+  'Nursery':   null,
+  'PP1 / LKG': {
+    topic: 'Early Years',
+    quote: 'My son wakes up every morning asking if it is a school day. The play-based learning, the activity hall and the play land make him happy and curious.',
+    parent: 'Parent of a Pre-Primary student', area: '', photo: '', draft: true
+  },
+  'PP2 / UKG': null,
+  'Grade 1':   null,
+  'Grade 2':   null,
+  'Grade 3':   null,
+  'Grade 4':   null,
+  'Grade 5': {
+    topic: 'Confidence',
+    quote: 'My daughter was very shy before joining Sloka. Today she leads the morning assembly, competes in Words Warrior and even hosts the school podcast.',
+    parent: 'Parent of a Grade 5 student', area: '', photo: '', draft: true
+  },
+  'Grade 6': {
+    topic: 'Labs and academics',
+    quote: 'The Aero Bay Lab and the science labs are excellent. My son comes home every day excited to build, experiment and code.',
+    parent: 'Parent of a Grade 6 student', area: '', photo: '', draft: true
+  },
+  'Grade 7':   null,
+  'Grade 8':   null,
+  'Grade 9':   null,
+  'Grade 10':  null
 };
 
 
@@ -612,11 +678,74 @@ var AGE_RULES = {
 
   if (finder) {
     var stagePanels = finder.querySelectorAll('[data-stage-panel]');
-    var stageBtns = finder.querySelectorAll('[data-stage-btn]');
-    var marker = finder.querySelector('[data-track-marker]');
     var radios = finder.querySelectorAll('input[name="finder-grade"]');
 
     finder.classList.add('finder--ready');
+
+    // The grade sheet: heading, approximate fee and parent voice for the chosen grade
+    var sheet = finder.querySelector('[data-gsheet]');
+    var gsGrade = sheet.querySelector('[data-gs-grade]');
+    var gsStage = sheet.querySelector('[data-gs-stage]');
+    var gsAge = sheet.querySelector('[data-gs-age]');
+    var feeFor = sheet.querySelector('[data-fee-for]');
+    var feeAmount = sheet.querySelector('[data-fee-amount]');
+    var voiceCard = sheet.querySelector('[data-voice]');
+    var STAGE_NAMES = {
+      early: 'Early Years · Nursery to UKG',
+      primary: 'Primary · Grades 1–5',
+      middle: 'Middle School · Grades 6–8',
+      secondary: 'Secondary · Grades 9–10'
+    };
+    var rupees = function (n) { return '₹' + Number(n).toLocaleString('en-IN'); };
+    var personIcon = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="18" r="8"/><path d="M8 42c1.5-9 8-14 16-14s14.5 5 16 14z"/></svg>';
+
+    var showDetails = function (grade, stage) {
+      sheet.setAttribute('data-stage', stage);
+      gsStage.textContent = STAGE_NAMES[stage];
+
+      if (!grade) {
+        gsGrade.textContent = 'Choose a grade';
+        gsAge.textContent = '';
+        feeFor.textContent = '2027–28';
+        feeAmount.innerHTML = '<span class="fee__prompt">Choose a grade above to see its approximate fee.</span>';
+        voiceCard.className = 'voice__card voice__card--prompt';
+        voiceCard.innerHTML = '<p class="voice__prompt">Choose a grade above to hear from parents of that grade.</p>';
+        return;
+      }
+
+      gsGrade.textContent = grade;
+      var rule = AGE_RULES.grades.filter(function (r) { return r.grade === grade; })[0];
+      gsAge.textContent = rule ? 'Usually age ' + rule.minAge + '+ on 1 June 2027' : '';
+
+      // Fee for this grade
+      var range = FEES[grade];
+      feeFor.textContent = grade + ' · 2027–28';
+      feeAmount.innerHTML = range
+        ? rupees(range[0]) + ' – ' + rupees(range[1]) + '<small>per year (approximate)</small>'
+        : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
+
+      // Parent voice for this grade
+      var v = PARENT_VOICES[grade];
+      var avatar = v && v.photo
+        ? '<img class="voice__photo" src="' + escapeHtml(v.photo) + '" alt="" width="52" height="52" loading="lazy" decoding="async">'
+        : '<span class="voice__photo voice__photo--blank">' + personIcon + '</span>';
+      if (v && v.quote) {
+        voiceCard.className = 'voice__card';
+        voiceCard.innerHTML =
+          '<span class="voice__topic">' + escapeHtml(v.topic || grade) + '</span>' +
+          '<blockquote><p>' + escapeHtml(v.quote) + '</p></blockquote>' +
+          '<figcaption>' + avatar + '<span class="voice__who"><strong>' + escapeHtml(v.parent || 'Parent of a ' + grade + ' student') + '</strong>' +
+          (v.area ? escapeHtml(v.area) : '<span class="tbc">[AREA]</span>') +
+          (v.draft ? '<br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span>' : '') +
+          '</span></figcaption>';
+      } else {
+        voiceCard.className = 'voice__card voice__card--pending';
+        voiceCard.innerHTML =
+          '<span class="voice__topic">' + escapeHtml(grade) + '</span>' +
+          '<figcaption>' + avatar + '<span class="voice__who"><strong>Parent of a ' + escapeHtml(grade) + ' student</strong>' +
+          '<span class="tbc">[PARENT TESTIMONIAL TO BE SUPPLIED BY SCHOOL]</span></span></figcaption>';
+      }
+    };
 
     var currentStage = '';
     var showStage = function (stage) {
@@ -628,16 +757,13 @@ var AGE_RULES = {
         p.classList.toggle('is-active', on);
         if (on && switching) reopenPhotos(p);
       });
-      each(stageBtns, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-stage-btn') === stage)); });
     };
 
     var setGrade = function (radio, source) {
       choice.grade = radio.value;
       radio.checked = true;
       showStage(radio.getAttribute('data-stage'));
-
-      marker.hidden = false;
-      marker.style.setProperty('--pos', radio.getAttribute('data-index'));
+      showDetails(radio.value, radio.getAttribute('data-stage'));
 
       each(finder.querySelectorAll('[data-grade-name]'), function (el) { el.textContent = 'a ' + choice.grade + ' student'; });
       each(finder.querySelectorAll('[data-grade-suffix]'), function (el) { el.textContent = ' for ' + choice.grade; });
@@ -647,13 +773,10 @@ var AGE_RULES = {
     };
 
     showStage('early');
+    showDetails('', 'early');
 
     each(radios, function (r) {
       r.addEventListener('change', function () { if (r.checked) setGrade(r, 'chip'); });
-    });
-
-    each(stageBtns, function (b) {
-      b.addEventListener('click', function () { showStage(b.getAttribute('data-stage-btn')); });
     });
 
     // Date-of-birth check
@@ -694,7 +817,7 @@ var AGE_RULES = {
         return;
       }
       if (match.index === rules.length - 1 && years > rules[match.index].minAge) {
-        resultEl.innerHTML = 'Your child will be about ' + ageText + ' on 1 June 2027. Sloka Tukkuguda currently runs up to Grade 8, so please talk to our admissions team.';
+        resultEl.innerHTML = 'Your child will be about ' + ageText + ' on 1 June 2027. Sloka Tukkuguda currently runs up to Grade 10, so please talk to our admissions team.';
         return;
       }
 
@@ -705,55 +828,42 @@ var AGE_RULES = {
   }
 
 
-  /* 8. Campus tour (tabs pattern: arrow keys move between spaces)
+  /* 8. Facilities: a sideways bar picks one space, or shows them all
      ------------------------------------------------------------------------ */
-  var tour = document.querySelector('[data-tour]');
+  var facBar = document.querySelector('[data-facbar]');
+  var facGrid = document.querySelector('[data-facs]');
 
-  if (tour) {
-    var tabs = Array.prototype.slice.call(tour.querySelectorAll('[role="tab"]'));
-    tour.classList.add('tour--ready');
+  if (facBar && facGrid) {
+    var facChips = facBar.querySelectorAll('[data-fac-filter]');
+    var facTiles = facGrid.querySelectorAll('.fac');
 
-    var selectTab = function (tab, focus) {
-      tabs.forEach(function (t) {
-        var on = t === tab;
-        t.setAttribute('aria-selected', String(on));
-        t.tabIndex = on ? 0 : -1;
-        var panel = document.getElementById(t.getAttribute('aria-controls'));
-        if (on && panel.hidden) { panel.hidden = false; reopenPhotos(panel); }
-        else panel.hidden = !on;
+    var showFacility = function (key, chip) {
+      var single = key !== 'all';
+      facGrid.classList.toggle('facs--single', single);
+      each(facTiles, function (tile) {
+        var on = !single || tile.classList.contains('fac--' + key);
+        tile.hidden = !on;
+        if (on && single) {
+          tile.classList.add('is-inview');
+          tile.classList.remove('fac--enter');
+          void tile.offsetWidth;            // restart the entrance animation
+          tile.classList.add('fac--enter');
+        }
       });
-      if (focus) tab.focus({ preventScroll: true });
-      // Keep the chosen tab in view in the horizontal list on phones. Only the list
-      // scrolls sideways; the page itself never moves.
-      var list = tab.parentElement;
-      if (list.scrollWidth > list.clientWidth) {
-        var target = tab.offsetLeft - (list.clientWidth - tab.offsetWidth) / 2;
-        list.scrollTo({ left: Math.max(0, target), behavior: reduceMotion ? 'auto' : 'smooth' });
+      each(facChips, function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+
+      // Keep the chosen chip in view; only the bar scrolls sideways
+      if (facBar.scrollWidth > facBar.clientWidth) {
+        var target = chip.offsetLeft - (facBar.clientWidth - chip.offsetWidth) / 2;
+        facBar.scrollTo({ left: Math.max(0, target), behavior: reduceMotion ? 'auto' : 'smooth' });
       }
     };
 
-    selectTab(tabs[0], false);
-
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener('click', function () {
-        selectTab(tab, false);
-        track('campus_tour_view', { space: tab.getAttribute('data-tour-key') });
-      });
-      tab.addEventListener('keydown', function (e) {
-        var next = null;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
-        if (e.key === 'Home') next = tabs[0];
-        if (e.key === 'End') next = tabs[tabs.length - 1];
-        if (next) { e.preventDefault(); selectTab(next, true); }
-      });
-    });
-
-    // Links elsewhere on the page ("See the Aero Bay Lab") open a given space
-    each(document.querySelectorAll('[data-tour-jump]'), function (link) {
-      link.addEventListener('click', function () {
-        var tab = tour.querySelector('[data-tour-key="' + link.getAttribute('data-tour-jump') + '"]');
-        if (tab) selectTab(tab, false);
+    each(facChips, function (chip) {
+      chip.addEventListener('click', function () {
+        var key = chip.getAttribute('data-fac-filter');
+        showFacility(key, chip);
+        track('facility_view', { space: key });
       });
     });
   }
@@ -765,20 +875,18 @@ var AGE_RULES = {
 
   if (commute) {
     var areaBtns = commute.querySelectorAll('[data-area]');
-    var areaSelect = commute.querySelector('[data-area-select]');
     var kmOut = commute.querySelector('[data-km-out]');
     var lineOut = commute.querySelector('[data-commute-line]');
     var dirLink = commute.querySelector('[data-directions]');
     var destination = '6F5H+4M5, Tukkuguda, Telangana 501359';
     var kmByArea = {};
-    each(areaBtns, function (b) { kmByArea[b.getAttribute('data-area')] = b.getAttribute('data-km'); });
+    each(areaBtns, function (b) { if (b.hasAttribute('data-km')) kmByArea[b.getAttribute('data-area')] = b.getAttribute('data-km'); });
 
     var setArea = function (name) {
       var known = Object.prototype.hasOwnProperty.call(kmByArea, name);
       choice.area = name === 'other' ? '' : name;
 
       each(areaBtns, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-area') === name)); });
-      areaSelect.value = name;
 
       var dir = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(destination);
       if (known) {
@@ -801,7 +909,6 @@ var AGE_RULES = {
       b.setAttribute('aria-pressed', 'false');
       b.addEventListener('click', function () { setArea(b.getAttribute('data-area')); });
     });
-    areaSelect.addEventListener('change', function () { if (areaSelect.value) setArea(areaSelect.value); });
   }
 
 
@@ -825,6 +932,14 @@ var AGE_RULES = {
     each(watched, function (el) { io.observe(el); });
   }
 
+  // Header is transparent over the hero photo, solid after the page scrolls
+  var siteHeader = document.querySelector('.site-header');
+  if (siteHeader) {
+    var paintHeader = function () { siteHeader.classList.toggle('is-scrolled', window.scrollY > 8); };
+    window.addEventListener('scroll', paintHeader, { passive: true });
+    paintHeader();
+  }
+
   // Photos open like the doorway as they come into view
   var photos = document.querySelectorAll('.photo');
   if (reduceMotion || !('IntersectionObserver' in window)) {
@@ -841,6 +956,48 @@ var AGE_RULES = {
     each(photos, function (el) { photoIo.observe(el); });
   }
 
+  // Hero fly-in: the building zooms toward the entrance as the page starts to scroll.
+  // Desktop pins the photo (.hero--zoom) while the copy and form scroll away; phones
+  // get a lighter zoom on the photo band. Values go to CSS variables on the hero.
+  var hero = document.querySelector('.hero');
+  if (hero && !reduceMotion) {
+    var heroBg = hero.querySelector('.hero__bg');
+    var wideHero = window.matchMedia('(min-width: 960px)');
+    var heroTick = false;
+    var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
+    var easeInOut = function (t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; };
+
+    var paintHero = function () {
+      heroTick = false;
+      var rect = hero.getBoundingClientRect();
+      var hs = hero.style;
+      if (wideHero.matches) {
+        var travel = hero.offsetHeight - heroBg.offsetHeight;      // how long the photo stays pinned
+        var p = clamp01(-rect.top / travel);
+        hs.setProperty('--hz', (1 + 0.85 * easeInOut(p)).toFixed(4));
+        // Keep the shade while the headline and form are still on screen, so they stay readable
+        var gridBottom = hero.querySelector('.hero__grid').getBoundingClientRect().bottom;
+        hs.setProperty('--shade', clamp01(gridBottom / (window.innerHeight * 0.85)).toFixed(3));
+        hs.setProperty('--arrive', clamp01((p - 0.6) / 0.3).toFixed(3));
+      } else {
+        var q = clamp01(-rect.top / heroBg.offsetHeight);
+        hs.setProperty('--hz', (1 + 0.3 * q).toFixed(4));
+      }
+    };
+
+    var setHeroMode = function () {
+      hero.classList.toggle('hero--zoom', wideHero.matches);
+      paintHero();
+    };
+    if (wideHero.addEventListener) wideHero.addEventListener('change', setHeroMode);
+    setHeroMode();
+
+    window.addEventListener('scroll', function () {
+      if (!heroTick && hero.getBoundingClientRect().bottom > 0) { heroTick = true; requestAnimationFrame(paintHero); }
+    }, { passive: true });
+    window.addEventListener('resize', paintHero);
+  }
+
   // Signature moment: the "Step inside" doorway opens as the page scrolls.
   // Values are written as CSS variables; the stylesheet turns them into the arch.
   var doorway = document.querySelector('[data-doorway]');
@@ -853,12 +1010,20 @@ var AGE_RULES = {
     var clamp = function (v) { return Math.min(1, Math.max(0, v)); };
     var ease = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
 
+    // Campus story: slides that follow the opening, each with its own stretch of scroll
+    var slides = Array.prototype.slice.call(doorway.querySelectorAll('.doorway__slide'));
+    var dots = doorway.querySelectorAll('.doorway__dots li');
+    var easeSlide = function (t) { return 1 - Math.pow(1 - t, 3); };
+
     var paint = function () {
       ticking = false;
       var vw = doorway.clientWidth;
       var vh = window.innerHeight;
       var rect = doorway.getBoundingClientRect();
-      var p = clamp(-rect.top / (rect.height - vh));
+      var scrolled = -rect.top;
+      var OPEN = vh * 1.8;                   // scroll used by the doors opening (matches the CSS height)
+      var SLIDE = vh * 0.8;                  // scroll per campus photo
+      var p = clamp(scrolled / OPEN);
       var phone = vw < 760;
       var header = document.querySelector('.site-header').offsetHeight;
 
@@ -868,14 +1033,31 @@ var AGE_RULES = {
       var top = header + (vh - header - archH) / 2;
 
       var o = ease(clamp(p / 0.7));          // 0 = closed arch, 1 = full screen
+
+      // Each slide rises over 70% of its stretch, then holds
+      var rise = slides.map(function (el, i) {
+        return easeSlide(clamp((scrolled - OPEN - i * SLIDE) / (SLIDE * 0.7)));
+      });
+      slides.forEach(function (el, i) {
+        var t = rise[i];
+        var covered = rise[i + 1] || 0;
+        el.style.setProperty('--t', t.toFixed(4));
+        el.style.setProperty('--o', covered.toFixed(3));
+        el.style.setProperty('--c', (clamp((t - 0.55) / 0.35) * (1 - covered)).toFixed(3));
+        el.style.setProperty('--v', t > 0.001 ? 'visible' : 'hidden');
+      });
+      var firstRise = rise[0] || 0;
+      var shown = rise.filter(function (t) { return t > 0.5; }).length;
+      each(dots, function (d, i) { d.classList.toggle('is-on', i === shown); });
+      doorway.style.setProperty('--dots', clamp((p - 0.7) / 0.2).toFixed(3));
       var s = doorway.style;
       s.setProperty('--ct', (top * (1 - o)).toFixed(1) + 'px');
       s.setProperty('--cb', ((vh - top - archH) * (1 - o)).toFixed(1) + 'px');
       s.setProperty('--cs', (((vw - archW) / 2) * (1 - o)).toFixed(1) + 'px');
       s.setProperty('--cr', ((archW / 2) * (1 - o)).toFixed(1) + 'px');
-      s.setProperty('--zoom', (1.18 - 0.18 * o).toFixed(3));
+      s.setProperty('--zoom', ((1.18 - 0.18 * o) * (1 - 0.06 * firstRise)).toFixed(3));
       s.setProperty('--wo', (1 - clamp((p - 0.25) / 0.3)).toFixed(3));
-      var ro = clamp((p - 0.62) / 0.25);
+      var ro = clamp((p - 0.62) / 0.25) * (1 - firstRise);   // the entrance caption gives way to the first photo
       s.setProperty('--ro', ro.toFixed(3));
       s.setProperty('--rv', ro > 0.02 ? 'visible' : 'hidden');
     };
@@ -893,6 +1075,42 @@ var AGE_RULES = {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', function () { if (active) paint(); });
     paint();
+  }
+
+  // Admission steps: a rail fills and each step's door swings open as the steps scroll into view.
+  // Without motion (or without JS) every door simply stays open.
+  var stepsEl = document.querySelector('[data-steps]');
+  if (stepsEl && !reduceMotion) {
+    var stepItems = Array.prototype.slice.call(stepsEl.querySelectorAll('.step'));
+    var stepsTick = false;
+    var clampSteps = function (v) { return Math.min(1, Math.max(0, v)); };
+
+    var paintSteps = function () {
+      stepsTick = false;
+      var vh = window.innerHeight;
+      var first = stepItems[0].querySelector('.step__num').getBoundingClientRect();
+      var last = stepItems[stepItems.length - 1].querySelector('.step__num').getBoundingClientRect();
+      var p;
+      if (Math.abs(last.top - first.top) > 50) {
+        // Stacked on phones: the rail fills down as each door passes 80% of the screen height
+        p = clampSteps((vh * 0.8 - first.top) / (last.top - first.top));
+      } else {
+        // In a row on wider screens
+        p = clampSteps((vh * 0.85 - first.top) / (vh * 0.4));
+      }
+      stepsEl.style.setProperty('--p', p.toFixed(3));
+      stepItems.forEach(function (li, i) {
+        var on = i === 0 ? p > 0 : p >= i / (stepItems.length - 1) - 0.001;
+        li.classList.toggle('is-on', on);
+      });
+    };
+
+    stepsEl.classList.add('steps--live');
+    window.addEventListener('scroll', function () {
+      if (!stepsTick) { stepsTick = true; requestAnimationFrame(paintSteps); }
+    }, { passive: true });
+    window.addEventListener('resize', paintSteps);
+    paintSteps();
   }
 
   // Booking links: after the scroll, move focus to the card heading
