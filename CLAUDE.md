@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=26`) so returning visitors don't get a cached copy.
+(currently `?v=27`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -68,7 +68,7 @@ A flower loading screen (from the logo) shows once per session, never with reduc
 - "Call within one working day" promise; WhatsApp number (currently 91 85200 71222).
 - CBSE affiliation number; Mandatory Disclosure URL; privacy policy URL; landing page URL (canonical, OG, schema).
 - Real GTM ID; OG image (`images/og-image.jpg`, 1200x630).
-- Photos still missing: Aero Bay Lab, ICT lab, skating rink. Exact map pin (coordinates are derived from the plus code).
+- Exact map pin (coordinates are derived from the plus code).
 
 ## Rules the client and brief set
 

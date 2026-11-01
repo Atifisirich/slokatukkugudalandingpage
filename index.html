@@ -28,9 +28,9 @@
   early-years(.webp / -sm.webp)         supplied   grade finder; facilities (Play Land)
   primary(.webp / -sm.webp)             supplied   grade finder; facilities (smart classrooms)
   science-labs(.webp / -sm.webp)        supplied   grade finder (Middle School); facilities
-  aero-bay-lab-wide.webp  1200 x 900    TO ADD     facilities
-  ict-lab.webp            1200 x 900    TO ADD     facilities
-  skating-rink.webp       1200 x 900    TO ADD     facilities
+  aero-bay-lab-wide(.webp / -sm.webp) supplied   facilities (Aero Bay Innovation Lab)
+  ict-lab(.webp / -sm.webp)           supplied   facilities (ICT lab)
+  skating-rink(.webp / -sm.webp)      supplied   facilities (skating rink)
   og-image.jpg            1200 x 630    TO ADD     WhatsApp / social sharing (JPG)
   ============================================================================
 -->
@@ -90,12 +90,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=26">
+  <link rel="stylesheet" href="css/styles.css?v=27">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=26"></script>
+  <script defer src="js/main.js?v=27"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -476,7 +476,7 @@
 
         <ul class="facs" data-facs>
           <li class="fac fac--aero" data-reveal data-slot="aero-bay-lab-wide" tabindex="0">
-            <img src="images/aero-bay-lab-wide.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The Aero Bay Innovation Lab">
+            <img src="images/aero-bay-lab-wide-sm.webp" srcset="images/aero-bay-lab-wide-sm.webp 800w, images/aero-bay-lab-wide.webp 1672w" sizes="(min-width: 1000px) 600px, 100vw" width="1672" height="941" loading="lazy" decoding="async" alt="Students building and flying a drone in the Aero Bay Innovation Lab" style="--focus:30% 50%">
             <span class="fac__num" aria-hidden="true">01</span>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
@@ -494,7 +494,7 @@
             </div>
           </li>
           <li class="fac fac--ict" data-reveal data-slot="ict-lab" tabindex="0">
-            <img src="images/ict-lab.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The ICT lab at Sloka Tukkuguda">
+            <img src="images/ict-lab-sm.webp" srcset="images/ict-lab-sm.webp 800w, images/ict-lab.webp 1672w" sizes="(min-width: 1000px) 300px, 50vw" width="1672" height="941" loading="lazy" decoding="async" alt="Students at computers in the ICT lab" style="--focus:58% 50%">
             <span class="fac__num" aria-hidden="true">03</span>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
@@ -539,7 +539,7 @@
             </div>
           </li>
           <li class="fac fac--skating" data-reveal data-slot="skating-rink" tabindex="0">
-            <img src="images/skating-rink.webp" width="1200" height="900" loading="lazy" decoding="async" alt="The skating rink">
+            <img src="images/skating-rink-sm.webp" srcset="images/skating-rink-sm.webp 800w, images/skating-rink.webp 1671w" sizes="(min-width: 1000px) 400px, 50vw" width="1671" height="941" loading="lazy" decoding="async" alt="Students in helmets and pads skating on the school rink" style="--focus:70% 50%">
             <span class="fac__num" aria-hidden="true">08</span>
             <div class="fac__cap">
               <p class="fac__group">Play</p>
