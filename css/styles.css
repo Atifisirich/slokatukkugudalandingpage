@@ -2450,3 +2450,51 @@ strong { font-weight: 700; }
   .facbar__chip { min-height: 52px; }
   .chip span { min-height: 44px; }
 }
+
+
+/* 21. Privacy policy page (privacy-policy.html)
+   Long-form text: a narrow readable column on the same header, footer and type as the landing page.
+   ========================================================================== */
+.page-legal .site-header { margin-bottom: 0; }
+.legal { padding: 40px 0 88px; }
+.legal__wrap { max-width: 800px; }
+.legal__back {
+  display: inline-block;
+  margin-bottom: 22px;
+  padding: 8px 0;
+  font-weight: 700;
+  color: var(--maroon);
+  text-decoration: none;
+}
+.legal__back:hover { text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+.legal h1 { margin-bottom: 8px; font-size: clamp(2.2rem, 1.4rem + 3vw, 3.4rem); line-height: 1.08; color: var(--maroon); }
+.legal__meta { margin: 0 0 28px; color: var(--ink-soft); }
+.legal h2 { margin: 44px 0 12px; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.7rem); line-height: 1.2; color: var(--maroon); }
+.legal h3 { margin: 24px 0 8px; font: 700 1.05rem/1.3 var(--sans); color: var(--ink); }
+.legal p, .legal li { font-size: 1.05rem; line-height: 1.7; }
+.legal p { margin: 0 0 14px; }
+.legal ul { margin: 0 0 16px; padding-left: 1.25em; }
+.legal li { margin: 0 0 8px; padding-left: 0.2em; }
+.legal li::marker { color: var(--orange); }
+.legal a { color: var(--maroon); text-underline-offset: 3px; }
+.legal__summary {
+  margin: 0 0 8px;
+  padding: 22px 24px 12px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--sand);
+  box-shadow: var(--shadow);
+}
+.legal .legal__summary h2 { margin: 0 0 10px; font-size: 1.3rem; }
+.legal__contact {
+  margin: 0 0 16px;
+  padding: 18px 20px;
+  border-left: 5px solid var(--yellow);
+  background: var(--white);
+  font-style: normal;
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+@media (min-width: 760px) {
+  .legal { padding-top: 56px; }
+}

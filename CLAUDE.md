@@ -5,6 +5,7 @@ Plain HTML, CSS and vanilla JS, no build step, hosted on the school's cPanel sub
 
 ```
 index.html       all markup, image list in the top comment, School + FAQPage schema in <head>
+privacy-policy.html  the privacy policy (plain HTML, same styles; linked from the footer and the enquiry note)
 css/styles.css   all styles, numbered sections (see the contents list at the top)
 js/main.js       config objects at the top, then all behaviour
 images/          WebP photos, logo, flower, favicons
@@ -19,7 +20,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=31`) so returning visitors don't get a cached copy.
+(currently `?v=34`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -75,7 +76,9 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 - Testimonials for Grades 9 and 10 (other grades show testimonials from their own stage); one about safety and transport.
 - What Grades 9–10 offer (the Secondary card is a draft and is flagged on the page), and add both grades to the
   CRM widget's grade list; which grades use the ICT lab and smart classrooms.
-- Privacy policy URL; landing page URL (canonical, OG, schema).
+- Privacy policy: written (`privacy-policy.html`) but the school must confirm the yellow chips (legal name, retention
+  period, grievance officer, which Tag Manager tools run) and have its legal adviser read it before ads go live.
+- Landing page URL (canonical, OG, schema).
 - Real GTM ID; OG image (`images/og-image.jpg`, 1200x630).
 - Exact map pin (coordinates are derived from the plus code).
 - Which of the two enquiry e-mail addresses to show, if any (they are for receiving enquiries in the CRM).
