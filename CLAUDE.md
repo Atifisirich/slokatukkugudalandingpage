@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=27`) so returning visitors don't get a cached copy.
+(currently `?v=31`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -33,8 +33,10 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
 4. **"Step inside" + campus story** (`#campus-story`): an arch doorway opens on the entrance, then each scroll
    brings in the next campus photo (6 slides, arched rising edge, captions, progress dots).
    `--n` on the section must equal the number of slides.
-5. **Facilities** (`#facilities`): photo mosaic of nine spaces with a sideways-scrolling picker (All or one space).
-   A missing photo shows a maroon tile with its file name.
+5. **Facilities** (`#facilities`): photo mosaic of 13 spaces (Aero Bay, Science Labs, ICT, Library, Smart Classrooms,
+   Play Land and Activity Hall, football and cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
+   with a sideways-scrolling picker (All or one space). Real school photos, except Aero Bay (AI image supplied by the
+   school) and the CCTV walkway. A missing photo shows a maroon tile with its file name.
 6. **Grades** (`#pathway`): grade chips (Nursery to Grade 10) + date-of-birth check, then ONE grade sheet: grade
    header band, stage details (Early Years, Primary, Middle School, Secondary), spaces, the grade's own fee range
    and its own parent testimonial.
@@ -59,16 +61,24 @@ A flower loading screen (from the logo) shows once per session, never with reduc
 - `trackInteractions`: extra dataLayer events (grade picked, area checked, FAQ opened/searched, call/WhatsApp taps).
 - GTM container ID is `GTM-XXXXXXX` in two places in `index.html` (head and noscript).
 
+## Information from the school (website details form, 2 Nov 2026)
+
+Already on the page: admissions phones (+91 85200 71222, +91 85200 87222), transport desk +91 80196 46415, office
+timings, same-day call-back, age counted on 31 March 2027 (Nursery 3, LKG 4, UKG 5, Grade 1 6 years), documents list,
+approximate yearly tuition by stage (`FEES`), what is charged separately, three parent testimonials
+(`PARENT_VOICES`, consent given, full names shown), CBSE affiliation no. 3630582, Mandatory Disclosure link.
+Not shown on purpose: the counsellor's name and the website managers' contacts.
+
 ## Still waiting on the school (placeholders are visible on the page as yellow chips)
 
-- Approximate fee ranges per grade; age criteria; confirmed bus routes; document list for admission.
-- Verified parent testimonials (1–2 per grade, with grade and area) and one about safety and transport.
+- Minimum ages for Grades 2 to 10 (the form only gave Nursery to Grade 1; the rest are one year apart).
+- Testimonials for Grades 9 and 10 (other grades show testimonials from their own stage); one about safety and transport.
 - What Grades 9–10 offer (the Secondary card is a draft and is flagged on the page), and add both grades to the
   CRM widget's grade list; which grades use the ICT lab and smart classrooms.
-- "Call within one working day" promise; WhatsApp number (currently 91 85200 71222).
-- CBSE affiliation number; Mandatory Disclosure URL; privacy policy URL; landing page URL (canonical, OG, schema).
+- Privacy policy URL; landing page URL (canonical, OG, schema).
 - Real GTM ID; OG image (`images/og-image.jpg`, 1200x630).
 - Exact map pin (coordinates are derived from the plus code).
+- Which of the two enquiry e-mail addresses to show, if any (they are for receiving enquiries in the CRM).
 
 ## Rules the client and brief set
 
@@ -76,8 +86,9 @@ A flower loading screen (from the logo) shows once per session, never with reduc
   Never body text in yellow on light backgrounds. Fonts: Young Serif (headings), Mukta (body).
 - One H1. No emojis. No purple/blue gradients, glassmorphism, neon or blobs.
 - No unverifiable claims ("best school", "#1", etc.); keep wording factual for Google Ads and ASCI.
-- Real Sloka photos only. The current activity photos look AI-generated and must be replaced with real
-  student photos before ads go live (same file names in `images/` work as drop-in replacements).
+- Real Sloka photos only. The facilities photos are now real (from the school's `infra` folder); the Aero Bay photo, the
+  campus story slides, the grade-sheet stage photos and `athletics.webp` still look AI-generated and should be replaced
+  with real photos before ads go live (same file names in `images/` work as drop-in replacements).
 - Must stay fast on budget Android phones on 4G (Lighthouse 90+ target), keyboard accessible, respect reduced motion.
 - The client rejected: the earlier "school notebook" theme and an aerial-film hero intro. Don't bring them back.
 

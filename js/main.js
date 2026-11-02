@@ -125,7 +125,7 @@ var ENQUIRY_CONFIG = {
    and the admissions team confirms the final placement.
    -------------------------------------------------------------------------- */
 var AGE_RULES = {
-  cutoff: { year: 2027, month: 6, day: 1 },
+  cutoff: { year: 2027, month: 3, day: 31 },
   grades: [
     { grade: 'Nursery',   minAge: 3 },
     { grade: 'PP1 / LKG', minAge: 4 },
@@ -144,47 +144,52 @@ var AGE_RULES = {
 };
 
 
-/* 2b. FEES and PARENT_VOICES  [CONFIRM WITH SCHOOL]
+/* 2b. FEES and PARENT_VOICES
    --------------------------------------------------------------------------
    Both are keyed by the grade names used on the grade chips, so each grade
-   shows its own fee range and its own parent testimonial.
+   shows its own fee range and its own parent testimonials.
 
-   FEES: approximate annual fee for 2027-28 in rupees, as [lowest, highest].
+   FEES: approximate yearly tuition for 2027-28 in rupees, as [lowest, highest],
+   or a single amount as [amount]. The school gave one range per stage, so every
+   grade carries its stage's range; change a single grade here if its fee differs.
    Leave a grade as null and the page shows a "to be confirmed" note.
-   Example: 'Grade 2': [65000, 80000]  ->  "Rs 65,000 - Rs 80,000 per year"
+   Source: school's website details form (Pre-Primary 93,000-1,15,000; Primary
+   1,15,000-1,30,000; Middle School 1,40,000; Secondary 1,50,000).
 
-   PARENT_VOICES: one testimonial per grade. Use only reviews supplied and
-   approved by the school.
+   PARENT_VOICES: testimonials per grade, each one an object (or a list of up to
+   two). Use only reviews supplied and approved by the school.
      topic   short label on the card, e.g. 'Confidence'
      quote   the parent's words
-     parent  how to name them, e.g. 'Parent of a Grade 5 student'
-     area    where they live, e.g. 'Maheshwaram'
+     name    the parent's full name, as they agreed it may appear
+     parent  who they are, e.g. 'Parent of a Grade 5 student'
+     area    where they live (optional)
      photo   optional picture of the parent, e.g. 'images/parents/grade-5.webp'
      draft   true while the wording still needs the school's approval
-   Leave a grade as null until its testimonial arrives.
+   A grade with none of its own shows testimonials from the same stage, each
+   named with its own grade. Leave a grade as null until one arrives.
    -------------------------------------------------------------------------- */
 var FEES = {
-  'Nursery':   null,
-  'PP1 / LKG': null,
-  'PP2 / UKG': null,
-  'Grade 1':   null,
-  'Grade 2':   null,
-  'Grade 3':   null,
-  'Grade 4':   null,
-  'Grade 5':   null,
-  'Grade 6':   null,
-  'Grade 7':   null,
-  'Grade 8':   null,
-  'Grade 9':   null,
-  'Grade 10':  null
+  'Nursery':   [93000, 115000],
+  'PP1 / LKG': [93000, 115000],
+  'PP2 / UKG': [93000, 115000],
+  'Grade 1':   [115000, 130000],
+  'Grade 2':   [115000, 130000],
+  'Grade 3':   [115000, 130000],
+  'Grade 4':   [115000, 130000],
+  'Grade 5':   [115000, 130000],
+  'Grade 6':   [140000],
+  'Grade 7':   [140000],
+  'Grade 8':   [140000],
+  'Grade 9':   [150000],
+  'Grade 10':  [150000]
 };
 
 var PARENT_VOICES = {
   'Nursery':   null,
   'PP1 / LKG': {
-    topic: 'Early Years',
-    quote: 'My son wakes up every morning asking if it is a school day. The play-based learning, the activity hall and the play land make him happy and curious.',
-    parent: 'Parent of a Pre-Primary student', area: '', photo: '', draft: true
+    topic: 'Settling in',
+    quote: 'My child studies in PP1 at Sloka International School. Initially, we were worried as it was her first time away from home, but she adjusted quickly thanks to the creative classrooms and supportive teachers. She now enjoys school and looks forward to it daily. I highly recommend this school for a child’s overall growth.',
+    name: 'Dr. T. Divya', parent: 'Parent of a PP1 student', area: '', photo: '', draft: false
   },
   'PP2 / UKG': null,
   'Grade 1':   null,
@@ -192,16 +197,23 @@ var PARENT_VOICES = {
   'Grade 3':   null,
   'Grade 4':   null,
   'Grade 5': {
-    topic: 'Confidence',
-    quote: 'My daughter was very shy before joining Sloka. Today she leads the morning assembly, competes in Words Warrior and even hosts the school podcast.',
-    parent: 'Parent of a Grade 5 student', area: '', photo: '', draft: true
+    topic: 'Academics and sports',
+    quote: 'Here my children get opportunities in both academics and sports. The school maintains quality education and focuses on activity-based learning rather than rote memorization. My kids are always excited to come to school, and it feels like a second home for them. The staff are humble, caring and very supportive.',
+    name: 'Ms. Anuradha Uttamrao Patil', parent: 'Parent of Grade 7 and Grade 5 students', area: '', photo: '', draft: false
   },
-  'Grade 6': {
-    topic: 'Labs and academics',
-    quote: 'The Aero Bay Lab and the science labs are excellent. My son comes home every day excited to build, experiment and code.',
-    parent: 'Parent of a Grade 6 student', area: '', photo: '', draft: true
-  },
-  'Grade 7':   null,
+  'Grade 6':   null,
+  'Grade 7': [
+    {
+      topic: 'Teachers',
+      quote: 'I am happy with the level of engagement my daughter has experienced throughout the year and I am hopeful for the best outcomes in this academic year. We strongly feel that choosing Sloka International School was the right decision. The teachers are energetic, supportive and dedicated, which gives us great confidence as parents. Thank you for the continuous efforts and support.',
+      name: 'Mr. Hari Krishna Yellina', parent: 'Parent of a Grade 7 student', area: '', photo: '', draft: false
+    },
+    {
+      topic: 'Academics and sports',
+      quote: 'Here my children get opportunities in both academics and sports. The school maintains quality education and focuses on activity-based learning rather than rote memorization. My kids are always excited to come to school, and it feels like a second home for them. The staff are humble, caring and very supportive.',
+      name: 'Ms. Anuradha Uttamrao Patil', parent: 'Parent of Grade 7 and Grade 5 students', area: '', photo: '', draft: false
+    }
+  ],
   'Grade 8':   null,
   'Grade 9':   null,
   'Grade 10':  null
@@ -595,7 +607,7 @@ var PARENT_VOICES = {
 
     var promise = document.createElement('p');
     promise.className = 'enquiry__promise';
-    promise.innerHTML = 'Our admissions team will call you within one working day. <span class="tbc">[CONFIRM WITH SCHOOL]</span>';
+    promise.textContent = 'Our admissions team will call you the same day.';
 
     bodyEl.innerHTML = '';
     bodyEl.appendChild(skeleton);
@@ -689,7 +701,7 @@ var PARENT_VOICES = {
     var gsAge = sheet.querySelector('[data-gs-age]');
     var feeFor = sheet.querySelector('[data-fee-for]');
     var feeAmount = sheet.querySelector('[data-fee-amount]');
-    var voiceCard = sheet.querySelector('[data-voice]');
+    var voiceList = sheet.querySelector('[data-voice]');
     var STAGE_NAMES = {
       early: 'Early Years · Nursery to UKG',
       primary: 'Primary · Grades 1–5',
@@ -697,6 +709,9 @@ var PARENT_VOICES = {
       secondary: 'Secondary · Grades 9–10'
     };
     var rupees = function (n) { return '₹' + Number(n).toLocaleString('en-IN'); };
+    var cutoffText = AGE_RULES.cutoff.day + ' ' + ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][AGE_RULES.cutoff.month - 1] + ' ' + AGE_RULES.cutoff.year;
+    var STAGE_SHORT = { early: 'Early Years', primary: 'Primary', middle: 'Middle School', secondary: 'Secondary' };
+    var voiceFor = sheet.querySelector('[data-voice-for]');
     var personIcon = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="18" r="8"/><path d="M8 42c1.5-9 8-14 16-14s14.5 5 16 14z"/></svg>';
 
     var showDetails = function (grade, stage) {
@@ -708,42 +723,81 @@ var PARENT_VOICES = {
         gsAge.textContent = '';
         feeFor.textContent = '2027–28';
         feeAmount.innerHTML = '<span class="fee__prompt">Choose a grade above to see its approximate fee.</span>';
-        voiceCard.className = 'voice__card voice__card--prompt';
-        voiceCard.innerHTML = '<p class="voice__prompt">Choose a grade above to hear from parents of that grade.</p>';
+        voiceFor.textContent = '';
+        voiceList.innerHTML = '<figure class="voice__card voice__card--prompt"><p class="voice__prompt">Choose a grade above to hear from parents of that grade.</p></figure>';
         return;
       }
 
       gsGrade.textContent = grade;
       var rule = AGE_RULES.grades.filter(function (r) { return r.grade === grade; })[0];
-      gsAge.textContent = rule ? 'Usually age ' + rule.minAge + '+ on 1 June 2027' : '';
+      gsAge.textContent = rule ? 'Usually age ' + rule.minAge + '+ on ' + cutoffText : '';
 
-      // Fee for this grade
+      // Fee for this grade: a range, or a single amount
       var range = FEES[grade];
       feeFor.textContent = grade + ' · 2027–28';
       feeAmount.innerHTML = range
-        ? rupees(range[0]) + ' – ' + rupees(range[1]) + '<small>per year (approximate)</small>'
+        ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<small>per year (approximate tuition)</small>'
         : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
 
-      // Parent voice for this grade
-      var v = PARENT_VOICES[grade];
-      var avatar = v && v.photo
-        ? '<img class="voice__photo" src="' + escapeHtml(v.photo) + '" alt="" width="52" height="52" loading="lazy" decoding="async">'
-        : '<span class="voice__photo voice__photo--blank">' + personIcon + '</span>';
-      if (v && v.quote) {
-        voiceCard.className = 'voice__card';
-        voiceCard.innerHTML =
-          '<span class="voice__topic">' + escapeHtml(v.topic || grade) + '</span>' +
-          '<blockquote><p>' + escapeHtml(v.quote) + '</p></blockquote>' +
-          '<figcaption>' + avatar + '<span class="voice__who"><strong>' + escapeHtml(v.parent || 'Parent of a ' + grade + ' student') + '</strong>' +
-          (v.area ? escapeHtml(v.area) : '<span class="tbc">[AREA]</span>') +
-          (v.draft ? '<br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span>' : '') +
-          '</span></figcaption>';
+      // Parent voices: this grade's own, else those from the same stage
+      var asList = function (v) { return !v ? [] : (Array.isArray(v) ? v : [v]); };
+      var voices = asList(PARENT_VOICES[grade]);
+      var own = voices.length > 0;
+      if (!own) {
+        var seen = {};
+        each(finder.querySelectorAll('input[name="finder-grade"]'), function (r) {
+          if (r.getAttribute('data-stage') !== stage) return;
+          asList(PARENT_VOICES[r.value]).forEach(function (v) {
+            if (!seen[v.name]) { seen[v.name] = true; voices.push(v); }
+          });
+        });
+      }
+      voices = voices.slice(0, 2);
+
+      var avatarFor = function (v) {
+        return v && v.photo
+          ? '<img class="voice__photo" src="' + escapeHtml(v.photo) + '" alt="" width="52" height="52" loading="lazy" decoding="async">'
+          : '<span class="voice__photo voice__photo--blank">' + personIcon + '</span>';
+      };
+      if (voices.length) {
+        voiceFor.textContent = own ? 'Parents of ' + grade + ' students' : 'From parents of ' + STAGE_SHORT[stage] + ' students';
+        // One testimonial at a time; a small pager appears when a grade has more than one
+        var showVoice = function (i) {
+          var v = voices[i];
+          var long = (v.quote || '').length > 230;
+          var pager = voices.length > 1
+            ? '<span class="voice__pager"><button type="button" class="voice__step" data-dir="-1" aria-label="Previous testimonial">&#8249;</button>' +
+              '<span>' + (i + 1) + ' of ' + voices.length + '</span>' +
+              '<button type="button" class="voice__step" data-dir="1" aria-label="Next testimonial">&#8250;</button></span>'
+            : '';
+          voiceList.innerHTML = '<figure class="voice__card' + (pager ? ' voice__card--paged' : '') + '">' +
+            '<div class="voice__top"><span class="voice__topic">' + escapeHtml(v.topic || grade) + '</span>' + pager + '</div>' +
+            '<blockquote><p>' + escapeHtml(v.quote) + '</p></blockquote>' +
+            (long ? '<button class="voice__more" type="button" aria-expanded="false">Read more</button>' : '') +
+            '<figcaption>' + avatarFor(v) + '<span class="voice__who"><strong>' + escapeHtml(v.name || 'Parent') + '</strong>' +
+            escapeHtml(v.parent || '') + (v.area ? '<br>' + escapeHtml(v.area) : '') +
+            (v.draft ? '<br><span class="tbc">[REPLACE WITH VERIFIED TESTIMONIAL]</span>' : '') +
+            '</span></figcaption></figure>';
+          var card = voiceList.querySelector('.voice__card');
+          var more = voiceList.querySelector('.voice__more');
+          if (more) more.addEventListener('click', function () {
+            var open = card.classList.toggle('is-open');
+            more.textContent = open ? 'Show less' : 'Read more';
+            more.setAttribute('aria-expanded', String(open));
+          });
+          each(voiceList.querySelectorAll('.voice__step'), function (btn) {
+            btn.addEventListener('click', function () {
+              showVoice((i + parseInt(btn.getAttribute('data-dir'), 10) + voices.length) % voices.length);
+            });
+          });
+        };
+        showVoice(0);
       } else {
-        voiceCard.className = 'voice__card voice__card--pending';
-        voiceCard.innerHTML =
+        voiceFor.textContent = 'Parents of ' + grade + ' students';
+        voiceList.innerHTML = '<figure class="voice__card voice__card--pending">' +
           '<span class="voice__topic">' + escapeHtml(grade) + '</span>' +
-          '<figcaption>' + avatar + '<span class="voice__who"><strong>Parent of a ' + escapeHtml(grade) + ' student</strong>' +
-          '<span class="tbc">[PARENT TESTIMONIAL TO BE SUPPLIED BY SCHOOL]</span></span></figcaption>';
+          '<figcaption>' + avatarFor(null) + '<span class="voice__who"><strong>Parent of a ' + escapeHtml(grade) + ' student</strong>' +
+          '<span class="tbc">[PARENT TESTIMONIAL TO BE SUPPLIED BY SCHOOL]</span></span></figcaption></figure>';
       }
     };
 
@@ -813,15 +867,15 @@ var PARENT_VOICES = {
       }
 
       if (!match) {
-        resultEl.innerHTML = 'Your child will be about ' + ageText + ' on 1 June 2027, a little young for Nursery that year. Our admissions team can advise on the right time to join.';
+        resultEl.innerHTML = 'Your child will be about ' + ageText + ' on ' + cutoffText + ', a little young for Nursery that year. Our admissions team can advise on the right time to join.';
         return;
       }
       if (match.index === rules.length - 1 && years > rules[match.index].minAge) {
-        resultEl.innerHTML = 'Your child will be about ' + ageText + ' on 1 June 2027. Sloka Tukkuguda currently runs up to Grade 10, so please talk to our admissions team.';
+        resultEl.innerHTML = 'Your child will be about ' + ageText + ' on ' + cutoffText + '. Sloka Tukkuguda currently runs up to Grade 10, so please talk to our admissions team.';
         return;
       }
 
-      resultEl.innerHTML = 'Your child will be about ' + ageText + ' on 1 June 2027, which usually fits <strong>' + escapeHtml(match.rule.grade) + '</strong>.';
+      resultEl.innerHTML = 'Your child will be about ' + ageText + ' on ' + cutoffText + ', which usually fits <strong>' + escapeHtml(match.rule.grade) + '</strong>.';
       var radio = finder.querySelector('input[name="finder-grade"][value="' + match.rule.grade + '"]');
       if (radio) setGrade(radio, 'date_of_birth');
     });
