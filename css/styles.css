@@ -917,17 +917,27 @@ strong { font-weight: 700; }
 /* Fly-in: from 960px the photo stays pinned while the copy and form scroll away, then
    zooms on toward the entrance for a short stretch before the page moves on. */
 @media (min-width: 960px) {
+  /* The photo and the copy share one grid cell. The photo is pinned inside a cell that spans the copy
+     and a spacer, so it is released exactly where the hero ends and never covers the strip below. */
   .hero--zoom {
-    padding: 0 0 75vh;          /* the extra scroll where only the building is on screen */
+    display: grid;
+    padding: 0;
+  }
+  .hero--zoom::after {
+    content: "";
+    grid-area: 2 / 1;
+    height: 75vh;               /* the extra scroll where only the building is on screen */
   }
   .hero--zoom .hero__bg {
+    grid-area: 1 / 1 / 3 / 2;
     inset: auto;
     position: sticky;
     top: 0;
+    align-self: start;
     height: 100vh;
-    margin-bottom: -100vh;
   }
   .hero--zoom .hero__grid {
+    grid-area: 1 / 1;
     min-height: max(620px, 100vh);
     padding-top: calc(var(--header-h) + 56px);
     padding-bottom: 56px;
@@ -1365,6 +1375,64 @@ strong { font-weight: 700; }
 .fac--wide .fac__title { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem); }
 .fac--wide .fac__text { max-height: none; margin-top: 8px; opacity: 1; }
 .fac--wide .fac__cap { padding: 26px 26px 24px; }
+
+/* Sideways bar: pick one space, or "All" for the mosaic */
+.facbar {
+  display: flex;
+  gap: 10px;
+  margin: 0 calc(-1 * var(--pad)) 22px;
+  padding: 4px var(--pad) 14px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--maroon) var(--rule);
+}
+.facbar::-webkit-scrollbar { height: 8px; }
+.facbar::-webkit-scrollbar-track { background: var(--rule); border-radius: 999px; }
+.facbar::-webkit-scrollbar-thumb { background: var(--maroon); border-radius: 999px; }
+@media (min-width: 1240px) {
+  .facbar { margin-inline: 0; padding-inline: 2px; }
+}
+.facbar__chip {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 9px 18px 8px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--white);
+  color: var(--ink);
+  font: 700 1rem/1.2 var(--sans);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: background-color 0.2s ease, color 0.2s ease, translate 0.2s ease, box-shadow 0.2s ease;
+}
+.facbar__group {
+  font: 700 0.68rem/1.3 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--maroon);
+}
+.facbar__chip:hover { background: var(--yellow); translate: -1px -1px; box-shadow: 3px 3px 0 var(--ink); }
+.facbar__chip[aria-pressed="true"] { background: var(--maroon); color: var(--paper); box-shadow: 3px 3px 0 var(--ink); }
+.facbar__chip[aria-pressed="true"] .facbar__group { color: var(--yellow); }
+
+/* One space picked: it fills the row, with its description showing */
+.facs--single { grid-template-columns: minmax(0, 1fr); grid-auto-rows: clamp(320px, 48vw, 520px); }
+.facs--single .fac { grid-column: 1 / -1; grid-row: auto; }
+.facs--single .fac__text { max-height: none; margin-top: 10px; opacity: 1; }
+.facs--single .fac__title { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); }
+.facs--single .fac__cap { padding: 28px 30px 26px; }
+.fac[hidden] { display: none; }
+.fac--enter { animation: fac-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes fac-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
 
 .facs__cta { margin: 36px 0 0; text-align: center; }
 
