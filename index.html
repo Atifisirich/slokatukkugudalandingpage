@@ -22,7 +22,7 @@
   favicon-64.png, apple-touch-icon.png  supplied   browser tab and home-screen icons (the flower)
   tukkuguda-hero(.webp / -sm.webp)      supplied   facilities (basketball court); hero section background
   campus-entrance(.webp / -sm.webp)     supplied   "Step inside" doorway scene
-  campus-walkway.webp                   supplied   facilities (CCTV-secured campus)
+  campus-walkway.webp                   supplied   campus story (walkways), facilities (CCTV-secured campus)
   assembly(.webp / -sm.webp)            supplied   not used at the moment
   football(.webp / -sm.webp), cricket(.webp / -sm.webp)  supplied  campus story; facilities (football and cricket)
   early-years(.webp / -sm.webp)         supplied   grade finder; facilities (Play Land)
@@ -31,6 +31,8 @@
   aero-bay-lab-wide(.webp / -sm.webp) supplied   facilities (Aero Bay Innovation Lab)
   ict-lab(.webp / -sm.webp)           supplied   facilities (ICT lab, real photo)
   skating-rink(.webp / -sm.webp)      supplied   facilities (skating rink, real photo)
+  story-courts, story-science-lab, story-football, story-cricket, story-activity-hall (.webp / -sm.webp): real photos for
+  the campus story slides 2 to 6
   more real photos from the school (library, labs, classroom, activity hall, play park, football, cricket,
   basketball, pickleball, taekwondo, athletics): facilities section; names match the tile keys
   og-image.jpg            1200 x 630    TO ADD     WhatsApp / social sharing (JPG)
@@ -92,12 +94,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=35">
+  <link rel="stylesheet" href="css/styles.css?v=36">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=35"></script>
+  <script defer src="js/main.js?v=36"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -406,9 +408,9 @@
             <p>Green, landscaped paths connect the classroom blocks and the grounds.</p>
           </div>
         </div>
-        <div class="doorway__slide" style="--focus:12% 70%">
-          <img src="images/tukkuguda-hero-sm.webp" srcset="images/tukkuguda-hero-sm.webp 800w, images/tukkuguda-hero.webp 1600w" sizes="100vw"
-               width="1600" height="900" loading="lazy" decoding="async" alt="The main school block with the basketball court in front">
+        <div class="doorway__slide">
+          <img src="images/story-courts-sm.webp" srcset="images/story-courts-sm.webp 800w, images/story-courts.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="Students playing basketball on the court beside the main school block">
           <div class="doorway__cap">
             <p class="doorway__count">02 / 06</p>
             <h3 class="doorway__cap-title">Main block and courts</h3>
@@ -416,8 +418,8 @@
           </div>
         </div>
         <div class="doorway__slide">
-          <img src="images/science-labs-sm.webp" srcset="images/science-labs-sm.webp 700w, images/science-labs.webp 1200w" sizes="100vw"
-               width="1200" height="676" loading="lazy" decoding="async" alt="Students running an experiment in the science lab">
+          <img src="images/story-science-lab-sm.webp" srcset="images/story-science-lab-sm.webp 800w, images/story-science-lab.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="The Chemistry lab with benches, glassware and shelves of chemicals">
           <div class="doorway__cap">
             <p class="doorway__count">03 / 06</p>
             <h3 class="doorway__cap-title">Science labs</h3>
@@ -425,8 +427,8 @@
           </div>
         </div>
         <div class="doorway__slide">
-          <img src="images/football-sm.webp" srcset="images/football-sm.webp 700w, images/football.webp 1200w" sizes="100vw"
-               width="1200" height="676" loading="lazy" decoding="async" alt="Students in house colours playing football on the school ground">
+          <img src="images/story-football-sm.webp" srcset="images/story-football-sm.webp 800w, images/story-football.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="The football pitch with the school building behind it">
           <div class="doorway__cap">
             <p class="doorway__count">04 / 06</p>
             <h3 class="doorway__cap-title">Football ground</h3>
@@ -434,8 +436,8 @@
           </div>
         </div>
         <div class="doorway__slide">
-          <img src="images/cricket-sm.webp" srcset="images/cricket-sm.webp 700w, images/cricket.webp 1200w" sizes="100vw"
-               width="1200" height="675" loading="lazy" decoding="async" alt="Students playing cricket on the school ground">
+          <img src="images/story-cricket-sm.webp" srcset="images/story-cricket-sm.webp 640w, images/story-cricket.webp 960w" sizes="100vw"
+               width="960" height="540" loading="lazy" decoding="async" alt="The cricket practice nets on the school ground">
           <div class="doorway__cap">
             <p class="doorway__count">05 / 06</p>
             <h3 class="doorway__cap-title">Cricket ground</h3>
@@ -443,8 +445,8 @@
           </div>
         </div>
         <div class="doorway__slide">
-          <img src="images/early-years-sm.webp" srcset="images/early-years-sm.webp 700w, images/early-years.webp 1200w" sizes="100vw"
-               width="1200" height="676" loading="lazy" decoding="async" alt="An Early Years activity room with counting toys and an abacus">
+          <img src="images/story-activity-hall-sm.webp" srcset="images/story-activity-hall-sm.webp 800w, images/story-activity-hall.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="The Activity Hall with slides, a ball pit and soft play equipment">
           <div class="doorway__cap">
             <p class="doorway__count">06 / 06</p>
             <h3 class="doorway__cap-title">Early Years spaces</h3>

@@ -20,7 +20,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=35`) so returning visitors don't get a cached copy.
+(currently `?v=36`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -32,7 +32,8 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    and a Book button, then the form, then the two shortcuts.
 3. **Trust strip**: CBSE Affiliated, NEP 2020 Aligned and three smaller facts.
 4. **"Step inside" + campus story** (`#campus-story`): an arch doorway opens on the entrance, then each scroll
-   brings in the next campus photo (6 slides, arched rising edge, captions, progress dots).
+   brings in the next campus photo (6 slides, arched rising edge, captions, progress dots). Slides 2 to 6 use real
+   school photos that match their captions (courts, science lab, football, cricket, activity hall).
    `--n` on the section must equal the number of slides.
 5. **Facilities** (`#facilities`): photo mosaic of 13 spaces (Aero Bay, Science Labs, ICT, Library, Smart Classrooms,
    Play Land and Activity Hall, football and cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
@@ -91,7 +92,7 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 - One H1. No emojis. No purple/blue gradients, glassmorphism, neon or blobs.
 - No unverifiable claims ("best school", "#1", etc.); keep wording factual for Google Ads and ASCI.
 - Real Sloka photos only. The facilities photos are now real (from the school's `infra` folder); the Aero Bay photo, the
-  campus story slides, the grade-sheet stage photos and `athletics.webp` still look AI-generated and should be replaced
+  campus story's walkway slide, the "Step inside" entrance photo, the grade-sheet stage photos and `athletics.webp` still look AI-generated and should be replaced
   with real photos before ads go live (same file names in `images/` work as drop-in replacements).
 - Must stay fast on budget Android phones on 4G (Lighthouse 90+ target), keyboard accessible, respect reduced motion.
 - The client rejected: the earlier "school notebook" theme and an aerial-film hero intro. Don't bring them back.
