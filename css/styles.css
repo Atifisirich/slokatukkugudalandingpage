@@ -1866,6 +1866,16 @@ strong { font-weight: 700; }
 .commute__line { margin: 0 0 6px; font-size: 1rem; line-height: 1.4; }
 .commute__bus { margin: 0; font-size: 0.9rem; line-height: 1.45; color: var(--ink-soft); }
 .commute__bus strong { color: var(--ink); }
+/* The transport number sits on its own line; the number itself never breaks across two */
+.commute__call {
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(26, 17, 16, 0.18);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+.commute__call a { font-weight: 700; color: var(--maroon); text-underline-offset: 3px; white-space: nowrap; }
 .commute__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* Address strip */
