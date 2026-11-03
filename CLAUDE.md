@@ -20,7 +20,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=39`) so returning visitors don't get a cached copy.
+(currently `?v=40`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -35,7 +35,7 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    brings in the next campus photo (6 slides, arched rising edge, captions, progress dots). Slides 2 to 6 use real
    school photos that match their captions (courts, science lab, football, cricket, activity hall).
    `--n` on the section must equal the number of slides.
-5. **Facilities** (`#facilities`): grid of 13 photo cards (photo on top, name and description below) (Aero Bay, Science Labs, ICT, Library, Smart Classrooms,
+5. **Facilities** (`#facilities`): grid of 13 photo cards (photo on top, name and description below) (Aero Bay, Science Labs, ICT, Library, Classrooms,
    Play Land and Activity Hall, football and cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
    with a sideways-scrolling picker (All or one space). Real school photos, except Aero Bay (AI image supplied by the
    school) and the CCTV walkway. A missing photo shows a maroon tile with its file name.
@@ -77,7 +77,7 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 - Testimonials for each grade. Until they arrive a grade shows the three we have: its own, else its stage's, else all of
   them (each named with the parent's real grade). Also one about safety and transport.
 - What Grades 9–10 offer (the Secondary card is a draft and is flagged on the page), and add both grades to the
-  CRM widget's grade list; which grades use the ICT lab and smart classrooms.
+  CRM widget's grade list; which grades use the ICT lab.
 - Privacy policy: written (`privacy-policy.html`) but the school must confirm the yellow chips (legal name, retention
   period, grievance officer, which Tag Manager tools run) and have its legal adviser read it before ads go live.
 - Landing page URL (canonical, OG, schema).
@@ -92,8 +92,7 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 - One H1. No emojis. No purple/blue gradients, glassmorphism, neon or blobs.
 - No unverifiable claims ("best school", "#1", etc.); keep wording factual for Google Ads and ASCI.
 - Real Sloka photos only. The facilities photos are now real (from the school's `infra` folder); the Aero Bay photo, the
-  Smart Classrooms card (`classroom-students.webp` is a placeholder classroom image until the school sends a real smart-board
-  photo), the campus story's walkway slide, the "Step inside" entrance photo, the grade-sheet stage photos and `athletics.webp` still look AI-generated and should be replaced
+  campus story's walkway slide, the "Step inside" entrance photo, the grade-sheet stage photos and `athletics.webp` still look AI-generated and should be replaced
   with real photos before ads go live (same file names in `images/` work as drop-in replacements).
 - Must stay fast on budget Android phones on 4G (Lighthouse 90+ target), keyboard accessible, respect reduced motion.
 - The client rejected: the earlier "school notebook" theme and an aerial-film hero intro. Don't bring them back.

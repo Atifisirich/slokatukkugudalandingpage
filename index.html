@@ -26,7 +26,7 @@
   assembly(.webp / -sm.webp)            supplied   not used at the moment
   football(.webp / -sm.webp), cricket(.webp / -sm.webp)  supplied  campus story; facilities (football and cricket)
   early-years(.webp / -sm.webp)         supplied   grade finder; facilities (Play Land)
-  primary(.webp / -sm.webp)             supplied   grade finder; facilities (smart classrooms)
+  primary(.webp / -sm.webp)             supplied   grade finder
   science-labs(.webp / -sm.webp)        supplied   grade finder (Middle School); facilities
   aero-bay-lab-wide(.webp / -sm.webp) supplied   facilities (Aero Bay Innovation Lab)
   ict-lab(.webp / -sm.webp)           supplied   facilities (ICT lab, real photo)
@@ -94,12 +94,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=39">
+  <link rel="stylesheet" href="css/styles.css?v=40">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=39"></script>
+  <script defer src="js/main.js?v=40"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -479,7 +479,7 @@
             <button class="facbar__chip" type="button" data-fac-filter="labs" aria-pressed="false"><span class="facbar__group">Learn</span>Science Labs</button>
             <button class="facbar__chip" type="button" data-fac-filter="ict" aria-pressed="false"><span class="facbar__group">Learn</span>ICT Lab</button>
             <button class="facbar__chip" type="button" data-fac-filter="library" aria-pressed="false"><span class="facbar__group">Learn</span>Library</button>
-            <button class="facbar__chip" type="button" data-fac-filter="classroom" aria-pressed="false"><span class="facbar__group">Learn</span>Smart Classrooms</button>
+            <button class="facbar__chip" type="button" data-fac-filter="classroom" aria-pressed="false"><span class="facbar__group">Learn</span>Classrooms</button>
             <button class="facbar__chip" type="button" data-fac-filter="playland" aria-pressed="false"><span class="facbar__group">Early Years</span>Play Land &amp; Activity Hall</button>
             <button class="facbar__chip" type="button" data-fac-filter="grounds" aria-pressed="false"><span class="facbar__group">Play</span>Football &amp; Cricket Grounds</button>
             <button class="facbar__chip" type="button" data-fac-filter="basketball" aria-pressed="false"><span class="facbar__group">Play</span>Basketball Courts</button>
@@ -503,8 +503,10 @@
             </div>
           </li>
           <li class="fac fac--labs" data-reveal>
-            <div class="fac__media" data-slot="science-labs">
-              <img src="images/chemistry-lab.webp" width="900" height="600" loading="lazy" decoding="async" alt="The Chemistry lab with glassware and shelves of chemicals" style="--focus:50% 50%">
+            <div class="fac__media fac__media--split" data-slot="science-labs" style="--n:3">
+              <img src="images/physics-lab-sm.webp" srcset="images/physics-lab-sm.webp 480w, images/physics-lab.webp 900w" sizes="(min-width: 1000px) 190px, 50vw" width="900" height="600" loading="lazy" decoding="async" alt="The Physics lab with benches and experiment equipment" style="--focus:50% 50%">
+              <img src="images/chemistry-lab-sm.webp" srcset="images/chemistry-lab-sm.webp 480w, images/chemistry-lab.webp 900w" sizes="(min-width: 1000px) 190px, 50vw" width="900" height="600" loading="lazy" decoding="async" alt="The Chemistry lab with glassware and shelves of chemicals" style="--focus:50% 50%">
+              <img src="images/biology-lab-sm.webp" srcset="images/biology-lab-sm.webp 480w, images/biology-lab.webp 900w" sizes="(min-width: 1000px) 190px, 50vw" width="900" height="600" loading="lazy" decoding="async" alt="The Biology lab with microscopes and specimens" style="--focus:50% 50%">
               <span class="fac__num" aria-hidden="true">02</span>
             </div>
             <div class="fac__cap">
@@ -536,19 +538,20 @@
             </div>
           </li>
           <li class="fac fac--classroom" data-reveal>
-            <div class="fac__media" data-slot="classroom-students">
-              <img src="images/classroom-students-sm.webp" srcset="images/classroom-students-sm.webp 800w, images/classroom-students.webp 1200w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1200" height="677" loading="lazy" decoding="async" alt="Students at work in a Sloka classroom" style="--focus:50% 40%">
+            <div class="fac__media" data-slot="classroom">
+              <img src="images/classroom-sm.webp" srcset="images/classroom-sm.webp 800w, images/classroom.webp 1400w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1400" height="934" loading="lazy" decoding="async" alt="A bright classroom with a wall-mounted display and curved student tables" style="--focus:40% 50%">
               <span class="fac__num" aria-hidden="true">05</span>
             </div>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
-              <h3 class="fac__title">Smart Classrooms</h3>
-              <p class="fac__text">Smart classrooms with the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
+              <h3 class="fac__title">Classrooms</h3>
+              <p class="fac__text">Bright classrooms with the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
             </div>
           </li>
           <li class="fac fac--playland" data-reveal>
-            <div class="fac__media" data-slot="play-land">
-              <img src="images/activity-hall.webp" width="900" height="675" loading="lazy" decoding="async" alt="The Activity Hall with slides and soft play equipment" style="--focus:50% 50%">
+            <div class="fac__media fac__media--split" data-slot="play-land" style="--n:2">
+              <img src="images/activity-hall-sm.webp" srcset="images/activity-hall-sm.webp 480w, images/activity-hall.webp 900w" sizes="(min-width: 1000px) 190px, 50vw" width="900" height="675" loading="lazy" decoding="async" alt="The Activity Hall with slides and soft play equipment" style="--focus:50% 50%">
+              <img src="images/play-park-sm.webp" srcset="images/play-park-sm.webp 480w, images/play-park.webp 900w" sizes="(min-width: 1000px) 190px, 50vw" width="900" height="673" loading="lazy" decoding="async" alt="The outdoor play park for the youngest children" style="--focus:50% 50%">
               <span class="fac__num" aria-hidden="true">06</span>
             </div>
             <div class="fac__cap">
@@ -558,8 +561,9 @@
             </div>
           </li>
           <li class="fac fac--grounds" data-reveal>
-            <div class="fac__media" data-slot="football-cricket">
-              <img src="images/football-pitch.webp" width="900" height="600" loading="lazy" decoding="async" alt="The football pitch with the school building behind" style="--focus:50% 50%">
+            <div class="fac__media fac__media--split" data-slot="football-cricket" style="--n:2">
+              <img src="images/football-pitch-sm.webp" srcset="images/football-pitch-sm.webp 480w, images/football-pitch.webp 900w" sizes="(min-width: 1000px) 190px, 50vw" width="900" height="600" loading="lazy" decoding="async" alt="The football pitch with the school building behind" style="--focus:50% 60%">
+              <img src="images/cricket-nets-sm.webp" srcset="images/cricket-nets-sm.webp 480w, images/cricket-nets.webp 900w" sizes="(min-width: 1000px) 190px, 50vw" width="900" height="1200" loading="lazy" decoding="async" alt="The cricket practice nets" style="--focus:50% 50%">
               <span class="fac__num" aria-hidden="true">07</span>
             </div>
             <div class="fac__cap">
@@ -749,7 +753,7 @@
                     </div>
                     <div class="stage__cta">
                       <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade><span>Book a visit<span data-grade-suffix></span></span></a>
-                      <a class="text-link" href="#facilities">See a smart classroom</a>
+                      <a class="text-link" href="#facilities">See the classrooms</a>
                     </div>
                   </div>
                   <div class="stage__body">
@@ -763,7 +767,7 @@
                       <li>Grow reading fluency, vocabulary and spoken English with Wordsworth AI</li>
                     </ul>
                     <h4 class="stage__subhead">Spaces they'll use</h4>
-                    <ul class="tags"><li>Smart classrooms</li><li>Football ground</li><li>Skating rink</li><li>Basketball courts</li></ul>
+                    <ul class="tags"><li>Classrooms</li><li>Football ground</li><li>Skating rink</li><li>Basketball courts</li></ul>
                   </div>
                 </article>
 

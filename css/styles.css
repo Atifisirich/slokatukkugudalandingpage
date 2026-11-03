@@ -1276,6 +1276,10 @@ strong { font-weight: 700; }
   transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .fac:hover .fac__media > img { transform: scale(1.05); }
+
+/* Two or three photos side by side in one card (--n photos) */
+.fac__media--split { display: grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: 2px; background: var(--paper); }
+.fac__media--split > img { position: static; }
 .fac img.img-missing { display: none; }
 .fac__media:has(> img.img-missing)::after {
   content: "[PHOTO: " attr(data-slot) "]";
