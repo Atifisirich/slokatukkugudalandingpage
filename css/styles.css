@@ -1243,8 +1243,8 @@ strong { font-weight: 700; }
   .facs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
   .fac--wide { grid-column: 1 / -1; }
 }
-@media (min-width: 1000px) {
-  .facs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+@media (min-width: 1200px) {
+  .facs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
 }
 
 .fac {
@@ -1277,9 +1277,6 @@ strong { font-weight: 700; }
 }
 .fac:hover .fac__media > img { transform: scale(1.05); }
 
-/* Two or three photos side by side in one card (--n photos) */
-.fac__media--split { display: grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: 2px; background: var(--paper); }
-.fac__media--split > img { position: static; }
 .fac img.img-missing { display: none; }
 .fac__media:has(> img.img-missing)::after {
   content: "[PHOTO: " attr(data-slot) "]";
@@ -1319,7 +1316,7 @@ strong { font-weight: 700; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.fac__title { margin: 0 0 8px; font-size: 1.35rem; line-height: 1.2; color: var(--maroon); }
+.fac__title { margin: 0 0 8px; font-size: 1.3rem; line-height: 1.2; color: var(--maroon); }
 .fac__text { margin: 0; font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
 
 /* The full-width card, and a single space picked from the bar: photo beside the text */

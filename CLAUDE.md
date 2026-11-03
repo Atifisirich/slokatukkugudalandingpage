@@ -20,7 +20,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=40`) so returning visitors don't get a cached copy.
+(currently `?v=41`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -35,8 +35,8 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    brings in the next campus photo (6 slides, arched rising edge, captions, progress dots). Slides 2 to 6 use real
    school photos that match their captions (courts, science lab, football, cricket, activity hall).
    `--n` on the section must equal the number of slides.
-5. **Facilities** (`#facilities`): grid of 13 photo cards (photo on top, name and description below) (Aero Bay, Science Labs, ICT, Library, Classrooms,
-   Play Land and Activity Hall, football and cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
+5. **Facilities** (`#facilities`): grid of 17 photo cards, one per space (Aero Bay, Physics, Chemistry and Biology labs, ICT, Library, Classrooms,
+   Activity Hall, Play Land, football, cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
    with a sideways-scrolling picker (All or one space). Real school photos, except Aero Bay (AI image supplied by the
    school) and the CCTV walkway. A missing photo shows a maroon tile with its file name.
 6. **Grades** (`#pathway`): grade chips (Nursery to Grade 10) + date-of-birth check, then ONE grade sheet: grade
