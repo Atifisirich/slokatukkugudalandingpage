@@ -5,7 +5,6 @@ Plain HTML, CSS and vanilla JS, no build step, hosted on the school's cPanel sub
 
 ```
 index.html       all markup, image list in the top comment, School + FAQPage schema in <head>
-privacy-policy.html  the privacy policy (plain HTML, same styles; linked from the footer and the enquiry note)
 css/styles.css   all styles, numbered sections (see the contents list at the top)
 js/main.js       config objects at the top, then all behaviour
 images/          WebP photos, logo, flower, favicons
@@ -78,8 +77,10 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
   them (each named with the parent's real grade). Also one about safety and transport.
 - What Grades 9–10 offer (the Secondary card is a draft and is flagged on the page), and add both grades to the
   CRM widget's grade list; which grades use the ICT lab.
-- Privacy policy: written (`privacy-policy.html`) but the school must confirm the yellow chips (legal name, retention
-  period, grievance officer, which Tag Manager tools run) and have its legal adviser read it before ads go live.
+- Privacy policy: not on the site for now (taken down until the school supplies its details). The draft is in git
+  history: `git checkout 75cf51b -- privacy-policy.html`, then re-add the footer link and the link in the enquiry note;
+  its page styles are still in `css/styles.css` (section 21). Yellow chips to confirm: legal name, retention period,
+  grievance officer, which Tag Manager tools run; a legal adviser should read it before ads go live.
 - Landing page URL (canonical, OG, schema).
 - Real GTM ID; OG image (`images/og-image.jpg`, 1200x630).
 - Exact map pin (coordinates are derived from the plus code).
