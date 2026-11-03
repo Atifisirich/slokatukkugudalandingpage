@@ -20,7 +20,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=37`) so returning visitors don't get a cached copy.
+(currently `?v=39`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -92,7 +92,8 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 - One H1. No emojis. No purple/blue gradients, glassmorphism, neon or blobs.
 - No unverifiable claims ("best school", "#1", etc.); keep wording factual for Google Ads and ASCI.
 - Real Sloka photos only. The facilities photos are now real (from the school's `infra` folder); the Aero Bay photo, the
-  campus story's walkway slide, the "Step inside" entrance photo, the grade-sheet stage photos and `athletics.webp` still look AI-generated and should be replaced
+  Smart Classrooms card (`classroom-students.webp` is a placeholder classroom image until the school sends a real smart-board
+  photo), the campus story's walkway slide, the "Step inside" entrance photo, the grade-sheet stage photos and `athletics.webp` still look AI-generated and should be replaced
   with real photos before ads go live (same file names in `images/` work as drop-in replacements).
 - Must stay fast on budget Android phones on 4G (Lighthouse 90+ target), keyboard accessible, respect reduced motion.
 - The client rejected: the earlier "school notebook" theme and an aerial-film hero intro. Don't bring them back.
