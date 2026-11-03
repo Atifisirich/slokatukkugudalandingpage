@@ -2457,3 +2457,42 @@ strong { font-weight: 700; }
 @media (min-width: 760px) {
   .legal { padding-top: 56px; }
 }
+
+
+/* Hero shortcuts: they look like buttons (solid card, arrow) so parents know to tap them */
+.hero .hero__tools { display: grid; gap: 12px; max-width: 460px; }
+.hero .hero__tools li + li { margin-top: 0; }
+.hero .hero__tools .tool-link {
+  gap: 14px;
+  padding: 12px 14px 12px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-size: 0.95rem;
+  text-shadow: none;
+  transition: translate 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.hero .hero__tools .tool-link strong { color: var(--ink); font-size: 1.1rem; line-height: 1.25; }
+.hero .hero__tools .tool-link span:last-of-type { color: var(--ink-soft); }
+.hero .hero__tools .tool-link__num { width: 40px; height: 40px; font-size: 1.1rem; border-color: var(--ink); }
+.hero .hero__tools .tool-link > span:nth-of-type(2) { flex: 1; }
+.hero .hero__tools .tool-link::after {
+  content: "";
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--maroon) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FBF5E9' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 20px no-repeat;
+  transition: background-position 0.2s ease, background-color 0.2s ease;
+}
+.hero .hero__tools .tool-link:hover,
+.hero .hero__tools .tool-link:focus-visible { translate: -2px -2px; box-shadow: 6px 6px 0 var(--ink); background: #FFF4D1; }
+.hero .hero__tools .tool-link:hover::after,
+.hero .hero__tools .tool-link:focus-visible::after { background-position: 65% center; background-color: var(--maroon-deep); }
+.hero .hero__tools .tool-link:hover strong { text-decoration: none; }
+.hero .hero__tools .tool-link:active { translate: 2px 2px; box-shadow: 1px 1px 0 var(--ink); }
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero__tools .tool-link, .hero .hero__tools .tool-link::after { transition: none; }
+}
