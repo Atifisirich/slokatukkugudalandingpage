@@ -20,7 +20,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=34`) so returning visitors don't get a cached copy.
+(currently `?v=35`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -73,7 +73,8 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 ## Still waiting on the school (placeholders are visible on the page as yellow chips)
 
 - Minimum ages for Grades 2 to 10 (the form only gave Nursery to Grade 1; the rest are one year apart).
-- Testimonials for Grades 9 and 10 (other grades show testimonials from their own stage); one about safety and transport.
+- Testimonials for each grade. Until they arrive a grade shows the three we have: its own, else its stage's, else all of
+  them (each named with the parent's real grade). Also one about safety and transport.
 - What Grades 9–10 offer (the Secondary card is a draft and is flagged on the page), and add both grades to the
   CRM widget's grade list; which grades use the ICT lab and smart classrooms.
 - Privacy policy: written (`privacy-policy.html`) but the school must confirm the yellow chips (legal name, retention

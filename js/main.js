@@ -165,8 +165,9 @@ var AGE_RULES = {
      area    where they live (optional)
      photo   optional picture of the parent, e.g. 'images/parents/grade-5.webp'
      draft   true while the wording still needs the school's approval
-   A grade with none of its own shows testimonials from the same stage, each
-   named with its own grade. Leave a grade as null until one arrives.
+   A grade with none of its own shows testimonials from the same stage, and if
+   its stage has none either (Grades 9-10 for now) every testimonial we have,
+   each named with its own grade, until the school sends ones for that grade. Leave a grade as null until one arrives.
    -------------------------------------------------------------------------- */
 var FEES = {
   'Nursery':   [93000, 115000],
@@ -739,20 +740,24 @@ var PARENT_VOICES = {
         ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<small>per year (approximate tuition)</small>'
         : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
 
-      // Parent voices: this grade's own, else those from the same stage
+      // Parent voices: this grade's own; else those from the same stage; else every testimonial we have.
+      // Each one keeps its own parent's real grade in the caption, so nothing is misattributed.
       var asList = function (v) { return !v ? [] : (Array.isArray(v) ? v : [v]); };
       var voices = asList(PARENT_VOICES[grade]);
-      var own = voices.length > 0;
-      if (!own) {
-        var seen = {};
+      var scope = voices.length ? 'own' : '';
+      var collect = function (sameStageOnly) {
+        var seen = {}, out = [];
         each(finder.querySelectorAll('input[name="finder-grade"]'), function (r) {
-          if (r.getAttribute('data-stage') !== stage) return;
+          if (sameStageOnly && r.getAttribute('data-stage') !== stage) return;
           asList(PARENT_VOICES[r.value]).forEach(function (v) {
-            if (!seen[v.name]) { seen[v.name] = true; voices.push(v); }
+            if (!seen[v.name]) { seen[v.name] = true; out.push(v); }
           });
         });
-      }
-      voices = voices.slice(0, 2);
+        return out;
+      };
+      if (!scope) { voices = collect(true); scope = voices.length ? 'stage' : ''; }
+      if (!scope) { voices = collect(false); scope = voices.length ? 'all' : ''; }
+      voices = voices.slice(0, 3);
 
       var avatarFor = function (v) {
         return v && v.photo
@@ -760,7 +765,9 @@ var PARENT_VOICES = {
           : '<span class="voice__photo voice__photo--blank">' + personIcon + '</span>';
       };
       if (voices.length) {
-        voiceFor.textContent = own ? 'Parents of ' + grade + ' students' : 'From parents of ' + STAGE_SHORT[stage] + ' students';
+        voiceFor.textContent = scope === 'own' ? 'Parents of ' + grade + ' students'
+          : scope === 'stage' ? 'From parents of ' + STAGE_SHORT[stage] + ' students'
+          : 'From Sloka parents';
         // One testimonial at a time; a small pager appears when a grade has more than one
         var showVoice = function (i) {
           var v = voices[i];
