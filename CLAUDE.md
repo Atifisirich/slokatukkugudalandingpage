@@ -20,7 +20,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=36`) so returning visitors don't get a cached copy.
+(currently `?v=37`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -35,7 +35,7 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    brings in the next campus photo (6 slides, arched rising edge, captions, progress dots). Slides 2 to 6 use real
    school photos that match their captions (courts, science lab, football, cricket, activity hall).
    `--n` on the section must equal the number of slides.
-5. **Facilities** (`#facilities`): photo mosaic of 13 spaces (Aero Bay, Science Labs, ICT, Library, Smart Classrooms,
+5. **Facilities** (`#facilities`): grid of 13 photo cards (photo on top, name and description below) (Aero Bay, Science Labs, ICT, Library, Smart Classrooms,
    Play Land and Activity Hall, football and cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
    with a sideways-scrolling picker (All or one space). Real school photos, except Aero Bay (AI image supplied by the
    school) and the CCTV walkway. A missing photo shows a maroon tile with its file name.

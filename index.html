@@ -31,7 +31,7 @@
   aero-bay-lab-wide(.webp / -sm.webp) supplied   facilities (Aero Bay Innovation Lab)
   ict-lab(.webp / -sm.webp)           supplied   facilities (ICT lab, real photo)
   skating-rink(.webp / -sm.webp)      supplied   facilities (skating rink, real photo)
-  story-courts, story-science-lab, story-football, story-cricket, story-activity-hall (.webp / -sm.webp): real photos for
+  story-block, story-science-lab, story-football, story-cricket, story-activity-hall (.webp / -sm.webp): real photos for
   the campus story slides 2 to 6
   more real photos from the school (library, labs, classroom, activity hall, play park, football, cricket,
   basketball, pickleball, taekwondo, athletics): facilities section; names match the tile keys
@@ -94,12 +94,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=36">
+  <link rel="stylesheet" href="css/styles.css?v=37">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=36"></script>
+  <script defer src="js/main.js?v=37"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -409,12 +409,12 @@
           </div>
         </div>
         <div class="doorway__slide">
-          <img src="images/story-courts-sm.webp" srcset="images/story-courts-sm.webp 800w, images/story-courts.webp 1600w" sizes="100vw"
-               width="1600" height="900" loading="lazy" decoding="async" alt="Students playing basketball on the court beside the main school block">
+          <img src="images/story-block-sm.webp" srcset="images/story-block-sm.webp 800w, images/story-block.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="The main school block seen across the football ground">
           <div class="doorway__cap">
             <p class="doorway__count">02 / 06</p>
-            <h3 class="doorway__cap-title">Main block and courts</h3>
-            <p>Basketball courts sit right beside the main academic block.</p>
+            <h3 class="doorway__cap-title">Main block and grounds</h3>
+            <p>The main academic block stands beside the football ground and the basketball courts.</p>
           </div>
         </div>
         <div class="doorway__slide">
@@ -428,7 +428,7 @@
         </div>
         <div class="doorway__slide">
           <img src="images/story-football-sm.webp" srcset="images/story-football-sm.webp 800w, images/story-football.webp 1600w" sizes="100vw"
-               width="1600" height="900" loading="lazy" decoding="async" alt="The football pitch with the school building behind it">
+               width="1600" height="900" loading="lazy" decoding="async" alt="Students playing football on the pitch with the school building behind">
           <div class="doorway__cap">
             <p class="doorway__count">04 / 06</p>
             <h3 class="doorway__cap-title">Football ground</h3>
@@ -491,117 +491,143 @@
         </div>
 
         <ul class="facs" data-facs>
-          <li class="fac fac--aero fac--wide" data-reveal data-slot="aero-bay-lab-wide" tabindex="0">
-            <img src="images/aero-bay-lab-wide-sm.webp" srcset="images/aero-bay-lab-wide-sm.webp 800w, images/aero-bay-lab-wide.webp 1672w" sizes="(min-width: 1000px) 600px, 100vw" width="1672" height="941" loading="lazy" decoding="async" alt="Students building and flying a drone in the Aero Bay Innovation Lab" style="--focus:30% 50%">
-            <span class="fac__num" aria-hidden="true">01</span>
+          <li class="fac fac--aero" data-reveal>
+            <div class="fac__media" data-slot="aero-bay-lab-wide">
+              <img src="images/aero-bay-lab-wide-sm.webp" srcset="images/aero-bay-lab-wide-sm.webp 800w, images/aero-bay-lab-wide.webp 1672w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1672" height="941" loading="lazy" decoding="async" alt="Students building and flying a drone in the Aero Bay Innovation Lab" style="--focus:32% 50%">
+              <span class="fac__num" aria-hidden="true">01</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">Aero Bay Innovation Lab</h3>
               <p class="fac__text">An aerospace-inspired lab where students work on robotics, coding, AI projects and hands-on STEM challenges.</p>
             </div>
           </li>
-          <li class="fac fac--labs fac--wide" data-reveal data-slot="science-labs" tabindex="0">
-            <span class="fac__split fac__split--3"><img src="images/physics-lab.webp" width="900" height="600" loading="lazy" decoding="async" alt="The Physics lab with benches and experiment equipment" style="--focus:50% 50%"><img src="images/chemistry-lab.webp" width="900" height="600" loading="lazy" decoding="async" alt="The Chemistry lab with glassware and shelves of chemicals" style="--focus:50% 50%"><img src="images/biology-lab.webp" width="900" height="600" loading="lazy" decoding="async" alt="The Biology lab with microscopes and specimens" style="--focus:50% 50%"></span>
-            <span class="fac__num" aria-hidden="true">02</span>
+          <li class="fac fac--labs" data-reveal>
+            <div class="fac__media" data-slot="science-labs">
+              <img src="images/chemistry-lab.webp" width="900" height="600" loading="lazy" decoding="async" alt="The Chemistry lab with glassware and shelves of chemicals" style="--focus:50% 50%">
+              <span class="fac__num" aria-hidden="true">02</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">Science Labs</h3>
               <p class="fac__text">Separate Physics, Chemistry and Biology labs, so concepts from class are tested with real experiments.</p>
             </div>
           </li>
-          <li class="fac fac--ict" data-reveal data-slot="ict-lab" tabindex="0">
-            <img src="images/ict-lab-sm.webp" srcset="images/ict-lab-sm.webp 800w, images/ict-lab.webp 1400w" sizes="(min-width: 1000px) 300px, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="Rows of computers in the ICT lab" style="--focus:50% 55%">
-            <span class="fac__num" aria-hidden="true">03</span>
+          <li class="fac fac--ict" data-reveal>
+            <div class="fac__media" data-slot="ict-lab">
+              <img src="images/ict-lab-sm.webp" srcset="images/ict-lab-sm.webp 800w, images/ict-lab.webp 1400w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="Rows of computers in the ICT lab" style="--focus:50% 55%">
+              <span class="fac__num" aria-hidden="true">03</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">ICT Lab</h3>
               <p class="fac__text">An ICT lab with high-end systems for computing and coding work.</p>
             </div>
           </li>
-          <li class="fac fac--library" data-reveal data-slot="library" tabindex="0">
-            <img src="images/library-sm.webp" srcset="images/library-sm.webp 800w, images/library.webp 1400w" sizes="(min-width: 1000px) 300px, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="The library with long reading tables and bookshelves" style="--focus:35% 50%">
-            <span class="fac__num" aria-hidden="true">04</span>
+          <li class="fac fac--library" data-reveal>
+            <div class="fac__media" data-slot="library">
+              <img src="images/library-sm.webp" srcset="images/library-sm.webp 800w, images/library.webp 1400w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="The library with long reading tables and bookshelves" style="--focus:35% 50%">
+              <span class="fac__num" aria-hidden="true">04</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">Library</h3>
               <p class="fac__text">A bright library with shelves of books and long reading tables.</p>
             </div>
           </li>
-          <li class="fac fac--classroom fac--wide" data-reveal data-slot="smart-classroom" tabindex="0">
-            <img src="images/smart-classroom-sm.webp" srcset="images/smart-classroom-sm.webp 800w, images/smart-classroom.webp 1400w" sizes="(min-width: 1000px) 600px, 100vw" width="1400" height="934" loading="lazy" decoding="async" alt="A bright classroom with a wall-mounted display and curved student tables" style="--focus:40% 50%">
-            <span class="fac__num" aria-hidden="true">05</span>
+          <li class="fac fac--classroom" data-reveal>
+            <div class="fac__media" data-slot="smart-classroom">
+              <img src="images/smart-classroom-sm.webp" srcset="images/smart-classroom-sm.webp 800w, images/smart-classroom.webp 1400w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1400" height="934" loading="lazy" decoding="async" alt="A bright classroom with a wall-mounted display and curved student tables" style="--focus:40% 50%">
+              <span class="fac__num" aria-hidden="true">05</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">Smart Classrooms</h3>
               <p class="fac__text">Smart classrooms with the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
             </div>
           </li>
-          <li class="fac fac--playland fac--wide" data-reveal data-slot="play-land" tabindex="0">
-            <span class="fac__split"><img src="images/activity-hall.webp" width="900" height="675" loading="lazy" decoding="async" alt="The Activity Hall with slides and soft play equipment" style="--focus:50% 50%"><img src="images/play-park.webp" width="900" height="673" loading="lazy" decoding="async" alt="The outdoor play park for the youngest children" style="--focus:50% 50%"></span>
-            <span class="fac__num" aria-hidden="true">06</span>
+          <li class="fac fac--playland" data-reveal>
+            <div class="fac__media" data-slot="play-land">
+              <img src="images/activity-hall.webp" width="900" height="675" loading="lazy" decoding="async" alt="The Activity Hall with slides and soft play equipment" style="--focus:50% 50%">
+              <span class="fac__num" aria-hidden="true">06</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Early Years</p>
               <h3 class="fac__title">Play Land and Activity Hall</h3>
               <p class="fac__text">Dedicated spaces for the youngest learners, where they learn through exploration, sensory play and child-led discovery.</p>
             </div>
           </li>
-          <li class="fac fac--grounds" data-reveal data-slot="football-cricket" tabindex="0">
-            <span class="fac__split"><img src="images/football-pitch.webp" width="900" height="600" loading="lazy" decoding="async" alt="The football pitch with the school building behind" style="--focus:50% 50%"><img src="images/cricket-nets.webp" width="900" height="1200" loading="lazy" decoding="async" alt="The cricket practice nets" style="--focus:50% 50%"></span>
-            <span class="fac__num" aria-hidden="true">07</span>
+          <li class="fac fac--grounds" data-reveal>
+            <div class="fac__media" data-slot="football-cricket">
+              <img src="images/football-pitch.webp" width="900" height="600" loading="lazy" decoding="async" alt="The football pitch with the school building behind" style="--focus:50% 50%">
+              <span class="fac__num" aria-hidden="true">07</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Play</p>
               <h3 class="fac__title">Football and Cricket Grounds</h3>
               <p class="fac__text">Open grounds for football and cricket. Sports are part of every student's regular schedule.</p>
             </div>
           </li>
-          <li class="fac fac--basketball" data-reveal data-slot="basketball" tabindex="0">
-            <img src="images/basketball-sm.webp" srcset="images/basketball-sm.webp 800w, images/basketball.webp 1400w" sizes="(min-width: 1000px) 400px, 100vw" width="1400" height="1050" loading="lazy" decoding="async" alt="A student holding a basketball on the court" style="--focus:50% 30%">
-            <span class="fac__num" aria-hidden="true">08</span>
+          <li class="fac fac--basketball" data-reveal>
+            <div class="fac__media" data-slot="basketball">
+              <img src="images/basketball-sm.webp" srcset="images/basketball-sm.webp 800w, images/basketball.webp 1400w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" loading="lazy" decoding="async" alt="A student holding a basketball on the court" style="--focus:50% 30%">
+              <span class="fac__num" aria-hidden="true">08</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Play</p>
               <h3 class="fac__title">Basketball Courts</h3>
               <p class="fac__text">Courts for regular games and inter-house matches.</p>
             </div>
           </li>
-          <li class="fac fac--skating" data-reveal data-slot="skating-rink" tabindex="0">
-            <img src="images/skating-rink-sm.webp" srcset="images/skating-rink-sm.webp 800w, images/skating-rink.webp 1400w" sizes="(min-width: 1000px) 400px, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="Students skating on the rink in helmets and pads" style="--focus:50% 55%">
-            <span class="fac__num" aria-hidden="true">09</span>
+          <li class="fac fac--skating" data-reveal>
+            <div class="fac__media" data-slot="skating-rink">
+              <img src="images/skating-rink-sm.webp" srcset="images/skating-rink-sm.webp 800w, images/skating-rink.webp 1400w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="Students skating on the rink in helmets and pads" style="--focus:50% 55%">
+              <span class="fac__num" aria-hidden="true">09</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Play</p>
               <h3 class="fac__title">Skating Rink</h3>
               <p class="fac__text">A skating rink on campus, part of the regular sports schedule.</p>
             </div>
           </li>
-          <li class="fac fac--pickleball" data-reveal data-slot="pickleball" tabindex="0">
-            <img src="images/pickleball-sm.webp" srcset="images/pickleball-sm.webp 800w, images/pickleball.webp 1280w" sizes="(min-width: 1000px) 400px, 100vw" width="1280" height="960" loading="lazy" decoding="async" alt="The pickleball court" style="--focus:50% 60%">
-            <span class="fac__num" aria-hidden="true">10</span>
+          <li class="fac fac--pickleball" data-reveal>
+            <div class="fac__media" data-slot="pickleball">
+              <img src="images/pickleball-sm.webp" srcset="images/pickleball-sm.webp 800w, images/pickleball.webp 1280w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1280" height="960" loading="lazy" decoding="async" alt="The pickleball court" style="--focus:50% 60%">
+              <span class="fac__num" aria-hidden="true">10</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Play</p>
               <h3 class="fac__title">Pickleball Court</h3>
               <p class="fac__text">A pickleball court on campus, part of the sports facilities.</p>
             </div>
           </li>
-          <li class="fac fac--taekwondo" data-reveal data-slot="taekwondo" tabindex="0">
-            <img src="images/taekwondo-sm.webp" srcset="images/taekwondo-sm.webp 800w, images/taekwondo.webp 1290w" sizes="(min-width: 1000px) 400px, 100vw" width="1290" height="707" loading="lazy" decoding="async" alt="Students practising taekwondo on padded mats" style="--focus:50% 50%">
-            <span class="fac__num" aria-hidden="true">11</span>
+          <li class="fac fac--taekwondo" data-reveal>
+            <div class="fac__media" data-slot="taekwondo">
+              <img src="images/taekwondo-sm.webp" srcset="images/taekwondo-sm.webp 800w, images/taekwondo.webp 1290w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1290" height="707" loading="lazy" decoding="async" alt="Students practising taekwondo on padded mats" style="--focus:50% 50%">
+              <span class="fac__num" aria-hidden="true">11</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Play</p>
               <h3 class="fac__title">Taekwondo</h3>
               <p class="fac__text">Taekwondo training on padded mats.</p>
             </div>
           </li>
-          <li class="fac fac--athletics" data-reveal data-slot="athletics" tabindex="0">
-            <img src="images/athletics-sm.webp" srcset="images/athletics-sm.webp 640w, images/athletics.webp 1024w" sizes="(min-width: 1000px) 400px, 100vw" width="1024" height="1536" loading="lazy" decoding="async" alt="Students running on the athletics track" style="--focus:50% 70%">
-            <span class="fac__num" aria-hidden="true">12</span>
+          <li class="fac fac--athletics" data-reveal>
+            <div class="fac__media" data-slot="athletics">
+              <img src="images/athletics-sm.webp" srcset="images/athletics-sm.webp 640w, images/athletics.webp 1024w" sizes="(min-width: 1000px) 380px, (min-width: 640px) 50vw, 100vw" width="1024" height="1536" loading="lazy" decoding="async" alt="Students running on the athletics track" style="--focus:50% 70%">
+              <span class="fac__num" aria-hidden="true">12</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Play</p>
               <h3 class="fac__title">Athletics Track</h3>
               <p class="fac__text">A running track for athletics.</p>
             </div>
           </li>
-          <li class="fac fac--cctv fac--wide" data-reveal data-slot="campus-walkway" tabindex="0">
-            <img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway along the campus buildings">
-            <span class="fac__num" aria-hidden="true">13</span>
+          <li class="fac fac--cctv fac--wide" data-reveal>
+            <div class="fac__media" data-slot="campus-walkway">
+              <img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway along the campus buildings">
+              <span class="fac__num" aria-hidden="true">13</span>
+            </div>
             <div class="fac__cap">
               <p class="fac__group">Safety</p>
               <h3 class="fac__title">CCTV-Secured Campus</h3>

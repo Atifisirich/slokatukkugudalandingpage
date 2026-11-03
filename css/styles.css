@@ -1226,50 +1226,47 @@ strong { font-weight: 700; }
 }
 
 
-/* 10. Facilities: a photo mosaic of the campus spaces
-   Big tiles show their description; the small ones reveal it on hover or focus
-   (always shown on touch screens). A photo that is not uploaded yet shows a
-   maroon tile with its file name.
+/* 10. Facilities: a tidy grid of photo cards
+   Every card has the same shape: a photo on top and the name and a short description below,
+   so no text sits on a photo. The last card (CCTV) runs the full width.
+   A photo that is not uploaded yet shows a maroon block with its file name.
    ========================================================================== */
 .facs {
   display: grid;
-  grid-auto-rows: 270px;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 @media (min-width: 640px) {
-  .facs { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 250px; gap: 16px; }
-  .fac--wide { grid-column: span 2; }
+  .facs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+  .fac--wide { grid-column: 1 / -1; }
 }
 @media (min-width: 1000px) {
-  .facs { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: 250px; gap: 18px; }
-  .fac--aero { grid-column: span 6; grid-row: span 2; }
-  .fac--labs { grid-column: span 6; }
-  .fac--ict, .fac--library { grid-column: span 3; }
-  .fac--classroom, .fac--playland { grid-column: span 6; }
-  .fac--grounds, .fac--basketball, .fac--skating,
-  .fac--pickleball, .fac--taekwondo, .fac--athletics { grid-column: span 4; }
-  .fac--cctv { grid-column: span 12; }
+  .facs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
 }
 
 .fac {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  isolation: isolate;
   border: 2px solid var(--ink);
   border-radius: var(--radius);
-  color: var(--paper);
-  background-color: var(--maroon-deep);
-  background-image: repeating-linear-gradient(135deg, rgba(251, 245, 233, 0.07) 0 1px, transparent 1px 14px);
+  background: var(--white);
   transition: translate 0.25s ease, box-shadow 0.25s ease;
 }
-.fac:hover,
-.fac:focus-visible { translate: -3px -3px; box-shadow: 6px 6px 0 var(--ink); }
+.fac:hover { translate: -3px -3px; box-shadow: 6px 6px 0 var(--ink); }
 
-.fac > img,
-.fac__split {
+.fac__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-bottom: 2px solid var(--ink);
+  background-color: var(--maroon-deep);
+  background-image: repeating-linear-gradient(135deg, rgba(251, 245, 233, 0.07) 0 1px, transparent 1px 14px);
+}
+.fac__media > img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1278,65 +1275,36 @@ strong { font-weight: 700; }
   object-position: var(--focus, 50% 50%);
   transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.fac:hover > img,
-.fac:hover .fac__split,
-.fac:focus-visible > img,
-.fac:focus-visible .fac__split { transform: scale(1.06); }
-
-/* Football and cricket side by side */
-.fac__split { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--paper); }
-.fac__split--3 { grid-template-columns: repeat(3, 1fr); }
-.fac__split img { width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 50%); }
-
-/* Shade under the caption */
-.fac::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to top, rgba(26, 17, 16, 0.92) 0%, rgba(26, 17, 16, 0.55) 40%, rgba(26, 17, 16, 0) 72%);
-  pointer-events: none;
-}
-
-/* Photo not uploaded yet */
+.fac:hover .fac__media > img { transform: scale(1.05); }
 .fac img.img-missing { display: none; }
-.fac:has(> img.img-missing)::after {
+.fac__media:has(> img.img-missing)::after {
   content: "[PHOTO: " attr(data-slot) "]";
   position: absolute;
-  inset: 0 0 45% 0;
-  z-index: 1;
+  inset: 0;
   display: grid;
   place-items: center;
   padding: 10px;
   font: 700 0.74rem/1.3 var(--sans);
   letter-spacing: 0.08em;
   color: rgba(251, 245, 233, 0.75);
-  text-align: center;
 }
 
 .fac__num {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 2;
+  top: 12px;
+  left: 12px;
   padding: 3px 10px 1px;
-  border: 1.5px solid rgba(251, 245, 233, 0.7);
+  border: 1.5px solid rgba(251, 245, 233, 0.75);
   border-radius: 999px;
-  background: rgba(26, 17, 16, 0.6);
+  background: rgba(26, 17, 16, 0.62);
+  color: var(--paper);
   font: 400 0.9rem/1.3 var(--serif);
   letter-spacing: 0.06em;
 }
 
-.fac__cap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  padding: 20px 20px 18px;
-}
+.fac__cap { display: flex; flex-direction: column; flex: 1; padding: 18px 20px 22px; }
 .fac__group {
-  display: inline-block;
+  align-self: flex-start;
   margin: 0 0 10px;
   padding: 3px 10px 1px;
   border: 1.5px solid var(--ink);
@@ -1347,34 +1315,28 @@ strong { font-weight: 700; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.fac__title {
-  margin: 0;
-  font-size: 1.35rem;
-  line-height: 1.15;
-  color: #fff;
-}
-.fac__text {
-  max-width: 52ch;
-  max-height: 0;
-  margin: 0;
-  overflow: hidden;
-  opacity: 0;
-  font-size: 0.96rem;
-  line-height: 1.5;
-  color: rgba(251, 245, 233, 0.94);
-  transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
-}
-.fac:hover .fac__text,
-.fac:focus .fac__text,
-.fac:focus-within .fac__text { max-height: 10em; margin-top: 8px; opacity: 1; }
-@media (hover: none) {
-  .fac__text { max-height: none; margin-top: 8px; opacity: 1; }
+.fac__title { margin: 0 0 8px; font-size: 1.35rem; line-height: 1.2; color: var(--maroon); }
+.fac__text { margin: 0; font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
+
+/* The full-width card, and a single space picked from the bar: photo beside the text */
+@media (min-width: 1000px) {
+  .fac--wide, .facs--single .fac { flex-direction: row; }
+  .fac--wide .fac__media, .facs--single .fac .fac__media {
+    flex: 0 0 58%;
+    aspect-ratio: auto;
+    min-height: 320px;
+    border-bottom: 0;
+    border-right: 2px solid var(--ink);
+  }
+  .fac--wide .fac__cap, .facs--single .fac .fac__cap { justify-content: center; padding: 32px 36px; }
+  .fac--wide .fac__title, .facs--single .fac .fac__title { font-size: 1.9rem; }
+  .fac--wide .fac__text, .facs--single .fac .fac__text { font-size: 1.1rem; }
 }
 
-/* The wide tiles carry a bigger title and always show their description */
-.fac--wide .fac__title { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem); }
-.fac--wide .fac__text { max-height: none; margin-top: 8px; opacity: 1; }
-.fac--wide .fac__cap { padding: 26px 26px 24px; }
+@media (prefers-reduced-motion: reduce) {
+  .fac, .fac__media > img, .facbar__chip { transition: none; }
+  .fac--enter { animation: none; }
+}
 
 /* Sideways bar: pick one space, or "All" for the mosaic */
 .facbar {
@@ -1421,12 +1383,8 @@ strong { font-weight: 700; }
 .facbar__chip[aria-pressed="true"] { background: var(--maroon); color: var(--paper); box-shadow: 3px 3px 0 var(--ink); }
 .facbar__chip[aria-pressed="true"] .facbar__group { color: var(--yellow); }
 
-/* One space picked: it fills the row, with its description showing */
-.facs--single { grid-template-columns: minmax(0, 1fr); grid-auto-rows: clamp(320px, 48vw, 520px); }
-.facs--single .fac { grid-column: 1 / -1; grid-row: auto; }
-.facs--single .fac__text { max-height: none; margin-top: 10px; opacity: 1; }
-.facs--single .fac__title { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); }
-.facs--single .fac__cap { padding: 28px 30px 26px; }
+/* One space picked: it fills the row (see the card rules above) */
+.facs--single { grid-template-columns: minmax(0, 1fr); }
 .fac[hidden] { display: none; }
 .fac--enter { animation: fac-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 @keyframes fac-in {
