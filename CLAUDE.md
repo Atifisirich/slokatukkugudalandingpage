@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=55`) so returning visitors don't get a cached copy.
+(currently `?v=60`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -46,6 +46,11 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    (`[data-stopfinder]`: type a stop, see its km and a Google Maps directions link; list in `PICKUP_POINTS`), directions, WhatsApp about the bus, and the campus address strip.
 8. **Admission in five steps** (heading + Book button on the left, a numbered rail of five rows on the right that fills as the section scrolls into view; step 1 offers Online, Phone, Email, WhatsApp), **FAQ** ("Ask Sloka" chat
    with search and WhatsApp fallback), **footer** (Address and Admissions only; the Links column, including Mandatory Disclosure, was removed on client request). There is no closing call-to-action, approach or parents section.
+
+Phone-only refinements (round 3, all inside `max-width` media queries at the end of `css/styles.css`; desktop is untouched):
+16px field text (no iPhone zoom), bigger consent tick-box, facilities as a 2-column grid of photo cards (descriptions show when one
+space is picked), a shorter "Step inside" scroll (`OPEN`/`SLIDE` in `main.js` and `.doorway--live` height), stacked distance
+answer with full-width buttons that scrolls into view after a choice, one-line "Admissions Open" label down to 320px.
 
 A flower loading screen (from the logo) shows once per session, never with reduced motion.
 

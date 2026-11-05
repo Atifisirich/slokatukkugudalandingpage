@@ -1062,6 +1062,13 @@ var PARENT_VOICES = (function () {
     var kmByArea = {};
     each(areaBtns, function (b) { if (b.hasAttribute('data-km')) kmByArea[b.getAttribute('data-area')] = b.getAttribute('data-km'); });
 
+    // On phones the answer sits below the buttons, so bring it into view after a choice
+    var showResult = function () {
+      if (window.innerWidth >= 760) { return; }
+      var box = commute.querySelector('.commute__actions');   // the answer and its two buttons
+      if (box && box.scrollIntoView) { box.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' }); }
+    };
+
     var setArea = function (name) {
       var known = Object.prototype.hasOwnProperty.call(kmByArea, name);
       choice.area = name === 'other' ? '' : name;
@@ -1082,6 +1089,7 @@ var PARENT_VOICES = (function () {
       dirLink.href = dir;
 
       refreshChoices();
+      showResult();
       track('area_checked', { area: name });
     };
 
@@ -1125,6 +1133,7 @@ var PARENT_VOICES = (function () {
       dirLink.textContent = 'Directions from ' + pt.name;
       choice.area = pt.name;
       refreshChoices();
+      showResult();
       track('pickup_selected', { stop: pt.name });
     };
 
@@ -1303,10 +1312,10 @@ var PARENT_VOICES = (function () {
       var vh = window.innerHeight;
       var rect = doorway.getBoundingClientRect();
       var scrolled = -rect.top;
-      var OPEN = vh * 1.8;                   // scroll used by the doors opening (matches the CSS height)
-      var SLIDE = vh * 0.8;                  // scroll per campus photo
-      var p = clamp(scrolled / OPEN);
       var phone = vw < 760;
+      var OPEN = vh * (phone ? 1.1 : 1.8);   // scroll used by the doors opening (matches the CSS height)
+      var SLIDE = vh * (phone ? 0.6 : 0.8);  // scroll per campus photo
+      var p = clamp(scrolled / OPEN);
       var header = document.querySelector('.site-header').offsetHeight;
 
       // Closed doorway size

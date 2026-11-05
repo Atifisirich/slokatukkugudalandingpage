@@ -2491,3 +2491,58 @@ strong { font-weight: 700; }
 /* Star on the fee and on the "charged separately" note */
 .fee__star { color: var(--yellow); font-weight: 700; }
 .fee__amount sup.fee__star { margin-left: 2px; font-size: 0.6em; vertical-align: super; }
+
+
+/* Phones (round 3): mobile-only refinements for parents who fill the form on a phone.
+   Everything here sits inside max-width media queries, so the desktop page is not touched. */
+@media (max-width: 759px) {
+  /* 16px text in fields stops iPhones zooming the page when a field is tapped */
+  .enquiry-card--widget .crm-widget input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+  .enquiry-card--widget .crm-widget .select2-selection__rendered,
+  .enquiry-card--widget .crm-widget .select2-search__field,
+  .finder__input,
+  .field__input { font-size: 16px !important; }
+
+  /* A bigger consent tick-box, easy to hit with a thumb */
+  .enquiry-card--widget .crm-widget input[type="checkbox"] { width: 22px; height: 22px; flex: none; }
+
+  /* Footer phone numbers and e-mails: comfortable tap targets */
+  .site-footer__list a { display: inline-block; padding: 7px 0; }
+  .site-footer__list li { margin-bottom: 2px; }
+
+  /* Pick-up search results: full-height rows */
+  .finder__item { min-height: 46px; }
+}
+
+/* Facilities on phones: two photo cards across instead of 17 tall ones in a column.
+   Each card keeps its photo, group tag and name; the longer description appears when a single space is picked above. */
+@media (max-width: 639px) {
+  .facs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .facs .fac--wide { grid-column: 1 / -1; }
+  .facs:not(.facs--single) .fac__text { display: none; }
+  .facs:not(.facs--single) .fac__media { aspect-ratio: 1 / 1; }
+  .facs:not(.facs--single) .fac--wide .fac__media { aspect-ratio: 16 / 9; }
+  .facs:not(.facs--single) .fac__cap { padding: 10px 12px 12px; }
+  .facs:not(.facs--single) .fac__group { margin-bottom: 6px; font-size: 0.62rem; }
+  .facs:not(.facs--single) .fac__title { margin: 0; font-size: 1.02rem; }
+  .facs:not(.facs--single) .fac__num { top: 8px; left: 8px; font-size: 0.78rem; }
+  .facs--single { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* "Step inside" on phones: a shorter scroll before the page moves on (the script uses the same shorter distances) */
+@media (max-width: 759px) {
+  .doorway--live { height: calc(100vh * (2.5 + var(--n, 6) * 0.6)); }
+}
+
+/* Phones: the distance answer stacks (number on top, words below) and the two buttons are full width */
+@media (max-width: 759px) {
+  .commute__result { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .commute__actions { scroll-margin-bottom: 84px; }
+  .commute__actions { flex-direction: column; }
+  .commute__actions .btn { width: 100%; justify-content: center; min-height: 50px; }
+}
+
+/* Small phones: keep "Admissions Open 2027-28" on one line at 320 to 400px wide */
+@media (max-width: 559px) {
+  .hero .hero__sub strong { white-space: nowrap; font-size: clamp(1.1rem, 5.4vw, 1.5rem); padding-inline: 0.6em; }
+}
