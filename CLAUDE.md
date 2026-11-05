@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=49`) so returning visitors don't get a cached copy.
+(currently `?v=52`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -28,7 +28,7 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
 2. **Hero**: full-width campus building photo, headline left, CRM enquiry form right.
    On desktop the photo stays pinned and zooms toward the entrance while the copy scrolls away (`.hero--zoom`),
    then "Sloka International School, Tukkuguda" arrives. On phones it is a poster: clear photo with the headline
-   and a Book button, then the form. The headline is followed by a big "Admissions Open 2027–28" line; the
+   and a Book button, then the form. The place name "Tukkuguda" is half yellow (top) and half white (bottom); "Admissions Open 2027–28" is a yellow label under the headline; the
    service-area sentence and the two shortcut buttons were removed on client feedback. The form must fit one
    desktop screen (compact widget styles at the end of `css/styles.css`).
 3. **Trust strip**: CBSE Affiliated, NEP 2020 Aligned and three smaller facts.
@@ -43,9 +43,9 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    header band, stage details (Foundational Nursery to Grade 2, Preparatory Grades 3 to 5, Middle 6 to 8, Secondary
    9 and 10; wording is the client's `content.docx`), the grade's own yearly tuition fee and its parent testimonial.
 7. **Transport** (`#visit`): one card with the Google Map, area buttons grouped by distance, a pick-up point search
-   (hidden until `PICKUP_POINTS` is filled), directions, WhatsApp about the bus, and the campus address strip.
-8. **Admission in five steps** (numbered rail that fills as the section scrolls into view; step 1 offers Online, Phone, Email, WhatsApp), **FAQ** ("Ask Sloka" chat
-   with search and WhatsApp fallback), **footer**. There is no closing call-to-action, approach or parents section.
+   (`[data-stopfinder]`: type a stop, see its km and a Google Maps directions link; list in `PICKUP_POINTS`), directions, WhatsApp about the bus, and the campus address strip.
+8. **Admission in five steps** (heading + Book button on the left, a numbered rail of five rows on the right that fills as the section scrolls into view; step 1 offers Online, Phone, Email, WhatsApp), **FAQ** ("Ask Sloka" chat
+   with search and WhatsApp fallback), **footer** (Address and Admissions only; the Links column, including Mandatory Disclosure, was removed on client request). There is no closing call-to-action, approach or parents section.
 
 A flower loading screen (from the logo) shows once per session, never with reduced motion.
 
@@ -58,7 +58,7 @@ A flower loading screen (from the logo) shows once per session, never with reduc
   `endpoint` mode (built-in form) is kept as a fallback option.
 - `AGE_RULES`: minimum age per grade on 1 June 2027 for the date-of-birth check.
 - `FEES`: yearly tuition per grade as `[amount]` (or `[min, max]`) in rupees, from the client's grade-wise table.
-- `PICKUP_POINTS`: the 38 bus pick-up points `{ name, area, time }` for the Transport search box; empty = box hidden.
+- `PICKUP_POINTS`: bus pick-up points `{ name, km, pin }` from the school's `BUS STOPS NAMES.xlsx` (89 stops after merging duplicates; teachers' route 28 left out; route numbers and student counts kept off the page). Empty = search box hidden.
 - `PARENT_VOICES`: one testimonial per grade (topic, quote, parent, area, optional photo, `draft` flag); `null` shows
   the placeholder. Keys must match the grade chip values exactly, e.g. "Grade 2".
 - `trackInteractions`: extra dataLayer events (grade picked, area checked, FAQ opened/searched, call/WhatsApp taps).
@@ -74,7 +74,7 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 
 ## Still waiting on the school (placeholders are visible on the page as yellow chips)
 
-- The list of 38 bus pick-up points (fill `PICKUP_POINTS`), per-grade parent testimonials and the client's own FAQ set
+- Per-grade parent testimonials and the client's own FAQ set
   (client feedback, Nov 2026: "later"). The FAQ answers on the page are ours until then.
 
 - Minimum ages for Grades 2 to 10 (the form only gave Nursery to Grade 1; the rest are one year apart).

@@ -166,10 +166,101 @@ var AGE_RULES = {
    its stage has none either (Grades 9-10 for now) every testimonial we have,
    each named with its own grade, until the school sends ones for that grade. Leave a grade as null until one arrives.
    -------------------------------------------------------------------------- */
-/* PICKUP_POINTS: the school bus pick-up points, for the search box in the Transport card.
-   Each one is { name: 'Stop name', area: 'Locality', time: 'Morning pick-up time (optional)' }.
-   The search box stays hidden while this list is empty. */
-var PICKUP_POINTS = [];
+/* PICKUP_POINTS: the school bus pick-up points, from the school's transport list (BUS STOPS NAMES.xlsx).
+   { name, km, pin }: km is a number, a [from, to] range, or null when the list does not give a reliable figure.
+   Route numbers and student counts are internal, so they are not on the page.
+   The search box in the Transport card stays hidden while this list is empty. */
+var PICKUP_POINTS = [
+  { name: 'Agarmiyaguda', km: 11, pin: '501359' },
+  { name: 'Akula Mylaram', km: 19, pin: '501509' },
+  { name: 'Ameerpet', km: 16, pin: '509325' },
+  { name: 'Anmaspalli', km: 27, pin: '509358' },
+  { name: 'Arkala', km: 11, pin: '501359' },
+  { name: 'Bachhupalli', km: 20, pin: '501359' },
+  { name: 'Badangpet', km: 18, pin: '500058' },
+  { name: 'Bairagiguda', km: 12, pin: '501359' },
+  { name: 'Balapur', km: 15, pin: '500005' },
+  { name: 'Bashaguda', km: 3, pin: '501359' },
+  { name: 'Bashman Guda', km: 20, pin: '501509' },
+  { name: 'Begar Kancha', km: 15, pin: '501359' },
+  { name: 'Begumpet', km: 16, pin: '501359' },
+  { name: 'Bongulur', km: 16, pin: '501510' },
+  { name: 'BPCR Manasvi', km: 11, pin: '501359' },
+  { name: 'BTR Villas', km: 9, pin: '501359' },
+  { name: 'Chamagadda', km: 10, pin: '501359' },
+  { name: 'Chandrayan Gutta', km: 12, pin: '500005' },
+  { name: 'Chinna Tupra', km: 23, pin: '509325' },
+  { name: 'Chippalapalli', km: 22, pin: '501359' },
+  { name: 'Collector Office', km: 8, pin: '501510' },
+  { name: 'Dabeelguda', km: 18, pin: '501218' },
+  { name: 'Davudaguda', km: 18, pin: '501359' },
+  { name: 'Debbeda Guda', km: 20, pin: '509358' },
+  { name: 'Dubbacherla', km: 17, pin: '509325' },
+  { name: 'Gudur', km: 12, pin: '501359' },
+  { name: 'Gummadavelli', km: 18, pin: '501506' },
+  { name: 'Harsha Guda', km: 6, pin: '501359' },
+  { name: 'Housing Board', km: 5, pin: '500005' },
+  { name: 'Imamguda', km: 3, pin: '501359' },
+  { name: 'Jaithwaram', km: 18, pin: '501359' },
+  { name: 'JIIMS Hospital', km: 16, pin: '509325' },
+  { name: 'Kadthal', km: 26, pin: '509358' },
+  { name: 'Kalvakole', km: 16, pin: '509325' },
+  { name: 'Kandhukur', km: 16, pin: '501359' },
+  { name: 'Kandhukur Town', km: 16, pin: '501359' },
+  { name: 'Karkal Pahad', km: 28, pin: '509358' },
+  { name: 'Kavuri Villas', km: 6, pin: '501359' },
+  { name: 'Kongara', km: 9, pin: '501510' },
+  { name: 'Kotha Tanda', km: 11, pin: '501218' },
+  { name: 'Kothur', km: null, pin: '509325' },
+  { name: 'Kurmidda', km: 26, pin: '501509' },
+  { name: 'Lakshmi Guda', km: 14, pin: '500005' },
+  { name: 'Lemoor', km: 10, pin: '501359' },
+  { name: 'Madanpalli', km: 17, pin: '509325' },
+  { name: 'Maheshwaram', km: [10, 11], pin: '501359' },
+  { name: 'Makhan', km: 18, pin: '501359' },
+  { name: 'Mallapur', km: 12, pin: '500005' },
+  { name: 'Mamidi Palli', km: 9, pin: '500005' },
+  { name: 'Mankhal', km: 2, pin: '501359' },
+  { name: 'Mansanpalli', km: 13, pin: '509325' },
+  { name: 'Mansanpalli X Road', km: 14, pin: '509325' },
+  { name: 'Manyaguda', km: 22, pin: '501359' },
+  { name: 'Meerkhanpet', km: 24, pin: '501509' },
+  { name: 'Muchinthal', km: 18, pin: '509325' },
+  { name: 'Mylardevipalli', km: 16, pin: '500005' },
+  { name: 'Mytri Kuteer', km: 12, pin: '501359' },
+  { name: 'Mytri Suvida', km: 12, pin: '501218' },
+  { name: 'Nagaram', km: 12, pin: '501218' },
+  { name: 'Nedunur', km: 21, pin: '501359' },
+  { name: 'Padamati Tanda', km: 12, pin: '501218' },
+  { name: 'Pahadi Shareef', km: 8, pin: '500005' },
+  { name: 'Palamakul', km: null, pin: '509325' },
+  { name: 'Pedda Golconda', km: 9, pin: '501218' },
+  { name: 'Pedda Tupra', km: 21, pin: '509325' },
+  { name: 'Pendial', km: 15, pin: '509325' },
+  { name: 'Porandla', km: 25, pin: '501359' },
+  { name: 'Prajay', km: 8, pin: '501359' },
+  { name: 'Pulimaktha', km: 15, pin: '501218' },
+  { name: 'Pulimamidi', km: 17, pin: '501359' },
+  { name: 'Rachaloor', km: 15, pin: '501359' },
+  { name: 'Ramky Villas', km: 4, pin: '501359' },
+  { name: 'Raviryal', km: 5, pin: '501510' },
+  { name: 'RCI Quarters', km: 9, pin: '500005' },
+  { name: 'Red Court Villas', km: 8, pin: '501359' },
+  { name: 'Riddi Lakshaman', km: 3, pin: '501359' },
+  { name: 'Sangiguda', km: 12, pin: '501218' },
+  { name: 'Sardar Nagar', km: 2, pin: '501359' },
+  { name: 'Shamshabad', km: 18, pin: '509325' },
+  { name: 'Shankara Puram', km: 15, pin: '509325' },
+  { name: 'Sirigiripuram', km: 10, pin: '501359' },
+  { name: 'Square Avasa', km: 1, pin: '501359' },
+  { name: 'Sri Sri Aerocity', km: 12, pin: '501510' },
+  { name: 'Teegala Kunta', km: 12, pin: '501218' },
+  { name: 'Timmaipalli', km: 17, pin: '501359' },
+  { name: 'Timmapur', km: 17, pin: '501506' },
+  { name: 'Tukkuguda', km: null, pin: '501359' },
+  { name: 'Tummalur', km: 11, pin: '501359' },
+  { name: 'Urbun Elite', km: 12, pin: '501359' }
+];
 
 var FEES = {
   'Nursery':   [93000],
@@ -975,46 +1066,104 @@ var PARENT_VOICES = {
   }
 
 
-  /* 9b. Pick-up point search (Transport card)
+  /* 9b. Area and bus-stop search (Transport card)
+     Typing filters PICKUP_POINTS; picking a stop shows its distance from the school and a Google Maps
+     directions link from that stop. Distances are the school's own transport-list figures.
      ------------------------------------------------------------------------ */
-  var pickup = document.querySelector('[data-pickup]');
+  var finder = document.querySelector('[data-stopfinder]');
 
-  if (pickup && PICKUP_POINTS.length) {
-    var pInput = pickup.querySelector('[data-pickup-input]');
-    var pList = pickup.querySelector('[data-pickup-list]');
-    var pCount = pickup.querySelector('[data-pickup-count]');
-    var searchTimer = null;
+  if (finder && commute && PICKUP_POINTS.length) {
+    var fInput = finder.querySelector('[data-finder-input]');
+    var fList = finder.querySelector('[data-finder-list]');
+    var fNote = finder.querySelector('[data-finder-note]');
+    var fOr = document.querySelector('[data-finder-or]');
+    var fNoteDefault = fNote.innerHTML;
+    var fTimer = null;
 
-    var renderPickups = function () {
-      var q = pInput.value.trim().toLowerCase();
-      var hits = PICKUP_POINTS.filter(function (pt) {
-        return !q || (pt.name + ' ' + (pt.area || '')).toLowerCase().indexOf(q) !== -1;
-      });
-      pList.innerHTML = '';
-      hits.forEach(function (pt) {
-        var li = document.createElement('li');
-        var strong = document.createElement('strong');
-        strong.textContent = pt.name;
-        li.appendChild(strong);
-        var extra = [pt.area, pt.time].filter(Boolean).join(' · ');
-        if (extra) {
-          var span = document.createElement('span');
-          span.textContent = extra;
-          li.appendChild(span);
-        }
-        pList.appendChild(li);
-      });
-      pCount.textContent = hits.length
-        ? (q ? hits.length + ' of ' + PICKUP_POINTS.length + ' pick-up points' : PICKUP_POINTS.length + ' pick-up points')
-        : 'No pick-up point matches that. Call the transport coordinator below.';
+    var kmText = function (km) {
+      if (km === null || km === undefined) { return ''; }
+      return Array.isArray(km) ? km[0] + '–' + km[1] : String(km);
     };
 
-    pickup.hidden = false;
-    renderPickups();
-    pInput.addEventListener('input', function () {
-      renderPickups();
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(function () { if (pInput.value.trim()) track('pickup_searched', { query: pInput.value.trim() }); }, 900);
+    var pickStop = function (pt) {
+      var km = kmText(pt.km);
+      fInput.value = pt.name;
+      fList.hidden = true;
+      fList.innerHTML = '';
+      each(areaBtns, function (b) { b.setAttribute('aria-pressed', 'false'); });
+      kmOut.textContent = km || '?';
+      lineOut.textContent = km
+        ? 'Bus pick-up point: ' + pt.name + '. About ' + km + ' km from the school, as per the school transport list.'
+        : 'Bus pick-up point: ' + pt.name + '. For the distance, ask the transport coordinator.';
+      dirLink.href = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(pt.name + (pt.pin ? ' ' + pt.pin : '') + ', Telangana') + '&destination=' + encodeURIComponent(destination);
+      dirLink.textContent = 'Directions from ' + pt.name;
+      choice.area = pt.name;
+      refreshChoices();
+      track('pickup_selected', { stop: pt.name });
+    };
+
+    var runFinder = function () {
+      var q = fInput.value.trim().toLowerCase();
+      fList.innerHTML = '';
+      if (!q) { fList.hidden = true; fNote.innerHTML = fNoteDefault; return; }
+      var hits = PICKUP_POINTS.filter(function (pt) { return pt.name.toLowerCase().indexOf(q) !== -1; });
+      // Names that start with the typed text come first
+      hits.sort(function (a, b) {
+        var as = a.name.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+        var bs = b.name.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+        return as - bs;
+      });
+      hits.forEach(function (pt) {
+        var li = document.createElement('li');
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'finder__item';
+        var nm = document.createElement('span');
+        nm.textContent = pt.name;
+        btn.appendChild(nm);
+        var km = kmText(pt.km);
+        if (km) {
+          var d = document.createElement('small');
+          d.textContent = km + ' km';
+          btn.appendChild(d);
+        }
+        btn.addEventListener('click', function () { pickStop(pt); });
+        li.appendChild(btn);
+        fList.appendChild(li);
+      });
+      fList.hidden = !hits.length;
+      fNote.innerHTML = hits.length
+        ? hits.length + (hits.length === 1 ? ' pick-up point found.' : ' pick-up points found.') + ' Tap one to see the distance and directions.'
+        : 'No pick-up point matches that. Please call the transport coordinator on <a href="tel:+918019646415" data-track="call_click">+91 80196 46415</a>.';
+    };
+
+    finder.hidden = false;
+    fOr.hidden = false;
+    fInput.addEventListener('input', function () {
+      runFinder();
+      clearTimeout(fTimer);
+      fTimer = setTimeout(function () { if (fInput.value.trim()) { track('pickup_searched', { query: fInput.value.trim() }); } }, 900);
+    });
+    fInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        var first = fList.querySelector('button');
+        if (first) { first.click(); }
+      } else if (e.key === 'ArrowDown') {
+        var f = fList.querySelector('button');
+        if (f) { e.preventDefault(); f.focus(); }
+      }
+    });
+    fList.addEventListener('keydown', function (e) {
+      var cur = document.activeElement;
+      if (e.key === 'ArrowDown' && cur.parentNode.nextElementSibling) {
+        e.preventDefault();
+        cur.parentNode.nextElementSibling.querySelector('button').focus();
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (cur.parentNode.previousElementSibling) { cur.parentNode.previousElementSibling.querySelector('button').focus(); } else { fInput.focus(); }
+      }
     });
   }
 

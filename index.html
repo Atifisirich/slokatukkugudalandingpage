@@ -93,12 +93,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=49">
+  <link rel="stylesheet" href="css/styles.css?v=52">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=49"></script>
+  <script defer src="js/main.js?v=51"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -838,6 +838,14 @@
 
           <div class="commute__panel">
             <p class="commute__label" id="area-label">Where do you live?</p>
+            <!-- Search over the school's bus pick-up points (PICKUP_POINTS in js/main.js). Hidden until the list is filled. -->
+            <div class="finder" data-stopfinder hidden>
+              <label class="finder__label" for="finder-q">Search your area or bus stop</label>
+              <input class="finder__input" id="finder-q" type="search" placeholder="Type a name, for example Mankhal or Kandhukur" autocomplete="off" enterkeyhint="search" data-finder-input>
+              <ul class="finder__list" data-finder-list aria-label="Matching pick-up points" hidden></ul>
+              <p class="finder__note" data-finder-note>For a stop that is not listed, call the transport coordinator on <a href="tel:+918019646415" data-track="call_click">+91 80196 46415</a>.</p>
+            </div>
+            <p class="areas__or" data-finder-or hidden>Or choose your area</p>
             <div class="areas" role="group" aria-labelledby="area-label">
               <div class="areas__band">
                 <p class="areas__title">Up to 5 km</p>
@@ -864,14 +872,6 @@
                 <p class="commute__call">Transport enquiries: <a href="tel:+918019646415" data-track="call_click">+91 80196 46415</a></p>
               </div>
             </div>
-            <!-- Pick-up point search. Hidden until PICKUP_POINTS (top of js/main.js) has the school's list. -->
-            <div class="pickup" data-pickup hidden>
-              <label class="pickup__label" for="pickup-q">Find your pick-up point</label>
-              <input class="pickup__input" id="pickup-q" type="search" placeholder="Type your area or stop name" autocomplete="off" data-pickup-input>
-              <p class="pickup__count" data-pickup-count role="status"></p>
-              <ul class="pickup__list" data-pickup-list></ul>
-              <p class="pickup__help">Not on the list? Call the transport coordinator on <a href="tel:+918019646415" data-track="call_click">+91 80196 46415</a>.</p>
-            </div>
             <div class="commute__actions">
               <a class="btn btn--maroon btn--sm" href="https://www.google.com/maps/dir/?api=1&amp;destination=6F5H%2B4M5%2C+Tukkuguda%2C+Telangana+501359" target="_blank" rel="noopener" data-directions>Get Directions</a>
               <a class="btn btn--whatsapp btn--sm" href="https://wa.me/918520071222" target="_blank" rel="noopener" data-whatsapp data-whatsapp-topic="bus" data-track="whatsapp_click">Ask about the school bus</a>
@@ -889,12 +889,16 @@
 
     <!-- ===================================================== MODEL 4: ADMISSION STEPS -->
     <section class="section section--sand" id="steps" aria-labelledby="steps-title">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
+      <div class="wrap steps-layout">
+        <div class="steps-intro" data-reveal>
           <p class="eyebrow">How admission works</p>
           <h2 id="steps-title">Admission in Five Steps</h2>
+          <p class="steps-intro__text">It starts with a campus visit. The admissions team is with you at every step after that.</p>
+          <div class="steps-intro__actions">
+            <a class="btn btn--maroon" href="#enquiry-form" data-to-form><span>Book a campus visit</span></a>
+            <a class="text-link" href="tel:+918520071222" data-track="call_click">Call +91 85200 71222</a>
+          </div>
         </div>
-        <!-- The rail fills and each step lights up as the section scrolls into view (main.js adds .steps--live) -->
         <ol class="steps" data-steps>
           <li class="step">
             <span class="step__num" aria-hidden="true">1</span>
@@ -1087,14 +1091,6 @@
           <li><a href="mailto:admissionscounsellor1tukkuguda@slokainternational.com" class="break">admissionscounsellor1tukkuguda@slokainternational.com</a></li>
           <li><a href="mailto:admissionscounsellor2.tukkuguda@slokainternational.com" class="break">admissionscounsellor2.tukkuguda@slokainternational.com</a></li>
           <li>Monday to Saturday, 8:30 am to 5:20 pm</li>
-        </ul>
-      </div>
-
-      <div class="site-footer__col">
-        <h2 class="site-footer__heading">Links</h2>
-        <ul class="site-footer__list">
-          <li><a href="https://slokainternational.com" target="_blank" rel="noopener">slokainternational.com</a></li>
-          <li><a href="https://slokainternational.com/mandatory-disclosure-tukkuguda/" target="_blank" rel="noopener">CBSE Mandatory Disclosure (Tukkuguda)</a></li>
         </ul>
       </div>
     </div>
