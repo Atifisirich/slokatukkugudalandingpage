@@ -99,7 +99,7 @@
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=43"></script>
+  <script defer src="js/main.js?v=41"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -151,8 +151,8 @@
        "acceptedAnswer": {"@type": "Answer", "text": "Birth certificate, Aadhaar card (child and parent), previous school report card, bonafide certificate and transfer certificate."}},
       {"@type": "Question", "name": "What is the minimum age for admission?",
        "acceptedAnswer": {"@type": "Answer", "text": "A child's age is counted as on 31 March 2027. The minimum age is 3 years for Nursery, 4 years for LKG, 5 years for UKG and 6 years for Grade 1."}},
-      {"@type": "Question", "name": "What are the fees?",
-       "acceptedAnswer": {"@type": "Answer", "text": "Yearly tuition fee for 2027–28: Nursery Rs 93,000; PP1 / LKG to Grade 2 Rs 1,15,000; Grades 3 to 5 Rs 1,30,000; Grades 6 to 8 Rs 1,40,000; Grades 9 and 10 Rs 1,50,000. Transport, books, uniform, the admission / registration fee and activities and clubs are charged separately."}},
+      {"@type": "Question", "name": "What are the approximate fees?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Approximate yearly tuition for 2027–28: Pre-Primary (Nursery to UKG) Rs 93,000 to Rs 1,15,000; Primary (Grades 1 to 5) Rs 1,15,000 to Rs 1,30,000; Middle School (Grades 6 to 8) Rs 1,40,000; Secondary (Grades 9 and 10) Rs 1,50,000. Transport, books, uniform, the admission / registration fee and activities and clubs are charged separately."}},
       {"@type": "Question", "name": "How soon will the admissions team call me back?",
        "acceptedAnswer": {"@type": "Answer", "text": "After you send an enquiry, the admissions team calls you the same day."}},
       {"@type": "Question", "name": "Is school transport available?",
@@ -229,15 +229,24 @@
           <div class="hero__lead">
             <p class="badge-open">Admissions Open 2027–28</p>
             <h1 id="hero-title" class="hero__title">Future-Ready CBSE School in <span class="hl">Tukkuguda</span></h1>
-            <p class="hero__sub">Nursery to Grade 10</p>
+            <p class="hero__sub"><strong>Admissions Open 2027–28</strong> <span class="hero__sep" aria-hidden="true">|</span> Nursery to Grade 10</p>
+            <p class="hero__areas">Serving families from Maheshwaram, Balapur, Adibatla, Kongara Kalan, Raviryala and nearby areas.</p>
             <a class="btn btn--yellow hero__book" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
           </div>
           <div class="hero__side">
+            <p class="hero__note">Visit us. See the labs and the football ground for yourself.</p>
             <!-- Shortcuts into the two most useful tools -->
             <ul class="hero__tools">
               <li>
                 <a href="#pathway" class="tool-link">
+                  <span class="tool-link__num" aria-hidden="true">1</span>
                   <span><strong>Which grade fits my child?</strong> Fees and parent reviews by grade</span>
+                </a>
+              </li>
+              <li>
+                <a href="#visit" class="tool-link">
+                  <span class="tool-link__num" aria-hidden="true">2</span>
+                  <span><strong>How far is it from home?</strong> Check your area</span>
                 </a>
               </li>
             </ul>
@@ -362,7 +371,7 @@
          As the parent scrolls, the arch-shaped doorway opens until the campus fills the screen.
          The same doorway opening is reused for every photo on the page.
          Without JS, or with reduced motion, this renders as a plain full-width photo. -->
-    <section class="doorway" id="campus-story" aria-labelledby="doorway-title" data-doorway style="--n:1">
+    <section class="doorway" id="campus-story" aria-labelledby="doorway-title" data-doorway style="--n:6">
       <div class="doorway__stage">
         <div class="doorway__frame">
           <img src="images/campus-entrance-sm.webp"
@@ -379,7 +388,7 @@
         <p class="doorway__hint" aria-hidden="true">Scroll to open the doors</p>
 
         <div class="doorway__reveal">
-          <p class="doorway__line">A CBSE campus for Nursery to Grade 10, just off ORR Exit 14.</p>
+          <p class="doorway__line">Labs, sports grounds, an Early Years Play Land and a CCTV-secured campus, just off ORR Exit 14.</p>
           <ul class="doorway__facts">
             <li>CBSE Affiliated</li>
             <li>Nursery to Grade 10</li>
@@ -388,17 +397,68 @@
           <a class="btn btn--yellow" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
         </div>
 
-        <!-- Campus story: after the doors open, the building photo rises like a doorway from
-             the bottom. Add slides freely; --n on the section must match the number of slides. -->
+        <!-- Campus story: after the doors open, each scroll brings in the next photo, rising
+             like a doorway from the bottom. Add or remove slides freely; --n on the section
+             must match the number of slides. -->
+        <div class="doorway__slide">
+          <img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway running along the campus buildings">
+          <div class="doorway__cap">
+            <p class="doorway__count">01 / 06</p>
+            <h3 class="doorway__cap-title">Landscaped walkways</h3>
+            <p>Green, landscaped paths connect the classroom blocks and the grounds.</p>
+          </div>
+        </div>
         <div class="doorway__slide">
           <img src="images/story-block-sm.webp" srcset="images/story-block-sm.webp 800w, images/story-block.webp 1600w" sizes="100vw"
-               width="1600" height="900" loading="lazy" decoding="async" alt="The main school block of the Sloka Tukkuguda campus">
+               width="1600" height="900" loading="lazy" decoding="async" alt="The main school block seen across the football ground">
           <div class="doorway__cap">
-            <h3 class="doorway__cap-title">The Sloka Tukkuguda campus</h3>
-            <p>Classrooms, labs and grounds on one campus, just off ORR Exit 14.</p>
+            <p class="doorway__count">02 / 06</p>
+            <h3 class="doorway__cap-title">Main block and grounds</h3>
+            <p>The main academic block stands beside the football ground and the basketball courts.</p>
+          </div>
+        </div>
+        <div class="doorway__slide">
+          <img src="images/story-science-lab-sm.webp" srcset="images/story-science-lab-sm.webp 800w, images/story-science-lab.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="The Chemistry lab with benches, glassware and shelves of chemicals">
+          <div class="doorway__cap">
+            <p class="doorway__count">03 / 06</p>
+            <h3 class="doorway__cap-title">Science labs</h3>
+            <p>Separate Physics, Chemistry and Biology labs for hands-on experiments.</p>
+          </div>
+        </div>
+        <div class="doorway__slide">
+          <img src="images/story-football-sm.webp" srcset="images/story-football-sm.webp 800w, images/story-football.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="Students playing football on the pitch with the school building behind">
+          <div class="doorway__cap">
+            <p class="doorway__count">04 / 06</p>
+            <h3 class="doorway__cap-title">Football ground</h3>
+            <p>Sports are part of every student's regular schedule.</p>
+          </div>
+        </div>
+        <div class="doorway__slide">
+          <img src="images/story-cricket-sm.webp" srcset="images/story-cricket-sm.webp 640w, images/story-cricket.webp 960w" sizes="100vw"
+               width="960" height="540" loading="lazy" decoding="async" alt="The cricket practice nets on the school ground">
+          <div class="doorway__cap">
+            <p class="doorway__count">05 / 06</p>
+            <h3 class="doorway__cap-title">Cricket ground</h3>
+            <p>Room for practice sessions and inter-house matches.</p>
+          </div>
+        </div>
+        <div class="doorway__slide">
+          <img src="images/story-activity-hall-sm.webp" srcset="images/story-activity-hall-sm.webp 800w, images/story-activity-hall.webp 1600w" sizes="100vw"
+               width="1600" height="900" loading="lazy" decoding="async" alt="The Activity Hall with slides, a ball pit and soft play equipment">
+          <div class="doorway__cap">
+            <p class="doorway__count">06 / 06</p>
+            <h3 class="doorway__cap-title">Early Years spaces</h3>
+            <p>A dedicated Play Land and Activity Hall for the youngest learners.</p>
             <a class="btn btn--yellow" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
           </div>
         </div>
+
+        <!-- Progress dots for the story -->
+        <ol class="doorway__dots" aria-hidden="true">
+          <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+        </ol>
       </div>
     </section>
 
@@ -634,7 +694,7 @@
         <div class="section-head" data-reveal>
           <p class="eyebrow">Grades, fees and parent reviews</p>
           <h2 id="pathway-title">A Complete Pathway Under One Roof</h2>
-          <p class="section-lead">Nursery to Grade 10 on one campus. Choose the grade your child will join in 2027–28 to see what they will learn, the tuition fee and what parents say.</p>
+          <p class="section-lead">Nursery to Grade 10 on one campus. Choose the grade your child will join in 2027–28 to see what they will learn, the approximate fee and what parents say.</p>
         </div>
 
         <div class="finder" data-finder>
@@ -646,8 +706,8 @@
                 <label class="chip"><input type="radio" name="finder-grade" value="Nursery" data-stage="early" data-index="0"><span>Nursery</span></label>
                 <label class="chip"><input type="radio" name="finder-grade" value="PP1 / LKG" data-stage="early" data-index="1"><span>PP1 / LKG</span></label>
                 <label class="chip"><input type="radio" name="finder-grade" value="PP2 / UKG" data-stage="early" data-index="2"><span>PP2 / UKG</span></label>
-                <label class="chip"><input type="radio" name="finder-grade" value="Grade 1" data-stage="early" data-index="3"><span>Grade 1</span></label>
-                <label class="chip"><input type="radio" name="finder-grade" value="Grade 2" data-stage="early" data-index="4"><span>Grade 2</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 1" data-stage="primary" data-index="3"><span>Grade 1</span></label>
+                <label class="chip"><input type="radio" name="finder-grade" value="Grade 2" data-stage="primary" data-index="4"><span>Grade 2</span></label>
                 <label class="chip"><input type="radio" name="finder-grade" value="Grade 3" data-stage="primary" data-index="5"><span>Grade 3</span></label>
                 <label class="chip"><input type="radio" name="finder-grade" value="Grade 4" data-stage="primary" data-index="6"><span>Grade 4</span></label>
                 <label class="chip"><input type="radio" name="finder-grade" value="Grade 5" data-stage="primary" data-index="7"><span>Grade 5</span></label>
@@ -681,7 +741,7 @@
                 <button class="btn btn--ink btn--sm" type="button" data-agecheck>Check</button>
               </div>
               <p class="agecheck__result" data-age-result role="status" hidden></p>
-              <p class="agecheck__note">Based on your child's age on 31 March 2027. Final placement is confirmed by the admissions team.</p>
+              <p class="agecheck__note">Based on your child's age on 31 March 2027. Final placement is confirmed by the admissions team. <span class="tbc">[CONFIRM AGE FOR GRADES 2–10]</span></p>
             </div>
           </div>
 
@@ -691,7 +751,7 @@
           <div class="gsheet" data-gsheet data-stage="early">
             <div class="gsheet__head">
               <div>
-                <p class="gsheet__stage" data-gs-stage>Foundational Stage · Nursery to Grade 2</p>
+                <p class="gsheet__stage" data-gs-stage>Early Years · Nursery to UKG</p>
                 <h3 class="gsheet__grade" data-gs-grade>Choose a grade</h3>
               </div>
               <p class="gsheet__age" data-gs-age></p>
@@ -709,19 +769,22 @@
                     </div>
                     <div class="stage__cta">
                       <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade><span>Book a visit<span data-grade-suffix></span></span></a>
+                      <a class="text-link" href="#facilities">See the Play Land</a>
                     </div>
                   </div>
                   <div class="stage__body">
-                <p class="stage__tag">Play &amp; Wonder</p>
-                <h3 class="stage__title">Foundational Stage <span>Nursery to Grade 2 · Ages 3–8</span></h3>
-                <p>A Montessori-inspired, play-based programme featuring dedicated indoor and outdoor activity spaces where young learners build foundational skills through sensory play, hands-on exploration, and child-led discovery.</p>
-                <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
-                <ul class="checks">
-                  <li>Learn through exploration, sensory activities, and guided interactive games.</li>
-                  <li>Follow their curiosity through Montessori-inspired, child-led learning experiences.</li>
-                  <li>Play and move daily in safe, dedicated indoor and outdoor learning spaces designed for early years.</li>
-                </ul>
-              </div>
+                    <p class="stage__tag">Play &amp; Wonder</p>
+                    <h3 class="stage__title">Early Years <span>Nursery to UKG</span></h3>
+                    <p>A Montessori-inspired, play-based programme with a dedicated Play Land and Activity Hall, where children learn through exploration, sensory play and child-led discovery.</p>
+                    <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
+                    <ul class="checks">
+                      <li>Learn through exploration and sensory play</li>
+                      <li>Follow their curiosity with Montessori-inspired, child-led activities</li>
+                      <li>Play and move every day in the Play Land and Activity Hall</li>
+                    </ul>
+                    <h4 class="stage__subhead">Spaces they'll use</h4>
+                    <ul class="tags"><li>Play Land</li><li>Activity Hall</li><li>CCTV-secured campus</li></ul>
+                  </div>
                 </article>
 
                 <article class="stage stage--primary" id="stage-primary" data-stage-panel="primary">
@@ -734,19 +797,22 @@
                     </div>
                     <div class="stage__cta">
                       <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade><span>Book a visit<span data-grade-suffix></span></span></a>
+                      <a class="text-link" href="#facilities">See the classrooms</a>
                     </div>
                   </div>
                   <div class="stage__body">
-                <p class="stage__tag">Foundations &amp; Skill Building</p>
-                <h3 class="stage__title">Preparatory Stage <span>Grades 3 to 5 · Ages 8–11</span></h3>
-                <p>Strong foundations in Mathematics, Science, English, and Environmental Studies (EVS) are built through activity-based learning, reading, and writing, supported by Wordsworth AI language tools.</p>
-                <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
-                <ul class="checks">
-                  <li>Build core Maths, Science, English, and EVS concepts through hands-on activities and interactive questioning.</li>
-                  <li>Practise creativity, problem-solving, life skills, and early digital literacy.</li>
-                  <li>Enhance reading fluency, vocabulary, and spoken English using Wordsworth AI language support.</li>
-                </ul>
-              </div>
+                    <p class="stage__tag">Foundations</p>
+                    <h3 class="stage__title">Primary <span>Grades 1–5</span></h3>
+                    <p>Strong foundations in Maths, Science, English and EVS through activity-based, inquiry-driven learning, with Kaushal Bodh and Kaushal Vikas skill-building and Wordsworth AI language support.</p>
+                    <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
+                    <ul class="checks">
+                      <li>Build Maths, Science, English and EVS foundations through activities and questions</li>
+                      <li>Practise creativity, problem-solving, life skills, early coding and robotics in Kaushal Bodh and Kaushal Vikas</li>
+                      <li>Grow reading fluency, vocabulary and spoken English with Wordsworth AI</li>
+                    </ul>
+                    <h4 class="stage__subhead">Spaces they'll use</h4>
+                    <ul class="tags"><li>Classrooms</li><li>Football ground</li><li>Skating rink</li><li>Basketball courts</li></ul>
+                  </div>
                 </article>
 
                 <article class="stage stage--middle" id="stage-middle" data-stage-panel="middle">
@@ -759,19 +825,22 @@
                     </div>
                     <div class="stage__cta">
                       <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade><span>Book a visit<span data-grade-suffix></span></span></a>
+                      <a class="text-link" href="#facilities">See the Aero Bay Lab</a>
                     </div>
                   </div>
                   <div class="stage__body">
-                <p class="stage__tag">Inquiry &amp; Experiential Learning</p>
-                <h3 class="stage__title">Middle Stage <span>Grades 6 to 8 · Ages 11–14</span></h3>
-                <p>Empowering students through inquiry-driven, experiential learning integrated with CBSE Kaushal Bodh vocational skill projects, computer applications, and coding. Critical thinking is actively cultivated through practical experiments in dedicated Science laboratories.</p>
-                <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
-                <ul class="checks">
-                  <li>Engage in experiential skill-building and hands-on projects under the CBSE Kaushal Bodh curriculum framework.</li>
-                  <li>Learn coding logic, programming fundamentals, and computer applications in the ICT computer lab.</li>
-                  <li>Conduct experiments across dedicated Physics, Chemistry, and Biology laboratories.</li>
-                </ul>
-              </div>
+                    <p class="stage__tag">Inquiry</p>
+                    <h3 class="stage__title">Middle School <span>Grades 6–8</span></h3>
+                    <p>Inquiry-based, concept-led learning with Aero Bay Innovation Lab projects (robotics, coding, AI and hands-on STEM challenges), Physics, Chemistry and Biology labs, and an ICT lab with high-end systems.</p>
+                    <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
+                    <ul class="checks">
+                      <li>Build robotics, coding and AI projects in the Aero Bay Innovation Lab</li>
+                      <li>Run experiments in separate Physics, Chemistry and Biology labs</li>
+                      <li>Revise Science and Maths at their own pace with Ekalavya video lessons</li>
+                    </ul>
+                    <h4 class="stage__subhead">Spaces they'll use</h4>
+                    <ul class="tags"><li>Aero Bay Innovation Lab</li><li>Science labs</li><li>ICT lab</li><li>Sports grounds</li></ul>
+                  </div>
                 </article>
 
                 <article class="stage stage--secondary" id="stage-secondary" data-stage-panel="secondary">
@@ -784,28 +853,31 @@
                     </div>
                     <div class="stage__cta">
                       <a class="btn btn--maroon" href="#enquiry-form" data-to-form data-book-grade><span>Book a visit<span data-grade-suffix></span></span></a>
+                      <a class="text-link" href="#facilities">See the science labs</a>
                     </div>
                   </div>
                   <div class="stage__body">
-                <p class="stage__tag">Academic Excellence &amp; Rigour</p>
-                <h3 class="stage__title">Secondary Stage <span>Grades 9 &amp; 10 · Ages 14–16</span></h3>
-                <p>Delivering a rigorous CBSE curriculum centred on deep conceptual understanding, analytical thinking, multidisciplinary learning, practical lab coursework, and balanced athletic development.</p>
-                <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
-                <ul class="checks">
-                  <li>Master the CBSE curriculum through concept-focused teaching, analytical problem-solving, and targeted exam preparation.</li>
-                  <li>Engage in hands-on coursework within full-scale Physics, Chemistry, and Biology laboratories.</li>
-                  <li>Cultivate athletic discipline, physical fitness, and sports skills through structured field and court training sessions.</li>
-                </ul>
-              </div>
+                    <p class="stage__tag">Board Years</p>
+                    <h3 class="stage__title">Secondary <span>Grades 9–10</span></h3>
+                    <p>Grades 9 and 10 continue on the same campus, following the CBSE curriculum, with the science labs, the ICT lab and the sports grounds close at hand. <span class="tbc">[CONFIRM GRADE 9–10 PROGRAMME WITH SCHOOL]</span></p>
+                    <h4 class="stage__subhead">What <span data-grade-name>your child</span> will do</h4>
+                    <ul class="checks">
+                      <li>Study the CBSE curriculum in concept-led classes</li>
+                      <li>Run experiments in separate Physics, Chemistry and Biology labs</li>
+                      <li>Keep sports on the regular schedule alongside their studies</li>
+                    </ul>
+                    <h4 class="stage__subhead">Spaces they'll use</h4>
+                    <ul class="tags"><li>Science labs</li><li>ICT lab</li><li>Sports grounds</li><li>CCTV-secured campus</li></ul>
+                  </div>
                 </article>
               </div>
 
-              <aside class="gsheet__side" aria-label="Tuition fee and parent voice">
+              <aside class="gsheet__side" aria-label="Approximate fee and parent voice">
                 <section class="fee" aria-live="polite">
-                  <p class="fee__label">Yearly tuition fee · 2027–28</p>
-                  <p class="fee__for" data-fee-for></p>
-                  <p class="fee__amount" data-fee-amount><span class="fee__prompt">Choose a grade above to see its fee.</span></p>
-                  <p class="fee__note"><strong>*Transport, books, uniform, the admission / registration fee and activities &amp; clubs are charged separately.</strong></p>
+                  <p class="fee__label">Approximate yearly tuition fee</p>
+                  <p class="fee__for" data-fee-for>2027–28</p>
+                  <p class="fee__amount" data-fee-amount><span class="fee__prompt">Choose a grade above to see its approximate fee.</span></p>
+                  <p class="fee__note">Approximate range for 2027–28, by stage. Transport, books, uniform, the admission / registration fee and activities &amp; clubs are charged separately.</p>
                 </section>
 
                 <section class="voice" aria-live="polite">
@@ -843,15 +915,6 @@
           </div>
 
           <div class="commute__panel">
-            <!-- Pickup point search: shown once PICKUP_POINTS in js/main.js has the school's list -->
-            <div class="pickup" data-pickup hidden>
-              <label class="commute__label" for="pickup-q">Find your school bus pickup point</label>
-              <input class="field__input pickup__input" id="pickup-q" type="search" placeholder="Type your area, colony or landmark" autocomplete="off" aria-describedby="pickup-hint" aria-controls="pickup-results">
-              <p class="pickup__hint" id="pickup-hint">Search our <span data-pickup-count></span> pickup points.</p>
-              <ul class="pickup__results" id="pickup-results" data-pickup-results aria-live="polite"></ul>
-              <p class="pickup__none" data-pickup-none role="status" hidden>No pickup point found with that name. Please call our transport coordinator on <a href="tel:+918019646415" data-track="call_click">+91 80196 46415</a> to check the nearest route.</p>
-            </div>
-
             <p class="commute__label" id="area-label">Where do you live?</p>
             <div class="areas" role="group" aria-labelledby="area-label">
               <div class="areas__band">
@@ -894,59 +957,40 @@
       </div>
     </section>
 
-    <!-- ===================================================== ADMISSION PROCESS (5 steps) -->
+    <!-- ===================================================== MODEL 4: ADMISSION STEPS -->
     <section class="section section--maroon" id="steps" aria-labelledby="steps-title">
       <div class="wrap">
         <div class="section-head" data-reveal>
           <p class="eyebrow eyebrow--light">How admission works</p>
-          <h2 id="steps-title">Admission in Five Steps</h2>
+          <h2 id="steps-title">Admission in Four Steps</h2>
         </div>
-        <ol class="process">
-          <li class="process__step process__step--first">
-            <span class="process__num" aria-hidden="true">1</span>
-            <div class="process__card">
-              <p class="process__kicker">Step 1</p>
-              <h3 class="process__title">Book a Campus Visit</h3>
-              <p>Choose whichever way suits you best.</p>
-              <ul class="process__ways" aria-label="Ways to book a campus visit">
-                <li><a href="#enquiry-form" data-to-form>Online</a></li>
-                <li><a href="tel:+918520071222" data-track="call_click">Phone</a></li>
-                <li><a href="mailto:admissionscounsellor1tukkuguda@slokainternational.com?subject=Campus%20visit%20-%20Admissions%202027-28">Email</a></li>
-                <li><a href="https://wa.me/918520071222" data-whatsapp data-track="whatsapp_click" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.8a9.2 9.2 0 0 0-7.9 13.9L3 21l4.4-1.1A9.2 9.2 0 1 0 12 2.8zm0 1.8a7.4 7.4 0 1 1-3.8 13.8l-.3-.2-2.4.6.6-2.3-.2-.3A7.4 7.4 0 0 1 12 4.6zm-3 3.6c-.2 0-.5 0-.7.3-.3.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 1.9 3 4.7 4.1 2.3.9 2.8.7 3.3.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3l-.4-.3-1.9-.9c-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.4l-.9-2.1c-.2-.5-.4-.5-.6-.5z"/></svg>WhatsApp</a></li>
-              </ul>
-            </div>
+        <!-- Each step is a door that swings open as the page scrolls (main.js adds .steps--live) -->
+        <ol class="steps" data-steps>
+          <li class="step step--now">
+            <span class="step__num" aria-hidden="true">1</span>
+            <p class="step__kicker">Step 1</p>
+            <h3 class="step__title">Book a campus visit</h3>
+            <p>Online or by phone. It takes under a minute.</p>
+            <a class="btn btn--yellow btn--sm" href="#enquiry-form" data-to-form>Book your visit</a>
           </li>
-          <li class="process__step">
-            <span class="process__num" aria-hidden="true">2</span>
-            <div class="process__card">
-              <p class="process__kicker">Step 2</p>
-              <h3 class="process__title">Campus Tour</h3>
-              <p>Visit the campus and see the classrooms, labs and grounds with the admissions team.</p>
-            </div>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">2</span>
+            <p class="step__kicker">Step 2</p>
+            <h3 class="step__title">Meet and tour</h3>
+            <p>Meet the admissions counsellor and tour the labs, classrooms and grounds.</p>
           </li>
-          <li class="process__step">
-            <span class="process__num" aria-hidden="true">3</span>
-            <div class="process__card">
-              <p class="process__kicker">Step 3</p>
-              <h3 class="process__title">Complete the Application Form</h3>
-              <p>Fill in the application form for 2027–28.</p>
-            </div>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">3</span>
+            <p class="step__kicker">Step 3</p>
+            <h3 class="step__title">Apply</h3>
+            <p>Complete the application form for 2027–28.</p>
           </li>
-          <li class="process__step">
-            <span class="process__num" aria-hidden="true">4</span>
-            <div class="process__card">
-              <p class="process__kicker">Step 4</p>
-              <h3 class="process__title">Skill Test &amp; Academic In-charge / Principal Meet</h3>
-              <p>Your child takes a short skill test, followed by a meeting with the Academic In-charge or the Principal.</p>
-            </div>
-          </li>
-          <li class="process__step">
-            <span class="process__num" aria-hidden="true">5</span>
-            <div class="process__card">
-              <p class="process__kicker">Step 5</p>
-              <h3 class="process__title">Submission of Relevant Documents &amp; Completion of Admission Procedures</h3>
-              <p>Submit the required documents to complete the admission: birth certificate, Aadhaar card (child and parent), previous school report card, bonafide certificate and transfer certificate.</p>
-            </div>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">4</span>
+            <span class="step__done" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <p class="step__kicker">Step 4</p>
+            <h3 class="step__title">Submit documents</h3>
+            <p>Hand in the required documents to confirm the seat: birth certificate, Aadhaar card (child and parent), previous school report card, bonafide certificate and transfer certificate.</p>
           </li>
         </ol>
       </div>
@@ -1011,8 +1055,8 @@
               <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>A child's age is counted as on 31 March 2027. The minimum age is 3 years for Nursery, 4 years for LKG, 5 years for UKG and 6 years for Grade 1.</p></div></div></div>
             </details>
             <details class="faq__item" name="faq" data-topic="admissions" data-keywords="fee fees cost tuition price charges yearly annual separate uniform books">
-              <summary><span class="bubble bubble--parent">What are the fees?</span></summary>
-              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>Yearly tuition fee for 2027–28: Nursery ₹93,000; PP1 / LKG to Grade 2 ₹1,15,000; Grades 3 to 5 ₹1,30,000; Grades 6 to 8 ₹1,40,000; Grades 9 and 10 ₹1,50,000.</p><p>Transport, books, uniform, the admission / registration fee and activities &amp; clubs are charged separately.</p></div></div></div>
+              <summary><span class="bubble bubble--parent">What are the approximate fees?</span></summary>
+              <div class="faq__answer"><span class="chat__avatar chat__avatar--sm" aria-hidden="true">S</span><div class="bubble bubble--school"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><div class="bubble__text"><p>Approximate yearly tuition for 2027–28: Pre-Primary (Nursery to UKG) ₹93,000 to ₹1,15,000; Primary (Grades 1 to 5) ₹1,15,000 to ₹1,30,000; Middle School (Grades 6 to 8) ₹1,40,000; Secondary (Grades 9 and 10) ₹1,50,000.</p><p>Transport, books, uniform, the admission / registration fee and activities &amp; clubs are charged separately.</p></div></div></div>
             </details>
             <details class="faq__item" name="faq" data-topic="admissions" data-keywords="call back callback enquiry contact response how soon">
               <summary><span class="bubble bubble--parent">How soon will the admissions team call me back?</span></summary>
@@ -1097,6 +1141,14 @@
           <li><a href="mailto:admissionscounsellor1tukkuguda@slokainternational.com" class="break">admissionscounsellor1tukkuguda@slokainternational.com</a></li>
           <li><a href="mailto:admissionscounsellor2.tukkuguda@slokainternational.com" class="break">admissionscounsellor2.tukkuguda@slokainternational.com</a></li>
           <li>Monday to Saturday, 8:30 am to 5:20 pm</li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Links</h2>
+        <ul class="site-footer__list">
+          <li><a href="https://slokainternational.com" target="_blank" rel="noopener">slokainternational.com</a></li>
+          <li><a href="https://slokainternational.com/mandatory-disclosure-tukkuguda/" target="_blank" rel="noopener">CBSE Mandatory Disclosure (Tukkuguda)</a></li>
         </ul>
       </div>
     </div>
