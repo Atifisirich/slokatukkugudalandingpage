@@ -149,12 +149,9 @@ var AGE_RULES = {
    Both are keyed by the grade names used on the grade chips, so each grade
    shows its own fee range and its own parent testimonials.
 
-   FEES: approximate yearly tuition for 2027-28 in rupees, as [lowest, highest],
-   or a single amount as [amount]. The school gave one range per stage, so every
-   grade carries its stage's range; change a single grade here if its fee differs.
+   FEES: yearly tuition for 2027-28 in rupees, as a single amount [amount] (or a range
+   [lowest, highest]). Source: the school's grade-wise tuition table.
    Leave a grade as null and the page shows a "to be confirmed" note.
-   Source: school's website details form (Pre-Primary 93,000-1,15,000; Primary
-   1,15,000-1,30,000; Middle School 1,40,000; Secondary 1,50,000).
 
    PARENT_VOICES: testimonials per grade, each one an object (or a list of up to
    two). Use only reviews supplied and approved by the school.
@@ -169,15 +166,20 @@ var AGE_RULES = {
    its stage has none either (Grades 9-10 for now) every testimonial we have,
    each named with its own grade, until the school sends ones for that grade. Leave a grade as null until one arrives.
    -------------------------------------------------------------------------- */
+/* PICKUP_POINTS: the school bus pick-up points, for the search box in the Transport card.
+   Each one is { name: 'Stop name', area: 'Locality', time: 'Morning pick-up time (optional)' }.
+   The search box stays hidden while this list is empty. */
+var PICKUP_POINTS = [];
+
 var FEES = {
-  'Nursery':   [93000, 115000],
-  'PP1 / LKG': [93000, 115000],
-  'PP2 / UKG': [93000, 115000],
-  'Grade 1':   [115000, 130000],
-  'Grade 2':   [115000, 130000],
-  'Grade 3':   [115000, 130000],
-  'Grade 4':   [115000, 130000],
-  'Grade 5':   [115000, 130000],
+  'Nursery':   [93000],
+  'PP1 / LKG': [115000],
+  'PP2 / UKG': [115000],
+  'Grade 1':   [115000],
+  'Grade 2':   [115000],
+  'Grade 3':   [130000],
+  'Grade 4':   [130000],
+  'Grade 5':   [130000],
   'Grade 6':   [140000],
   'Grade 7':   [140000],
   'Grade 8':   [140000],
@@ -704,14 +706,14 @@ var PARENT_VOICES = {
     var feeAmount = sheet.querySelector('[data-fee-amount]');
     var voiceList = sheet.querySelector('[data-voice]');
     var STAGE_NAMES = {
-      early: 'Early Years · Nursery to UKG',
-      primary: 'Primary · Grades 1–5',
-      middle: 'Middle School · Grades 6–8',
-      secondary: 'Secondary · Grades 9–10'
+      early: 'Foundational Stage · Nursery to Grade 2',
+      primary: 'Preparatory Stage · Grades 3–5',
+      middle: 'Middle Stage · Grades 6–8',
+      secondary: 'Secondary Stage · Grades 9–10'
     };
     var rupees = function (n) { return '₹' + Number(n).toLocaleString('en-IN'); };
     var cutoffText = AGE_RULES.cutoff.day + ' ' + ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][AGE_RULES.cutoff.month - 1] + ' ' + AGE_RULES.cutoff.year;
-    var STAGE_SHORT = { early: 'Early Years', primary: 'Primary', middle: 'Middle School', secondary: 'Secondary' };
+    var STAGE_SHORT = { early: 'Foundational stage', primary: 'Preparatory stage', middle: 'Middle stage', secondary: 'Secondary stage' };
     var voiceFor = sheet.querySelector('[data-voice-for]');
     var personIcon = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="18" r="8"/><path d="M8 42c1.5-9 8-14 16-14s14.5 5 16 14z"/></svg>';
 
@@ -723,7 +725,7 @@ var PARENT_VOICES = {
         gsGrade.textContent = 'Choose a grade';
         gsAge.textContent = '';
         feeFor.textContent = '2027–28';
-        feeAmount.innerHTML = '<span class="fee__prompt">Choose a grade above to see its approximate fee.</span>';
+        feeAmount.innerHTML = '<span class="fee__prompt">Choose a grade above.</span>';
         voiceFor.textContent = '';
         voiceList.innerHTML = '<figure class="voice__card voice__card--prompt"><p class="voice__prompt">Choose a grade above to hear from parents of that grade.</p></figure>';
         return;
@@ -737,7 +739,7 @@ var PARENT_VOICES = {
       var range = FEES[grade];
       feeFor.textContent = grade + ' · 2027–28';
       feeAmount.innerHTML = range
-        ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<small>per year (approximate tuition)</small>'
+        ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<small>per year</small>'
         : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
 
       // Parent voices: this grade's own; else those from the same stage; else every testimonial we have.
@@ -969,6 +971,50 @@ var PARENT_VOICES = {
     each(areaBtns, function (b) {
       b.setAttribute('aria-pressed', 'false');
       b.addEventListener('click', function () { setArea(b.getAttribute('data-area')); });
+    });
+  }
+
+
+  /* 9b. Pick-up point search (Transport card)
+     ------------------------------------------------------------------------ */
+  var pickup = document.querySelector('[data-pickup]');
+
+  if (pickup && PICKUP_POINTS.length) {
+    var pInput = pickup.querySelector('[data-pickup-input]');
+    var pList = pickup.querySelector('[data-pickup-list]');
+    var pCount = pickup.querySelector('[data-pickup-count]');
+    var searchTimer = null;
+
+    var renderPickups = function () {
+      var q = pInput.value.trim().toLowerCase();
+      var hits = PICKUP_POINTS.filter(function (pt) {
+        return !q || (pt.name + ' ' + (pt.area || '')).toLowerCase().indexOf(q) !== -1;
+      });
+      pList.innerHTML = '';
+      hits.forEach(function (pt) {
+        var li = document.createElement('li');
+        var strong = document.createElement('strong');
+        strong.textContent = pt.name;
+        li.appendChild(strong);
+        var extra = [pt.area, pt.time].filter(Boolean).join(' · ');
+        if (extra) {
+          var span = document.createElement('span');
+          span.textContent = extra;
+          li.appendChild(span);
+        }
+        pList.appendChild(li);
+      });
+      pCount.textContent = hits.length
+        ? (q ? hits.length + ' of ' + PICKUP_POINTS.length + ' pick-up points' : PICKUP_POINTS.length + ' pick-up points')
+        : 'No pick-up point matches that. Call the transport coordinator below.';
+    };
+
+    pickup.hidden = false;
+    renderPickups();
+    pInput.addEventListener('input', function () {
+      renderPickups();
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(function () { if (pInput.value.trim()) track('pickup_searched', { query: pInput.value.trim() }); }, 900);
     });
   }
 
