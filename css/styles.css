@@ -19,7 +19,7 @@
    10. Facilities
    11. Model 1: grade finder
    14. Model 3: distance and transport
-   15. Model 4: admission steps
+   15. Admission process
    16. FAQ (Ask Sloka chat)
    18. Footer
    19. Mobile contact bar
@@ -771,9 +771,9 @@ strong { font-weight: 700; }
   }
   .hero__copy { align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
   .hero__grid {
-    grid-template-columns: minmax(0, 1fr) 400px;
+    grid-template-columns: minmax(0, 1fr) 460px;
     grid-template-areas: "copy form";
-    column-gap: 80px;
+    column-gap: 64px;
     row-gap: 36px;
     align-items: start;
   }
@@ -781,14 +781,17 @@ strong { font-weight: 700; }
 
 .badge-open {
   display: inline-block;
-  margin: 0 0 18px;
-  padding: 7px 16px 5px;
+  margin: 0 0 22px;
+  padding: 10px 22px 8px;
   border: 2px solid var(--ink);
   border-radius: 999px;
   background: var(--yellow);
-  font: 700 0.85rem/1.2 var(--sans);
-  letter-spacing: 0.08em;
+  box-shadow: 3px 3px 0 var(--ink);
+  color: var(--ink);
+  font: 700 clamp(1.05rem, 0.8rem + 1vw, 1.5rem)/1.15 var(--sans);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-shadow: none;
   rotate: -2deg;
 }
 
@@ -938,9 +941,9 @@ strong { font-weight: 700; }
   }
   .hero--zoom .hero__grid {
     grid-area: 1 / 1;
-    min-height: max(620px, 100vh);
-    padding-top: calc(var(--header-h) + 56px);
-    padding-bottom: 56px;
+    min-height: max(560px, 100vh);
+    padding-top: calc(var(--header-h) + 20px);
+    padding-bottom: 24px;
     align-content: center;
   }
   .hero--zoom .hero__arrive {
@@ -1155,6 +1158,47 @@ strong { font-weight: 700; }
   box-shadow: 3px 3px 0 var(--ink);
 }
 .enquiry-card--widget .crm-widget .btn-submit:hover { background: var(--yellow) !important; color: var(--ink) !important; }
+
+/* Compact widget layout: the whole form, Submit included, fits on one screen
+   (about 450px tall on a 1366x768 laptop, about 520px on a phone). Fields sit in
+   two columns; the phone number, captcha and consent take the full width. */
+.enquiry-card--widget .crm-widget .ee-form-body {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+.enquiry-card--widget .crm-widget .ee-form-body > .ee-row:has(#ee-form-9-form-9-captcha),
+.enquiry-card--widget .crm-widget .ee-form-body > .check-box-field { grid-column: 1 / -1; }
+.enquiry-card--widget .crm-widget .ee-row { margin: 0 !important; padding: 0 !important; }
+.enquiry-card--widget .crm-widget .ee-row .col-25,
+.enquiry-card--widget .crm-widget .ee-row .col-75 { width: 100% !important; float: none !important; margin: 0 !important; padding: 0 !important; }
+.enquiry-card--widget .crm-widget input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]) {
+  height: 44px !important;
+  min-height: 44px !important;
+  padding-top: 8px !important;
+  padding-bottom: 6px !important;
+  font-size: 1rem !important;   /* 16px: stops iOS zoom */
+}
+.enquiry-card--widget .crm-widget .select2-container { max-width: 100%; }
+.enquiry-card--widget .crm-widget .select2-selection--single { height: 44px !important; }
+.enquiry-card--widget .crm-widget .select2-selection__rendered { line-height: 42px !important; font-size: 1rem !important; }
+.enquiry-card--widget .crm-widget .select2-selection__arrow { height: 42px !important; }
+.enquiry-card--widget .crm-widget .captchaContainer { display: flex !important; align-items: center; gap: 10px; }
+.enquiry-card--widget .crm-widget .captchaContainer > .ee-row { flex: 1; }
+.enquiry-card--widget .crm-widget .check-box-field { font-size: 0.82rem !important; line-height: 1.35; }
+.enquiry-card--widget .crm-widget .ee-form-footer { margin: 8px 0 0 !important; padding: 0 !important; }
+.enquiry-card--widget .crm-widget .btn-submit { min-height: 46px !important; margin-top: 4px !important; }
+.enquiry-card--widget .enquiry__promise { margin-top: 8px; font-size: 0.88rem; }
+.enquiry-card--widget { padding: 18px 16px 16px; }
+.enquiry-card--widget .enquiry-card__title { margin-bottom: 12px; font-size: 1.15rem; }
+@media (max-width: 959px) {
+  .enquiry-card--widget .crm-widget .ee-form-body > .ee-row:has(#ee-form-9-form-9-mobile),
+  .enquiry-card--widget .crm-widget .ee-form-body > .ee-row:has(#ee-form-9-form-9-email) { grid-column: 1 / -1; }
+}
+@media (min-width: 960px) {
+  .enquiry-card--widget { padding: 20px 22px 18px; }
+  .enquiry-card--widget .enquiry-card__title { font-size: 1.2rem; }
+}
 
 /* Placeholder fields while the CRM widget loads */
 .crm-skeleton { display: grid; gap: 14px; }
@@ -1665,6 +1709,8 @@ strong { font-weight: 700; }
 .fee__amount small { display: block; margin-top: 4px; font: 500 0.88rem/1.3 var(--sans); color: rgba(251, 245, 233, 0.85); }
 .fee__prompt { font: 500 1rem/1.4 var(--sans); }
 .fee__note { margin: 0; font-size: 0.85rem; line-height: 1.45; color: rgba(251, 245, 233, 0.9); }
+.fee__note strong { font-weight: 700; color: var(--paper); }
+.fee__for:empty { display: none; }
 .fee .tbc { font-size: 0.82rem; }
 
 .voice { display: flex; flex-direction: column; }
@@ -1907,164 +1953,102 @@ strong { font-weight: 700; }
 }
 
 
-/* 15. Model 4: admission steps
-   Each step is an arch-shaped door, like the school doorway above. As the section
-   scrolls into view a yellow rail fills (--p, set by main.js) and each door swings
-   open in turn, then its text rises in. The last step ends with a tick.
-   Without JS, or with reduced motion, every door stays open.
+/* Pickup point search (transport) */
+.pickup { margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+.pickup[hidden] { display: none; }
+.pickup__input { margin-top: 8px; }
+.pickup__hint { margin: 6px 0 0; font-size: 0.86rem; color: var(--ink-soft); }
+.pickup__results { display: grid; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
+.pickup__results:empty { display: none; }
+.pickup__hit { padding: 8px 12px 6px; border: 1.5px solid var(--ink); border-left-width: 5px; border-left-color: var(--maroon); border-radius: 10px; background: var(--white); }
+.pickup__hit strong { display: block; font-weight: 700; }
+.pickup__hit span { display: block; font-size: 0.88rem; color: var(--ink-soft); }
+.pickup__none { margin: 10px 0 0; padding: 10px 12px; border-left: 3px solid var(--maroon); background: #FBEDE6; font-size: 0.95rem; line-height: 1.45; }
+.pickup__none a { font-weight: 700; color: var(--maroon); }
+
+
+/* 15. Admission process: five steps
+   A numbered timeline on the maroon band. Phones and tablets: one column with a
+   rail down the left. Wide screens: five cards in a row joined by a line through
+   the numbers.
    ========================================================================== */
-.steps {
+.process {
   position: relative;
   display: grid;
-  gap: 34px;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
+  counter-reset: none;
 }
-
-/* The rail: a dashed track, with a solid yellow line filling along it */
-.steps::before,
-.steps::after {
+.process::before {
   content: "";
   position: absolute;
-  z-index: 0;
-  pointer-events: none;
+  left: 23px;
+  top: 30px;
+  bottom: 30px;
+  border-left: 2px solid rgba(251, 245, 233, 0.35);
 }
-.steps::before { border: 0 dashed rgba(251, 245, 233, 0.4); }
-.steps::after { border: 0 solid var(--yellow); border-radius: 4px; }
-
-@media (max-width: 899px) {
-  .steps::before { left: 30px; top: 38px; bottom: 38px; border-left-width: 2px; }
-  .steps::after { left: 28px; top: 38px; height: calc((100% - 76px) * var(--p, 1)); border-left-width: 4px; }
-}
-@media (min-width: 900px) {
-  .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
-  /* From the first door's centre to the last door's centre */
-  .steps::before { left: 32px; right: calc(25% - 56px); top: 37px; border-top-width: 2px; }
-  .steps::after { left: 32px; top: 36px; width: calc((75% + 24px) * var(--p, 1)); border-top-width: 4px; }
-}
-
-.step {
+.process__step {
   position: relative;
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  column-gap: 20px;
-  align-content: start;
+  grid-template-columns: 48px minmax(0, 1fr);
+  column-gap: 16px;
+  align-items: start;
 }
-.step > :not(.step__num):not(.step__done) { grid-column: 2; }
-@media (min-width: 900px) {
-  .step { display: block; }
-}
-
-/* The door */
-.step__num {
+.process__num {
   position: relative;
   z-index: 1;
   display: grid;
   place-items: center;
-  grid-row: 1 / span 5;
-  width: 64px;
-  height: 76px;
-  margin-bottom: 22px;
-  padding-top: 6px;
+  width: 48px;
+  height: 48px;
+  padding-top: 3px;
   border: 2px solid var(--ink);
-  border-radius: 32px 32px 6px 6px;
-  background: var(--yellow);
-  color: var(--ink);
-  font: 400 1.7rem/1 var(--serif);
-  transition: background-color 0.4s ease 0.25s, color 0.3s ease 0.3s, border-color 0.4s ease 0.25s;
-}
-/* The door leaf, hinged on the left. Open by default; closed while the step is waiting */
-.step__num::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background:
-    repeating-linear-gradient(90deg, rgba(251, 245, 233, 0.1) 0 2px, transparent 2px 14px),
-    var(--maroon-deep);
-  transform-origin: left center;
-  transform: perspective(280px) rotateY(-112deg);
-  transition: transform 0.9s cubic-bezier(0.6, 0.05, 0.2, 1);
-  backface-visibility: hidden;
-}
-/* The door handle */
-.step__num::after {
-  content: "";
-  position: absolute;
-  right: 11px;
-  top: 54%;
-  width: 7px;
-  aspect-ratio: 1;
   border-radius: 50%;
   background: var(--yellow);
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  color: var(--ink);
+  font: 400 1.25rem/1 var(--serif);
 }
-
-.step__kicker {
-  margin: 0 0 6px;
-  font: 700 0.74rem/1.3 var(--sans);
-  letter-spacing: 0.16em;
+.process__card {
+  padding: 18px 20px 20px;
+  border: 1px solid rgba(251, 245, 233, 0.22);
+  border-radius: var(--radius);
+  background: rgba(251, 245, 233, 0.07);
+}
+.process__kicker {
+  margin: 0 0 4px;
+  font: 700 0.78rem/1.2 var(--sans);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--yellow);
 }
-.step__title { margin-bottom: 8px; font-size: 1.35rem; }
-.step p { color: rgba(251, 245, 233, 0.92); font-size: 1rem; }
-.step .step__kicker { color: var(--yellow); }
-.step .btn { margin-top: 16px; justify-self: start; }
-.step .tbc { margin-top: 4px; }
-
-/* The tick that closes the journey */
-.step__done {
-  position: absolute;
-  z-index: 2;
-  top: -10px;
-  left: 44px;
-  display: grid;
-  place-items: center;
-  width: 30px;
-  aspect-ratio: 1;
-  border: 2px solid var(--ink);
-  border-radius: 50%;
-  background: var(--paper);
-  transition: transform 0.45s cubic-bezier(0.3, 1.7, 0.5, 1) 0.9s;
+.process__title { margin: 0 0 8px; font-size: 1.2rem; line-height: 1.25; color: var(--paper); }
+.process__card p { margin: 0; font-size: 0.98rem; line-height: 1.5; color: rgba(251, 245, 233, 0.9); }
+.process__ways { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+.process__ways a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 14px 4px;
+  border: 1.5px solid var(--paper);
+  border-radius: 999px;
+  color: var(--paper);
+  font: 700 0.92rem/1 var(--sans);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
-.step__done svg { width: 16px; height: 16px; fill: none; stroke: var(--maroon); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.process__ways a:hover,
+.process__ways a:focus-visible { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.process__ways .icon { width: 16px; height: 16px; fill: currentColor; }
+.process__step--first .process__card { background: rgba(249, 194, 18, 0.12); border-color: rgba(249, 194, 18, 0.55); }
 
-/* ---- Live: doors start closed, then open as the rail reaches them ---- */
-.steps--live .step:not(.is-on) .step__num {
-  background: var(--maroon);
-  border-color: var(--paper);
-  color: transparent;
-  transition-delay: 0s;
-}
-.steps--live .step:not(.is-on) .step__num::before { transform: none; }
-.steps--live .step:not(.is-on) .step__num::after { opacity: 1; }
-.steps--live .step:not(.is-on) .step__done { transform: scale(0); transition-delay: 0s; }
-.steps--live .step.is-on .step__num { animation: door-ring 1s ease-out 0.55s backwards; }
-
-.steps--live .step > :not(.step__num):not(.step__done) {
-  transition: opacity 0.6s ease, translate 0.6s ease;
-}
-.steps--live .step:not(.is-on) > :not(.step__num):not(.step__done) {
-  opacity: 0;
-  translate: 0 16px;
-}
-.steps--live .step.is-on > :nth-child(3) { transition-delay: 0.45s; }
-.steps--live .step.is-on > :nth-child(4) { transition-delay: 0.55s; }
-.steps--live .step.is-on > :nth-child(5) { transition-delay: 0.65s; }
-.steps--live .step.is-on > :nth-child(6) { transition-delay: 0.75s; }
-
-@keyframes door-ring {
-  0%   { box-shadow: 0 0 0 0 rgba(249, 194, 18, 0.7); }
-  100% { box-shadow: 0 0 0 20px rgba(249, 194, 18, 0); }
-}
-
-.section--maroon :focus-visible { outline-color: var(--yellow); }
-
-@media (prefers-reduced-motion: reduce) {
-  .step__num, .step__num::before, .step__done, .steps--live .step > * { transition: none; }
+@media (min-width: 1100px) {
+  .process { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+  .process::before { left: 24px; right: 24px; top: 23px; bottom: auto; border-left: 0; border-top: 2px solid rgba(251, 245, 233, 0.35); }
+  .process__step { grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-content: start; row-gap: 16px; }
+  .process__card { height: 100%; }
 }
 
 
@@ -2277,7 +2261,7 @@ strong { font-weight: 700; }
   .site-footer__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 1040px) {
-  .site-footer__inner { grid-template-columns: 1.1fr 1fr 1.2fr 1fr; }
+  .site-footer__inner { grid-template-columns: 1fr 1fr 1.3fr; }
 }
 .logo-plate { display: inline-block; }
 .logo-plate img { width: auto; height: 64px; }

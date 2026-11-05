@@ -149,12 +149,10 @@ var AGE_RULES = {
    Both are keyed by the grade names used on the grade chips, so each grade
    shows its own fee range and its own parent testimonials.
 
-   FEES: approximate yearly tuition for 2027-28 in rupees, as [lowest, highest],
-   or a single amount as [amount]. The school gave one range per stage, so every
-   grade carries its stage's range; change a single grade here if its fee differs.
-   Leave a grade as null and the page shows a "to be confirmed" note.
-   Source: school's website details form (Pre-Primary 93,000-1,15,000; Primary
-   1,15,000-1,30,000; Middle School 1,40,000; Secondary 1,50,000).
+   FEES: yearly tuition fee for 2027-28 in rupees, as a single amount [amount],
+   or a range [lowest, highest]. Leave a grade as null and the page shows a
+   "to be confirmed" note.
+   Source: the school's "Landing page - Feedback 1" document (5 Nov 2026).
 
    PARENT_VOICES: testimonials per grade, each one an object (or a list of up to
    two). Use only reviews supplied and approved by the school.
@@ -170,14 +168,14 @@ var AGE_RULES = {
    each named with its own grade, until the school sends ones for that grade. Leave a grade as null until one arrives.
    -------------------------------------------------------------------------- */
 var FEES = {
-  'Nursery':   [93000, 115000],
-  'PP1 / LKG': [93000, 115000],
-  'PP2 / UKG': [93000, 115000],
-  'Grade 1':   [115000, 130000],
-  'Grade 2':   [115000, 130000],
-  'Grade 3':   [115000, 130000],
-  'Grade 4':   [115000, 130000],
-  'Grade 5':   [115000, 130000],
+  'Nursery':   [93000],
+  'PP1 / LKG': [115000],
+  'PP2 / UKG': [115000],
+  'Grade 1':   [115000],
+  'Grade 2':   [115000],
+  'Grade 3':   [130000],
+  'Grade 4':   [130000],
+  'Grade 5':   [130000],
   'Grade 6':   [140000],
   'Grade 7':   [140000],
   'Grade 8':   [140000],
@@ -219,6 +217,17 @@ var PARENT_VOICES = {
   'Grade 9':   null,
   'Grade 10':  null
 };
+
+
+/* 2c. PICKUP_POINTS  [LIST OF 38 PICKUP POINTS TO BE SUPPLIED BY SCHOOL]
+   --------------------------------------------------------------------------
+   School bus pickup points for the "Find your pickup point" search in the
+   transport section. One entry per point: a name, and optionally the area it
+   is in (searched too) and a short note shown under it, e.g.
+     { name: 'Laxmi Nagar Bus Stop', area: 'Tukkuguda', note: 'Route 3' }
+   While the list is empty the search box stays hidden.
+   -------------------------------------------------------------------------- */
+var PICKUP_POINTS = [];
 
 
 (function () {
@@ -704,14 +713,14 @@ var PARENT_VOICES = {
     var feeAmount = sheet.querySelector('[data-fee-amount]');
     var voiceList = sheet.querySelector('[data-voice]');
     var STAGE_NAMES = {
-      early: 'Early Years · Nursery to UKG',
-      primary: 'Primary · Grades 1–5',
-      middle: 'Middle School · Grades 6–8',
-      secondary: 'Secondary · Grades 9–10'
+      early: 'Foundational Stage · Nursery to Grade 2',
+      primary: 'Preparatory Stage · Grades 3 to 5',
+      middle: 'Middle Stage · Grades 6 to 8',
+      secondary: 'Secondary Stage · Grades 9 & 10'
     };
     var rupees = function (n) { return '₹' + Number(n).toLocaleString('en-IN'); };
     var cutoffText = AGE_RULES.cutoff.day + ' ' + ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][AGE_RULES.cutoff.month - 1] + ' ' + AGE_RULES.cutoff.year;
-    var STAGE_SHORT = { early: 'Early Years', primary: 'Primary', middle: 'Middle School', secondary: 'Secondary' };
+    var STAGE_SHORT = { early: 'Foundational Stage', primary: 'Preparatory Stage', middle: 'Middle Stage', secondary: 'Secondary Stage' };
     var voiceFor = sheet.querySelector('[data-voice-for]');
     var personIcon = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="18" r="8"/><path d="M8 42c1.5-9 8-14 16-14s14.5 5 16 14z"/></svg>';
 
@@ -722,8 +731,8 @@ var PARENT_VOICES = {
       if (!grade) {
         gsGrade.textContent = 'Choose a grade';
         gsAge.textContent = '';
-        feeFor.textContent = '2027–28';
-        feeAmount.innerHTML = '<span class="fee__prompt">Choose a grade above to see its approximate fee.</span>';
+        feeFor.textContent = '';
+        feeAmount.innerHTML = '<span class="fee__prompt">Choose a grade above to see its fee.</span>';
         voiceFor.textContent = '';
         voiceList.innerHTML = '<figure class="voice__card voice__card--prompt"><p class="voice__prompt">Choose a grade above to hear from parents of that grade.</p></figure>';
         return;
@@ -735,10 +744,10 @@ var PARENT_VOICES = {
 
       // Fee for this grade: a range, or a single amount
       var range = FEES[grade];
-      feeFor.textContent = grade + ' · 2027–28';
+      feeFor.textContent = grade;
       feeAmount.innerHTML = range
-        ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<small>per year (approximate tuition)</small>'
-        : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
+        ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<small>tuition fee per year</small>'
+        : '<span class="tbc">[FEE TO BE CONFIRMED BY SCHOOL]</span>';
 
       // Parent voices: this grade's own; else those from the same stage; else every testimonial we have.
       // Each one keeps its own parent's real grade in the caption, so nothing is misattributed.
@@ -970,6 +979,42 @@ var PARENT_VOICES = {
       b.setAttribute('aria-pressed', 'false');
       b.addEventListener('click', function () { setArea(b.getAttribute('data-area')); });
     });
+
+    // Pickup point search: filters PICKUP_POINTS as the parent types
+    var pickup = commute.querySelector('[data-pickup]');
+    if (pickup && PICKUP_POINTS.length) {
+      var pq = pickup.querySelector('input');
+      var pResults = pickup.querySelector('[data-pickup-results]');
+      var pNone = pickup.querySelector('[data-pickup-none]');
+      var pCount = pickup.querySelector('[data-pickup-count]');
+      var norm = function (t) { return String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); };
+      var searchTimer;
+      pCount.textContent = PICKUP_POINTS.length;
+      pickup.hidden = false;
+
+      var runSearch = function () {
+        var q = norm(pq.value);
+        pResults.innerHTML = '';
+        pNone.hidden = true;
+        if (q.length < 2) return;
+        var words = q.split(' ');
+        var hits = PICKUP_POINTS.filter(function (pt) {
+          var hay = norm(pt.name + ' ' + (pt.area || ''));
+          return words.every(function (w) { return hay.indexOf(w) !== -1; });
+        }).slice(0, 8);
+        if (!hits.length) { pNone.hidden = false; }
+        hits.forEach(function (pt) {
+          var li = document.createElement('li');
+          li.className = 'pickup__hit';
+          li.innerHTML = '<strong>' + escapeHtml(pt.name) + '</strong>' +
+            ((pt.area || pt.note) ? '<span>' + escapeHtml([pt.area, pt.note].filter(Boolean).join(' · ')) + '</span>' : '');
+          pResults.appendChild(li);
+        });
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(function () { track('pickup_search', { query: q, results: hits.length }); }, 800);
+      };
+      pq.addEventListener('input', runSearch);
+    }
   }
 
 
@@ -1136,42 +1181,6 @@ var PARENT_VOICES = {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', function () { if (active) paint(); });
     paint();
-  }
-
-  // Admission steps: a rail fills and each step's door swings open as the steps scroll into view.
-  // Without motion (or without JS) every door simply stays open.
-  var stepsEl = document.querySelector('[data-steps]');
-  if (stepsEl && !reduceMotion) {
-    var stepItems = Array.prototype.slice.call(stepsEl.querySelectorAll('.step'));
-    var stepsTick = false;
-    var clampSteps = function (v) { return Math.min(1, Math.max(0, v)); };
-
-    var paintSteps = function () {
-      stepsTick = false;
-      var vh = window.innerHeight;
-      var first = stepItems[0].querySelector('.step__num').getBoundingClientRect();
-      var last = stepItems[stepItems.length - 1].querySelector('.step__num').getBoundingClientRect();
-      var p;
-      if (Math.abs(last.top - first.top) > 50) {
-        // Stacked on phones: the rail fills down as each door passes 80% of the screen height
-        p = clampSteps((vh * 0.8 - first.top) / (last.top - first.top));
-      } else {
-        // In a row on wider screens
-        p = clampSteps((vh * 0.85 - first.top) / (vh * 0.4));
-      }
-      stepsEl.style.setProperty('--p', p.toFixed(3));
-      stepItems.forEach(function (li, i) {
-        var on = i === 0 ? p > 0 : p >= i / (stepItems.length - 1) - 0.001;
-        li.classList.toggle('is-on', on);
-      });
-    };
-
-    stepsEl.classList.add('steps--live');
-    window.addEventListener('scroll', function () {
-      if (!stepsTick) { stepsTick = true; requestAnimationFrame(paintSteps); }
-    }, { passive: true });
-    window.addEventListener('resize', paintSteps);
-    paintSteps();
   }
 
   // Booking links: after the scroll, move focus to the card heading
