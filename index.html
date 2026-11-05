@@ -93,12 +93,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=52">
+  <link rel="stylesheet" href="css/styles.css?v=53">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=51"></script>
+  <script defer src="js/main.js?v=54"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -799,7 +799,7 @@
                   <p class="fee__label">Yearly tuition fee</p>
                   <p class="fee__for" data-fee-for>2027–28</p>
                   <p class="fee__amount" data-fee-amount><span class="fee__prompt">Choose a grade above.</span></p>
-                  <p class="fee__note"><strong>Transport, books, uniform, the admission / registration fee and activities &amp; clubs are charged separately.</strong></p>
+                  <p class="fee__note"><strong><span class="fee__star" aria-hidden="true">*</span> Transport, books, uniform, the admission / registration fee and activities &amp; clubs are charged separately.</strong></p>
                 </section>
 
                 <section class="voice" aria-live="polite">
@@ -840,7 +840,7 @@
             <p class="commute__label" id="area-label">Where do you live?</p>
             <!-- Search over the school's bus pick-up points (PICKUP_POINTS in js/main.js). Hidden until the list is filled. -->
             <div class="finder" data-stopfinder hidden>
-              <label class="finder__label" for="finder-q">Search your area or bus stop</label>
+              <label class="finder__label" for="finder-q">Search your area</label>
               <input class="finder__input" id="finder-q" type="search" placeholder="Type a name, for example Mankhal or Kandhukur" autocomplete="off" enterkeyhint="search" data-finder-input>
               <ul class="finder__list" data-finder-list aria-label="Matching pick-up points" hidden></ul>
               <p class="finder__note" data-finder-note>For a stop that is not listed, call the transport coordinator on <a href="tel:+918019646415" data-track="call_click">+91 80196 46415</a>.</p>

@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=52`) so returning visitors don't get a cached copy.
+(currently `?v=54`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -68,8 +68,8 @@ A flower loading screen (from the logo) shows once per session, never with reduc
 
 Already on the page: admissions phones (+91 85200 71222, +91 85200 87222), transport desk +91 80196 46415, office
 timings, same-day call-back, age counted on 31 March 2027 (Nursery 3, LKG 4, UKG 5, Grade 1 6 years), documents list,
-grade-wise yearly tuition (`FEES`), what is charged separately, three parent testimonials
-(`PARENT_VOICES`, consent given, full names shown), CBSE affiliation no. 3630582, Mandatory Disclosure link.
+grade-wise yearly tuition (`FEES`), what is charged separately, parent testimonials
+(`PARENT_VOICES`: 3 from the first form plus 8 sent in Nov 2026; parents' names only, children's names not shown), CBSE affiliation no. 3630582, Mandatory Disclosure link.
 Not shown on purpose: the counsellor's name and the website managers' contacts.
 
 ## Still waiting on the school (placeholders are visible on the page as yellow chips)
@@ -78,8 +78,8 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
   (client feedback, Nov 2026: "later"). The FAQ answers on the page are ours until then.
 
 - Minimum ages for Grades 2 to 10 (the form only gave Nursery to Grade 1; the rest are one year apart).
-- Testimonials for each grade. Until they arrive a grade shows the three we have: its own, else its stage's, else all of
-  them (each named with the parent's real grade). Also one about safety and transport.
+- Testimonials for Grades 2, 6, 9 and 10 (the school's Nov 2026 batch covers Nursery, PP1, PP2, Grades 1, 3, 4, 5, 7, 8). Those four show
+  testimonials from their stage, or from all grades, each named with the parent's real grade. Also one about safety and transport.
 - What Grades 9–10 offer (the Secondary card is a draft and is flagged on the page), and add both grades to the
   CRM widget's grade list; which grades use the ICT lab.
 - Privacy policy: not on the site for now (taken down until the school supplies its details). The draft is in git

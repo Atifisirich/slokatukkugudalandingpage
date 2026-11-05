@@ -2487,3 +2487,7 @@ strong { font-weight: 700; }
   .enquiry-card--widget .crm-widget .captchaContainer { margin-bottom: 2px !important; }
   .enquiry__promise { margin-top: 6px; font-size: 0.85rem; }
 }
+
+/* Star on the fee and on the "charged separately" note */
+.fee__star { color: var(--yellow); font-weight: 700; }
+.fee__amount sup.fee__star { margin-left: 2px; font-size: 0.6em; vertical-align: super; }

@@ -278,40 +278,81 @@ var FEES = {
   'Grade 10':  [150000]
 };
 
-var PARENT_VOICES = {
-  'Nursery':   null,
-  'PP1 / LKG': {
+var PARENT_VOICES = (function () {
+  // Parents who have children in more than one grade appear under each of those grades.
+  // Only parent names are shown, not the children's names.
+  var divya = {
     topic: 'Settling in',
     quote: 'My child studies in PP1 at Sloka International School. Initially, we were worried as it was her first time away from home, but she adjusted quickly thanks to the creative classrooms and supportive teachers. She now enjoys school and looks forward to it daily. I highly recommend this school for a child’s overall growth.',
     name: 'Dr. T. Divya', parent: 'Parent of a PP1 student', area: '', photo: '', draft: false
-  },
-  'PP2 / UKG': null,
-  'Grade 1':   null,
-  'Grade 2':   null,
-  'Grade 3':   null,
-  'Grade 4':   null,
-  'Grade 5': {
+  };
+  var anuradha = {
     topic: 'Academics and sports',
     quote: 'Here my children get opportunities in both academics and sports. The school maintains quality education and focuses on activity-based learning rather than rote memorization. My kids are always excited to come to school, and it feels like a second home for them. The staff are humble, caring and very supportive.',
     name: 'Ms. Anuradha Uttamrao Patil', parent: 'Parent of Grade 7 and Grade 5 students', area: '', photo: '', draft: false
-  },
-  'Grade 6':   null,
-  'Grade 7': [
-    {
-      topic: 'Teachers',
-      quote: 'I am happy with the level of engagement my daughter has experienced throughout the year and I am hopeful for the best outcomes in this academic year. We strongly feel that choosing Sloka International School was the right decision. The teachers are energetic, supportive and dedicated, which gives us great confidence as parents. Thank you for the continuous efforts and support.',
-      name: 'Mr. Hari Krishna Yellina', parent: 'Parent of a Grade 7 student', area: '', photo: '', draft: false
-    },
-    {
-      topic: 'Academics and sports',
-      quote: 'Here my children get opportunities in both academics and sports. The school maintains quality education and focuses on activity-based learning rather than rote memorization. My kids are always excited to come to school, and it feels like a second home for them. The staff are humble, caring and very supportive.',
-      name: 'Ms. Anuradha Uttamrao Patil', parent: 'Parent of Grade 7 and Grade 5 students', area: '', photo: '', draft: false
-    }
-  ],
-  'Grade 8':   null,
-  'Grade 9':   null,
-  'Grade 10':  null
-};
+  };
+  var hariKrishna = {
+    topic: 'Teachers',
+    quote: 'I am happy with the level of engagement my daughter has experienced throughout the year and I am hopeful for the best outcomes in this academic year. We strongly feel that choosing Sloka International School was the right decision. The teachers are energetic, supportive and dedicated, which gives us great confidence as parents. Thank you for the continuous efforts and support.',
+    name: 'Mr. Hari Krishna Yellina', parent: 'Parent of a Grade 7 student', area: '', photo: '', draft: false
+  };
+  var khushboo = {
+    topic: 'Confidence and communication',
+    quote: 'We are very happy with our daughter’s progress and overall development. We have noticed significant improvement in her communication skills, confidence, general knowledge, and learning abilities. She is becoming more confident in expressing her thoughts and interacting with others. We sincerely appreciate the teachers and school management for their continuous support, dedication, and efforts in nurturing her growth. Thank you for providing such a positive learning environment.',
+    name: 'Khushboo Amresh Jha', parent: 'Parent of a Grade 3 student', area: '', photo: '', draft: false
+  };
+  var pavithra = {
+    topic: 'Safe and nurturing',
+    quote: 'My hearty thanks to academic related staffs, principal mam for the impeccable guidance my kids receives daily. I can see the impressive performance of my kids. Their activities are appreciated by medals and certificates, so they are eager to do more achievements. They like Sloka International School immensely. Sloka International School provides safe and nurturing environment.',
+    name: 'Pavithra', parent: 'Parent of Grade 8 and Grade 5 students', area: '', photo: '', draft: false
+  };
+  var arpitha = {
+    topic: 'Confidence and guidance',
+    quote: 'I really appreciate the educational environment, teachers, Principal Mam and all staff for their behaviour and cooperation. They learn how to build confidence among them and communication skills, and they give proper guidance between home and classroom. I also appreciate the training and development programmes, smart classrooms, sports ground, STEM labs and more.',
+    name: 'Arpitha Mandal', parent: 'Parent of PP2 and Nursery students', area: '', photo: '', draft: false
+  };
+  var syed = {
+    topic: 'Teachers and care',
+    quote: 'We are extremely happy and satisfied with Sloka International School. We sincerely appreciate the management and teachers for their dedication, excellent teaching, care, and support. The school provides a wonderful learning environment and focuses on both academic excellence and the overall development of children. Thank you for your continuous efforts in shaping a bright future for our child.',
+    name: 'Syed Baji Baba and Syed Wajida', parent: 'Parents of a Grade 4 student', area: '', photo: '', draft: false
+  };
+  var swethaReddy = {
+    topic: 'Individual attention',
+    quote: 'Thank you for your hard work in supporting my son as he develops. I must say that you are really doing a great job giving attention to each child. Very happy with the school system and the cooperative attitude of the teachers for making my child more confident to participate in activities. We appreciate how the school balances academics, sports, and cultural activities while providing regular progress updates. Every teacher is friendly and polite. Thank you, principal ma’am, for being there for us and our children.',
+    name: 'Swetha Reddy', parent: 'Parent of a Grade 1 student', area: '', photo: '', draft: false
+  };
+  var darsh = {
+    topic: 'Caring teachers',
+    quote: 'I feel extremely happy and proud to be associated with this school. Choosing the right school for our child is one of the most important decisions, and I am glad that we made the right choice. The teachers are caring, supportive, and dedicated. They give individual attention to students and make learning enjoyable and meaningful. Thank you for making our child’s learning journey so special.',
+    name: 'Sumit Kumar and Damini', parent: 'Parents of a PP2 student', area: '', photo: '', draft: false
+  };
+  var swethaTiwari = {
+    topic: 'Values and balance',
+    quote: 'We are delighted to be part of Sloka International School. Teachers here are very supportive and they make every child feel valued through personal attention and encouragement, discipline, and guidance. I am happy that I am associated with Sloka because here the balance of academics, extra-curricular activities and values nurtures the character of a child, which makes them responsible towards their society and environment.',
+    name: 'Swetha Tiwari', parent: 'Parent of a Grade 1 student', area: '', photo: '', draft: false
+  };
+  var sravan = {
+    topic: 'Choosing Sloka',
+    quote: 'We explored a lot of schools in and around Hyderabad, but I think Sloka fit the bill very perfectly because of the infrastructure, the campus, the teaching staff, and the positive reviews we got from other parents and the local community. We really like the way the curriculum is structured and the teachers are interacting, and the accessibility to the management and the school higher authorities to convey our feedback and get our concerns addressed. The community around is very peaceful, and especially the separate infrastructure they have for sports. So we are happy overall, I think it is a good choice that we made.',
+    name: 'Sravan', parent: 'Parent of Grade 3 and Grade 5 students', area: '', photo: '', draft: false
+  };
+
+  return {
+    'Nursery':   [arpitha],
+    'PP1 / LKG': [divya],
+    'PP2 / UKG': [arpitha, darsh],
+    'Grade 1':   [swethaReddy, swethaTiwari],
+    'Grade 2':   null,
+    'Grade 3':   [khushboo, sravan],
+    'Grade 4':   [syed],
+    'Grade 5':   [pavithra, anuradha, sravan],
+    'Grade 6':   null,
+    'Grade 7':   [hariKrishna, anuradha],
+    'Grade 8':   [pavithra],
+    'Grade 9':   null,
+    'Grade 10':  null
+  };
+})();
 
 
 (function () {
@@ -830,7 +871,7 @@ var PARENT_VOICES = {
       var range = FEES[grade];
       feeFor.textContent = grade + ' · 2027–28';
       feeAmount.innerHTML = range
-        ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<small>per year</small>'
+        ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<sup class="fee__star" aria-hidden="true">*</sup><small>per year</small>'
         : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
 
       // Parent voices: this grade's own; else those from the same stage; else every testimonial we have.
@@ -1070,12 +1111,12 @@ var PARENT_VOICES = {
      Typing filters PICKUP_POINTS; picking a stop shows its distance from the school and a Google Maps
      directions link from that stop. Distances are the school's own transport-list figures.
      ------------------------------------------------------------------------ */
-  var finder = document.querySelector('[data-stopfinder]');
+  var stopFinder = document.querySelector('[data-stopfinder]');
 
-  if (finder && commute && PICKUP_POINTS.length) {
-    var fInput = finder.querySelector('[data-finder-input]');
-    var fList = finder.querySelector('[data-finder-list]');
-    var fNote = finder.querySelector('[data-finder-note]');
+  if (stopFinder && commute && PICKUP_POINTS.length) {
+    var fInput = stopFinder.querySelector('[data-finder-input]');
+    var fList = stopFinder.querySelector('[data-finder-list]');
+    var fNote = stopFinder.querySelector('[data-finder-note]');
     var fOr = document.querySelector('[data-finder-or]');
     var fNoteDefault = fNote.innerHTML;
     var fTimer = null;
@@ -1137,7 +1178,7 @@ var PARENT_VOICES = {
         : 'No pick-up point matches that. Please call the transport coordinator on <a href="tel:+918019646415" data-track="call_click">+91 80196 46415</a>.';
     };
 
-    finder.hidden = false;
+    stopFinder.hidden = false;
     fOr.hidden = false;
     fInput.addEventListener('input', function () {
       runFinder();
