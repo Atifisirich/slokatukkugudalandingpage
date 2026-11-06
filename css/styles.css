@@ -2546,3 +2546,11 @@ strong { font-weight: 700; }
 @media (max-width: 559px) {
   .hero .hero__sub strong { white-space: nowrap; font-size: clamp(1.1rem, 5.4vw, 1.5rem); padding-inline: 0.6em; }
 }
+
+/* FAQ answers: paragraphs and bullet lists inside the school's chat bubble */
+.bubble__text > p + p { margin-top: 0.75em; }
+.bubble__list { margin: 0.6em 0 0; padding: 0 0 0 1.15em; }
+.bubble__list li { margin: 0 0 0.55em; padding-left: 0.1em; }
+.bubble__list li:last-child { margin-bottom: 0; }
+.bubble__list + p { margin-top: 0.75em; }
+.bubble__text a:not(.text-link):not(.btn) { color: var(--maroon); font-weight: 700; word-break: break-word; }

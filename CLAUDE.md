@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=60`) so returning visitors don't get a cached copy.
+(currently `?v=61`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -44,8 +44,8 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    9 and 10; wording is the client's `content.docx`), the grade's own yearly tuition fee and its parent testimonial.
 7. **Transport** (`#visit`): one card with the Google Map, area buttons grouped by distance, a pick-up point search
    (`[data-stopfinder]`: type a stop, see its km and a Google Maps directions link; list in `PICKUP_POINTS`), directions, WhatsApp about the bus, and the campus address strip.
-8. **Admission in five steps** (heading + Book button on the left, a numbered rail of five rows on the right that fills as the section scrolls into view; step 1 offers Online, Phone, Email, WhatsApp), **FAQ** ("Ask Sloka" chat
-   with search and WhatsApp fallback), **footer** (Address and Admissions only; the Links column, including Mandatory Disclosure, was removed on client request). There is no closing call-to-action, approach or parents section.
+8. **Admission in five steps** (heading + Book button on the left, a numbered rail of five rows on the right that fills as the section scrolls into view; step 1 offers Online, Phone, Email, WhatsApp), **FAQ** ("Ask Sloka" chat, the client's 17 questions,
+   with search, topic chips and WhatsApp fallback), **footer** (Address and Admissions only; the Links column, including Mandatory Disclosure, was removed on client request). There is no closing call-to-action, approach or parents section.
 
 Phone-only refinements (round 3, all inside `max-width` media queries at the end of `css/styles.css`; desktop is untouched):
 16px field text (no iPhone zoom), bigger consent tick-box, facilities as a 2-column grid of photo cards (descriptions show when one
@@ -79,8 +79,7 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 
 ## Still waiting on the school (placeholders are visible on the page as yellow chips)
 
-- Per-grade parent testimonials and the client's own FAQ set
-  (client feedback, Nov 2026: "later"). The FAQ answers on the page are ours until then.
+- Nothing outstanding here now: the client's 17 FAQs (Nov 2026) are on the page and in the FAQPage schema (topics: Admissions, Learning, Parents & staff, Transport, Safety & sports). Answers are the client's wording; keep the page and the schema in sync.
 
 - Minimum ages for Grades 2 to 10 (the form only gave Nursery to Grade 1; the rest are one year apart).
 - Testimonials for Grades 2, 6, 9 and 10 (the school's Nov 2026 batch covers Nursery, PP1, PP2, Grades 1, 3, 4, 5, 7, 8). Each grade shows only its
