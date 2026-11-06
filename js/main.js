@@ -162,8 +162,7 @@ var AGE_RULES = {
      area    where they live (optional)
      photo   optional picture of the parent, e.g. 'images/parents/grade-5.webp'
      draft   true while the wording still needs the school's approval
-   Each grade shows only its own testimonials, never another grade's. A grade with none shows a
-   "to be supplied" note until the school sends one. Leave a grade as null until one arrives.
+   A grade with none of its own (Grades 2, 6, 9, 10) borrows from nearby grades, see VOICE_NEIGHBOURS. Leave a grade as null until one arrives.
    -------------------------------------------------------------------------- */
 /* PICKUP_POINTS: the school bus pick-up points, from the school's transport list (BUS STOPS NAMES.xlsx).
    { name, km, pin }: km is a number, a [from, to] range, or null when the list does not give a reliable figure.
@@ -352,6 +351,15 @@ var PARENT_VOICES = (function () {
     'Grade 10':  null
   };
 })();
+
+/* VOICE_NEIGHBOURS: a grade with no testimonial of its own borrows from these grades, nearest first.
+   The card names each parent's real grade. Remove a grade here once the school sends its own. */
+var VOICE_NEIGHBOURS = {
+  'Grade 2':  ['Grade 1', 'Grade 3'],
+  'Grade 6':  ['Grade 5', 'Grade 7'],
+  'Grade 9':  ['Grade 8', 'Grade 7'],
+  'Grade 10': ['Grade 8', 'Grade 7']
+};
 
 
 (function () {
@@ -873,11 +881,22 @@ var PARENT_VOICES = (function () {
         ? (range.length > 1 ? rupees(range[0]) + ' – ' + rupees(range[1]) : rupees(range[0])) + '<sup class="fee__star" aria-hidden="true">*</sup><small>per year</small>'
         : '<span class="tbc">[FEE RANGE TO BE CONFIRMED BY SCHOOL]</span>';
 
-      // Parent voices: only this grade's own testimonials. A grade with none shows a "to be supplied"
-      // note; testimonials from other grades are never borrowed.
+      // Parent voices: this grade's own testimonials. A grade with none (see VOICE_NEIGHBOURS) shows
+      // testimonials from the nearest grades instead, headed "From Sloka parents"; each card still names
+      // the parent's real grade, so nothing is misattributed.
       var asList = function (v) { return !v ? [] : (Array.isArray(v) ? v : [v]); };
       var voices = asList(PARENT_VOICES[grade]);
       var scope = voices.length ? 'own' : '';
+      if (!scope && VOICE_NEIGHBOURS[grade]) {
+        var lists = VOICE_NEIGHBOURS[grade].map(function (g) { return asList(PARENT_VOICES[g]); });
+        var seenNames = {};
+        for (var k = 0; k < 3; k++) {
+          lists.forEach(function (list) {
+            if (list[k] && !seenNames[list[k].name]) { seenNames[list[k].name] = true; voices.push(list[k]); }
+          });
+        }
+        scope = voices.length ? 'near' : '';
+      }
       voices = voices.slice(0, 3);
 
       var avatarFor = function (v) {
@@ -886,7 +905,7 @@ var PARENT_VOICES = (function () {
           : '<span class="voice__photo voice__photo--blank">' + personIcon + '</span>';
       };
       if (voices.length) {
-        voiceFor.textContent = 'Parents of ' + grade + ' students';
+        voiceFor.textContent = scope === 'own' ? 'Parents of ' + grade + ' students' : 'From Sloka parents';
         // One testimonial at a time; a small pager appears when a grade has more than one
         var showVoice = function (i) {
           var v = voices[i];

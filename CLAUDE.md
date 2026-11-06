@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=61`) so returning visitors don't get a cached copy.
+(currently `?v=62`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -82,8 +82,7 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
 - Nothing outstanding here now: the client's 17 FAQs (Nov 2026) are on the page and in the FAQPage schema (topics: Admissions, Learning, Parents & staff, Transport, Safety & sports). Answers are the client's wording; keep the page and the schema in sync.
 
 - Minimum ages for Grades 2 to 10 (the form only gave Nursery to Grade 1; the rest are one year apart).
-- Testimonials for Grades 2, 6, 9 and 10 (the school's Nov 2026 batch covers Nursery, PP1, PP2, Grades 1, 3, 4, 5, 7, 8). Each grade shows only its
-  own testimonials, never another grade's; these four show a yellow "to be supplied" note. Also one about safety and transport.
+- Real testimonials for Grades 2, 6, 9 and 10. Until they arrive these grades borrow from nearby grades (`VOICE_NEIGHBOURS` in `main.js`), headed "From Sloka parents"; each card names the parent's real grade. Remove a grade from `VOICE_NEIGHBOURS` once it has its own. Also one about safety and transport.
 - What Grades 9–10 offer (the Secondary card is a draft and is flagged on the page), and add both grades to the
   CRM widget's grade list; which grades use the ICT lab.
 - Privacy policy: not on the site for now (taken down until the school supplies its details). The draft is in git
