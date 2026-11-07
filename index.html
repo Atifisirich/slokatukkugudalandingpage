@@ -98,7 +98,7 @@
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=62"></script>
+  <script defer src="js/main.js?v=63"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -335,21 +335,50 @@
       </div>
     </section>
 
-    <!-- ===================================================== TRUST STRIP -->
-    <section class="trust" aria-label="Affiliation and key facts">
-      <ul class="wrap trust__list">
-        <li class="trust__item trust__item--main">
-          <svg class="trust__seal" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle cx="20" cy="20" r="19"/><path d="M12.5 20.5l5 5 10-10.5" fill="none" stroke="#FBF5E9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          CBSE Affiliated
-        </li>
-        <li class="trust__item trust__item--main">
-          <svg class="trust__seal" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle cx="20" cy="20" r="19"/><path d="M12.5 20.5l5 5 10-10.5" fill="none" stroke="#FBF5E9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          NEP 2020 Aligned
-        </li>
-        <li class="trust__item">Nursery to Grade 10</li>
-        <li class="trust__item">Montessori-Inspired Early Years</li>
-        <li class="trust__item">CCTV-Secured Campus</li>
-      </ul>
+    <!-- ===================================================== AWARDS AND RECOGNITION (moving logo bar) -->
+    <!-- The first list is the real one; the other three are copies (aria-hidden) so the bar can loop without a gap.
+         With reduced motion the bar stands still and only the first list shows. Logos supplied by the school (LAURELS PDF). -->
+    <section class="trust" aria-label="Awards and recognition">
+      <div class="trust__marquee">
+        <div class="trust__track">
+          <ul class="trust__set">
+            <li class="trust__logo"><img src="images/award-toi-2019.webp" width="188" height="220" alt="Best Emerging School, The Times of India School Rankings 2019" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-toi-2020.webp" width="188" height="220" alt="Best Emerging School, The Times of India School Rankings 2020" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-nsa-2022.webp" width="262" height="220" alt="National School Awards 2022" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-tedx-sloka.webp" width="449" height="220" alt="TEDxSloka" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-british-council.webp" width="544" height="220" alt="British Council International School Award" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-isa-dubai.webp" width="705" height="220" alt="International School Awards, Dubai, December 2022" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-top50-futuristic.webp" width="611" height="220" alt="Top 50 Futuristic Schools of 2022" loading="lazy" decoding="async"></li>
+          </ul>
+          <ul class="trust__set" aria-hidden="true">
+            <li class="trust__logo"><img src="images/award-toi-2019.webp" width="188" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-toi-2020.webp" width="188" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-nsa-2022.webp" width="262" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-tedx-sloka.webp" width="449" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-british-council.webp" width="544" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-isa-dubai.webp" width="705" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-top50-futuristic.webp" width="611" height="220" alt="" loading="lazy" decoding="async"></li>
+          </ul>
+          <ul class="trust__set" aria-hidden="true">
+            <li class="trust__logo"><img src="images/award-toi-2019.webp" width="188" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-toi-2020.webp" width="188" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-nsa-2022.webp" width="262" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-tedx-sloka.webp" width="449" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-british-council.webp" width="544" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-isa-dubai.webp" width="705" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-top50-futuristic.webp" width="611" height="220" alt="" loading="lazy" decoding="async"></li>
+          </ul>
+          <ul class="trust__set" aria-hidden="true">
+            <li class="trust__logo"><img src="images/award-toi-2019.webp" width="188" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-toi-2020.webp" width="188" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-nsa-2022.webp" width="262" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-tedx-sloka.webp" width="449" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-british-council.webp" width="544" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-isa-dubai.webp" width="705" height="220" alt="" loading="lazy" decoding="async"></li>
+            <li class="trust__logo"><img src="images/award-top50-futuristic.webp" width="611" height="220" alt="" loading="lazy" decoding="async"></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- ===================================================== SIGNATURE MOMENT: STEP INSIDE

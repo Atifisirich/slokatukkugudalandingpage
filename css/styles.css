@@ -1172,57 +1172,55 @@ strong { font-weight: 700; }
 .crm-fallback p { margin: 0 0 4px; }
 
 
-/* 9. Trust strip
+/* 9. Awards and recognition: a bar of logos that keeps moving
+   Four identical lists sit in one track; the track slides left by exactly one list's width, then
+   starts again, so the loop has no visible join. Pauses under the mouse. Still, centred and wrapped
+   with reduced motion (only the first list shows).
    ========================================================================== */
 .trust {
-  padding: 18px 0 16px;
+  padding: 16px 0;
   border-top: 2px solid var(--ink);
   border-bottom: 2px solid var(--ink);
-  background: var(--yellow);
+  background: #fff;
 }
-.trust__list {
+.trust__marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+.trust__track {
   display: flex;
-  flex-wrap: wrap;
+  width: max-content;
+  animation: trust-scroll 34s linear infinite;
+  will-change: transform;
+}
+.trust__marquee:hover .trust__track { animation-play-state: paused; }
+.trust__set {
+  display: flex;
+  flex: none;
   align-items: center;
-  justify-content: center;
-  gap: 10px 26px;
-  margin: 0 auto;
+  gap: 56px;
+  margin: 0;
+  padding: 0 28px;
   list-style: none;
 }
-.trust__item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 500;
-  font-size: 0.95rem;
+.trust__logo { flex: none; display: flex; align-items: center; }
+.trust__logo img { display: block; width: auto; height: 72px; }
+@keyframes trust-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-25%); }
 }
-.trust__item + .trust__item:not(.trust__item--main)::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  margin-right: 12px;
-  background: var(--maroon);
-  transform: rotate(45deg);
-}
-.trust__item--main {
-  font: 400 1.15rem/1.2 var(--serif);
-  color: var(--maroon);
-}
-.trust__seal { width: 28px; height: 28px; fill: var(--maroon); margin-top: -3px; }
-/* Phones: the two main badges on top, the smaller facts as tags underneath */
 @media (max-width: 759px) {
-  .trust__list { gap: 10px 8px; }
-  .trust__item--main { flex: 1 1 100%; justify-content: center; }
-  .trust__item:not(.trust__item--main) {
-    padding: 3px 12px 1px;
-    border: 1.5px solid var(--ink);
-    border-radius: 999px;
-    font-size: 0.85rem;
-  }
-  .trust__item + .trust__item:not(.trust__item--main)::before { content: none; }
+  .trust { padding: 12px 0; }
+  .trust__set { gap: 40px; padding: 0 20px; }
+  .trust__logo img { height: 54px; }
+  .trust__track { animation-duration: 28s; }
 }
-@media (min-width: 1040px) {
-  .trust__list { justify-content: space-between; }
+@media (prefers-reduced-motion: reduce) {
+  .trust__marquee { -webkit-mask-image: none; mask-image: none; }
+  .trust__track { width: auto; animation: none; justify-content: center; }
+  .trust__set { flex-wrap: wrap; justify-content: center; gap: 18px 36px; }
+  .trust__set[aria-hidden="true"] { display: none; }
 }
 
 

@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=62`) so returning visitors don't get a cached copy.
+(currently `?v=64`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -31,7 +31,11 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    and a Book button, then the form. The place name "Tukkuguda" is half yellow (top) and half white (bottom); "Admissions Open 2027–28" is a yellow label under the headline; the
    service-area sentence and the two shortcut buttons were removed on client feedback. The form must fit one
    desktop screen (compact widget styles at the end of `css/styles.css`).
-3. **Trust strip**: CBSE Affiliated, NEP 2020 Aligned and three smaller facts.
+3. **Awards bar** (`.trust`): a white strip of seven award logos from the school's LAURELS PDF (`images/award-*.webp`: Times of India
+   School Rankings 2019 and 2020 "Best Emerging School", National School Awards 2022, TEDxSloka, British Council International School
+   Award, International School Awards Dubai Dec 2022, Top 50 Futuristic Schools 2022) that slide left in a loop (pauses on hover; still with
+   reduced motion). The earlier CBSE / NEP / facts strip was removed on client request. Four identical lists sit in the track, so to
+   add or remove a logo edit all four lists in `index.html`. Keep proof (certificates) for these logos for Google Ads / ASCI.
 4. **"Step inside" + campus story** (`#campus-story`): an arch doorway opens on the entrance, then one slide, the
    school building ("Our campus"). The client asked for only the building photo (science lab, football, cricket and
    early-years slides were removed). `--n` on the section must equal the number of slides.
