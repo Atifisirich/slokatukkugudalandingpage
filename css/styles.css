@@ -1179,8 +1179,8 @@ strong { font-weight: 700; }
    ========================================================================== */
 .trust {
   padding: 16px 0;
-  border-top: 2px solid var(--ink);
-  border-bottom: 2px solid var(--ink);
+  border-top: 3px solid var(--maroon);
+  border-bottom: 3px solid var(--maroon);
   background: #fff;
 }
 .trust__marquee {
@@ -2529,7 +2529,7 @@ strong { font-weight: 700; }
 
 /* "Step inside" on phones: a shorter scroll before the page moves on (the script uses the same shorter distances) */
 @media (max-width: 759px) {
-  .doorway--live { height: calc(100vh * (2.5 + var(--n, 6) * 0.6)); }
+  .doorway--live { height: calc(100vh * (2.5 + var(--n, 6) * 0.45)); }
 }
 
 /* Phones: the distance answer stacks (number on top, words below) and the two buttons are full width */

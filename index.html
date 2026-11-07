@@ -385,7 +385,7 @@
          As the parent scrolls, the arch-shaped doorway opens until the campus fills the screen.
          The same doorway opening is reused for every photo on the page.
          Without JS, or with reduced motion, this renders as a plain full-width photo. -->
-    <section class="doorway" id="campus-story" aria-labelledby="doorway-title" data-doorway style="--n:1">
+    <section class="doorway" id="campus-story" aria-labelledby="doorway-title" data-doorway style="--n:6">
       <div class="doorway__stage">
         <div class="doorway__frame">
           <img src="images/campus-entrance-sm.webp"
@@ -411,22 +411,73 @@
           <a class="btn btn--yellow" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
         </div>
 
-        <!-- Campus story: after the doors open, the next photo rises like a doorway from the bottom.
-             Only the school building is shown. To add more photos, add slides here and set --n on the
-             section (and the number of dots) to match. -->
+        <!-- Campus story: after the doors open, each next photo rises like a doorway from the bottom.
+             Only the school building and grounds are shown. To add or remove a photo, edit the slides here and set
+             --n on the section to the number of slides, with one more dot than slides below. -->
         <div class="doorway__slide">
           <img src="images/story-block-sm.webp" srcset="images/story-block-sm.webp 800w, images/story-block.webp 1600w" sizes="100vw"
                width="1600" height="900" loading="lazy" decoding="async" alt="The main school block seen across the football ground">
           <div class="doorway__cap">
+            <p class="doorway__count">1 of 6</p>
             <h3 class="doorway__cap-title">Our campus</h3>
             <p>The main academic block stands beside the football ground and the basketball courts.</p>
+          </div>
+        </div>
+
+        <div class="doorway__slide" style="--focus:50% 40%">
+          <img src="images/story-front-lawn-sm.webp" srcset="images/story-front-lawn-sm.webp 800w, images/story-front-lawn.webp 1448w" sizes="100vw"
+               width="1448" height="1086" loading="lazy" decoding="async" alt="The front of the school building with a lawn, a walkway and the basketball court beside it">
+          <div class="doorway__cap">
+            <p class="doorway__count">2 of 6</p>
+            <h3 class="doorway__cap-title">The front lawn</h3>
+            <p>A green lawn and a paved walkway lead up to the main entrance.</p>
+          </div>
+        </div>
+
+        <div class="doorway__slide" style="--focus:50% 46%">
+          <img src="images/story-entrance-glass-sm.webp" srcset="images/story-entrance-glass-sm.webp 600w, images/story-entrance-glass.webp 939w" sizes="100vw"
+               width="939" height="1675" loading="lazy" decoding="async" alt="The glass entrance under the Sloka International School sign">
+          <div class="doorway__cap">
+            <p class="doorway__count">3 of 6</p>
+            <h3 class="doorway__cap-title">The main entrance</h3>
+            <p>The glass entrance of Sloka International School, Tukkuguda.</p>
+          </div>
+        </div>
+
+        <div class="doorway__slide" style="--focus:50% 50%">
+          <img src="images/story-brick-jali-sm.webp" srcset="images/story-brick-jali-sm.webp 800w, images/story-brick-jali.webp 1555w" sizes="100vw"
+               width="1555" height="1011" loading="lazy" decoding="async" alt="Red brick school blocks with a patterned jali wall, palm trees and flower beds">
+          <div class="doorway__cap">
+            <p class="doorway__count">4 of 6</p>
+            <h3 class="doorway__cap-title">Brick and greenery</h3>
+            <p>Red brick blocks, a jali screen, palms and flower beds around the campus.</p>
+          </div>
+        </div>
+
+        <div class="doorway__slide" style="--focus:60% 35%">
+          <img src="images/story-lawn-students-sm.webp" srcset="images/story-lawn-students-sm.webp 800w, images/story-lawn-students.webp 1448w" sizes="100vw"
+               width="1448" height="1086" loading="lazy" decoding="async" alt="Students standing on the lawn in front of the Sloka International School, Tukkuguda building">
+          <div class="doorway__cap">
+            <p class="doorway__count">5 of 6</p>
+            <h3 class="doorway__cap-title">Students on the lawn</h3>
+            <p>Students gather on the lawn in front of the school.</p>
+          </div>
+        </div>
+
+        <div class="doorway__slide" style="--focus:35% 50%">
+          <img src="images/story-aerial-sm.webp" srcset="images/story-aerial-sm.webp 900w, images/story-aerial.webp 1672w" sizes="100vw"
+               width="1672" height="941" loading="lazy" decoding="async" alt="Aerial view of the school block, the sports courts, the running track and the football ground">
+          <div class="doorway__cap">
+            <p class="doorway__count">6 of 6</p>
+            <h3 class="doorway__cap-title">The whole campus</h3>
+            <p>An aerial view of the school block, sports courts, running track and football ground.</p>
             <a class="btn btn--yellow" href="#enquiry-form" data-to-form>Book a Campus Visit</a>
           </div>
         </div>
 
         <!-- Progress dots for the story -->
         <ol class="doorway__dots" aria-hidden="true">
-          <li></li><li></li>
+          <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
         </ol>
       </div>
     </section>

@@ -1333,7 +1333,7 @@ var VOICE_NEIGHBOURS = {
       var scrolled = -rect.top;
       var phone = vw < 760;
       var OPEN = vh * (phone ? 1.1 : 1.8);   // scroll used by the doors opening (matches the CSS height)
-      var SLIDE = vh * (phone ? 0.6 : 0.8);  // scroll per campus photo
+      var SLIDE = vh * (phone ? 0.45 : 0.8);  // scroll per campus photo
       var p = clamp(scrolled / OPEN);
       var header = document.querySelector('.site-header').offsetHeight;
 
