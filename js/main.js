@@ -856,9 +856,34 @@ var VOICE_NEIGHBOURS = {
     var voiceFor = sheet.querySelector('[data-voice-for]');
     var personIcon = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="18" r="8"/><path d="M8 42c1.5-9 8-14 16-14s14.5 5 16 14z"/></svg>';
 
+    // Grades 1 and 2 sit in the Foundational stage panel but are in a classroom, not the play hall, so
+    // the panel's photo is swapped for them (the Nursery / PP1 / PP2 photo is put back for the others).
+    var GRADE_PHOTOS = {
+      'Grade 1': { src: 'images/classroom-grade12-sm.webp', srcset: 'images/classroom-grade12-sm.webp 800w, images/classroom-grade12.webp 1495w', width: 1495, height: 997, alt: 'A bright classroom with paired desks and chairs', focus: '38% 60%' },
+      'Grade 2': { src: 'images/classroom-grade12-sm.webp', srcset: 'images/classroom-grade12-sm.webp 800w, images/classroom-grade12.webp 1495w', width: 1495, height: 997, alt: 'A bright classroom with paired desks and chairs', focus: '38% 60%' }
+    };
+    var earlyPhoto = sheet.querySelector('[data-stage-panel="early"] .photo');
+    var earlyImg = earlyPhoto ? earlyPhoto.querySelector('img') : null;
+    var earlyDefault = earlyImg ? {
+      src: earlyImg.getAttribute('src'), srcset: earlyImg.getAttribute('srcset'), width: earlyImg.getAttribute('width'),
+      height: earlyImg.getAttribute('height'), alt: earlyImg.getAttribute('alt'), focus: earlyPhoto.style.getPropertyValue('--focus')
+    } : null;
+    var swapEarlyPhoto = function (grade) {
+      if (!earlyImg) return;
+      var want = GRADE_PHOTOS[grade] || earlyDefault;
+      if (earlyImg.getAttribute('src') === want.src) return;
+      earlyImg.setAttribute('src', want.src);
+      earlyImg.setAttribute('srcset', want.srcset);
+      earlyImg.setAttribute('width', want.width);
+      earlyImg.setAttribute('height', want.height);
+      earlyImg.setAttribute('alt', want.alt);
+      earlyPhoto.style.setProperty('--focus', want.focus);
+    };
+
     var showDetails = function (grade, stage) {
       sheet.setAttribute('data-stage', stage);
       gsStage.textContent = STAGE_NAMES[stage];
+      swapEarlyPhoto(grade);
 
       if (!grade) {
         gsGrade.textContent = 'Choose a grade';

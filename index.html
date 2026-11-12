@@ -28,7 +28,8 @@
   early-years(.webp / -sm.webp)         supplied   grade finder; facilities (Play Land)
   primary(.webp / -sm.webp)             supplied   grade finder
   science-labs(.webp / -sm.webp)        supplied   grade finder (Middle School); facilities
-  aero-bay-lab-wide(.webp / -sm.webp) supplied   facilities (Aero Bay Innovation Lab)
+  classroom-grade12(.webp / -sm.webp)   supplied   grade sheet photo for Grades 1 and 2 (swapped in by main.js)
+  aero-bay-lab-wide(.webp / -sm.webp) supplied   facilities (Composite Skill Lab; file name kept)
   ict-lab(.webp / -sm.webp)           supplied   facilities (ICT lab, real photo)
   skating-rink(.webp / -sm.webp)      supplied   facilities (skating rink, real photo)
   story-block (.webp / -sm.webp): the school building photo for the campus story
@@ -93,12 +94,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=61">
+  <link rel="stylesheet" href="css/styles.css?v=66">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=63"></script>
+  <script defer src="js/main.js?v=66"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -495,7 +496,7 @@
         <!-- Scrolls sideways; pick a space to see just that one, or "All" for the full mosaic -->
         <div class="facbar" role="group" aria-label="Choose a facility" data-facbar>
             <button class="facbar__chip" type="button" data-fac-filter="all" aria-pressed="true"><span class="facbar__group">Every space</span>All</button>
-            <button class="facbar__chip" type="button" data-fac-filter="aero" aria-pressed="false"><span class="facbar__group">Learn</span>Aero Bay Innovation Lab</button>
+            <button class="facbar__chip" type="button" data-fac-filter="aero" aria-pressed="false"><span class="facbar__group">Learn</span>Composite Skill Lab</button>
             <button class="facbar__chip" type="button" data-fac-filter="physics" aria-pressed="false"><span class="facbar__group">Learn</span>Physics Lab</button>
             <button class="facbar__chip" type="button" data-fac-filter="chemistry" aria-pressed="false"><span class="facbar__group">Learn</span>Chemistry Lab</button>
             <button class="facbar__chip" type="button" data-fac-filter="biology" aria-pressed="false"><span class="facbar__group">Learn</span>Biology Lab</button>
@@ -517,13 +518,13 @@
         <ul class="facs" data-facs>
           <li class="fac fac--aero" data-reveal>
             <div class="fac__media" data-slot="aero-bay-lab-wide">
-              <img src="images/aero-bay-lab-wide-sm.webp" srcset="images/aero-bay-lab-wide-sm.webp 800w, images/aero-bay-lab-wide.webp 1672w" sizes="(min-width: 1200px) 270px, (min-width: 640px) 50vw, 100vw" width="1672" height="941" loading="lazy" decoding="async" alt="Students building and flying a drone in the Aero Bay Innovation Lab" style="--focus:32% 50%">
+              <img src="images/aero-bay-lab-wide-sm.webp" srcset="images/aero-bay-lab-wide-sm.webp 800w, images/aero-bay-lab-wide.webp 1672w" sizes="(min-width: 1200px) 270px, (min-width: 640px) 50vw, 100vw" width="1672" height="941" loading="lazy" decoding="async" alt="Students working on a hands-on project in the Composite Skill Lab" style="--focus:32% 50%">
               <span class="fac__num" aria-hidden="true">01</span>
             </div>
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
-              <h3 class="fac__title">Aero Bay Innovation Lab</h3>
-              <p class="fac__text">An aerospace-inspired lab where students work on robotics, coding, AI projects and hands-on STEM challenges.</p>
+              <h3 class="fac__title">Composite Skill Lab</h3>
+              <p class="fac__text">A hands-on lab where students work on robotics, coding, AI projects and STEM challenges.</p>
             </div>
           </li>
           <li class="fac fac--physics" data-reveal>

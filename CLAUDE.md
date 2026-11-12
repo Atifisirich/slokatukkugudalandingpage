@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=65`) so returning visitors don't get a cached copy.
+(currently `?v=66`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -42,13 +42,14 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    early-years slides were removed earlier on client request). `--n` on the section must equal the number of slides, with one more
    dot than slides. The five new pictures look AI-generated or rendered (the aerial one is clearly a render): replace with real
    photos before ads go live. Phones use a shorter scroll per slide (`SLIDE` in `main.js` and the phone `.doorway--live` height).
-5. **Facilities** (`#facilities`): grid of 17 photo cards, one per space (Aero Bay, Physics, Chemistry and Biology labs, ICT, Library, Classrooms,
+5. **Facilities** (`#facilities`): grid of 17 photo cards, one per space (Composite Skill Lab, formerly Aero Bay; Physics, Chemistry and Biology labs, ICT, Library, Classrooms,
    Activity Hall, Play Land, football, cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
-   with a sideways-scrolling picker (All or one space). Real school photos, except Aero Bay (AI image supplied by the
+   with a sideways-scrolling picker (All or one space). Real school photos, except the Composite Skill Lab (AI image supplied by the
    school) and the CCTV walkway. A missing photo shows a maroon tile with its file name.
 6. **Grades** (`#pathway`): grade chips (Nursery to Grade 10) + date-of-birth check, then ONE grade sheet: grade
    header band, stage details (Foundational Nursery to Grade 2, Preparatory Grades 3 to 5, Middle 6 to 8, Secondary
-   9 and 10; wording is the client's `content.docx`), the grade's own yearly tuition fee and its parent testimonial.
+   9 and 10; wording is the client's `content.docx`), the grade's own yearly tuition fee and its parent testimonial. Grades 1 and 2 show a classroom photo
+   (`classroom-grade12`, swapped in by `GRADE_PHOTOS` in `main.js`); Nursery, PP1 and PP2 keep the Activity Hall photo.
 7. **Transport** (`#visit`): one card with the Google Map, area buttons grouped by distance, a pick-up point search
    (`[data-stopfinder]`: type a stop, see its km and a Google Maps directions link; list in `PICKUP_POINTS`), directions, WhatsApp about the bus, and the campus address strip.
 8. **Admission in five steps** (heading + Book button on the left, a numbered rail of five rows on the right that fills as the section scrolls into view; step 1 offers Online, Phone, Email, WhatsApp), **FAQ** ("Ask Sloka" chat, the client's 17 questions,
@@ -107,7 +108,7 @@ Not shown on purpose: the counsellor's name and the website managers' contacts.
   Never body text in yellow on light backgrounds. Fonts: Young Serif (headings), Mukta (body).
 - One H1. No emojis. No purple/blue gradients, glassmorphism, neon or blobs.
 - No unverifiable claims ("best school", "#1", etc.); keep wording factual for Google Ads and ASCI.
-- Real Sloka photos only. The facilities photos are now real (from the school's `infra` folder); the Aero Bay photo, the
+- Real Sloka photos only. The facilities photos are now real (from the school's `infra` folder); the Composite Skill Lab photo (file name `aero-bay-lab-wide`), the
   campus story's walkway slide, the "Step inside" entrance photo, the grade-sheet stage photos and `athletics.webp` still look AI-generated and should be replaced
   with real photos before ads go live (same file names in `images/` work as drop-in replacements).
 - Must stay fast on budget Android phones on 4G (Lighthouse 90+ target), keyboard accessible, respect reduced motion.
