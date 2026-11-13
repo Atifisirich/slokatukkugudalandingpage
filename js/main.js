@@ -1268,6 +1268,25 @@ var VOICE_NEIGHBOURS = {
   }
 
   // Header is transparent over the hero photo, solid after the page scrolls
+  // Menu for phones and tablets: opens under the header; closes on a link tap, outside tap, Escape or a wide screen
+  (function () {
+    var btn = document.querySelector('[data-menu-toggle]');
+    var menu = document.querySelector('[data-menu]');
+    if (!btn || !menu) return;
+    var setMenu = function (open) {
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+    btn.addEventListener('click', function (e) { e.stopPropagation(); setMenu(menu.hidden); });
+    each(menu.querySelectorAll('[data-menu-link]'), function (a) {
+      a.addEventListener('click', function () { setMenu(false); });
+    });
+    document.addEventListener('click', function (e) { if (!menu.hidden && !menu.contains(e.target)) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); btn.focus(); } });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 1040 && !menu.hidden) setMenu(false); });
+  })();
+
   var siteHeader = document.querySelector('.site-header');
   if (siteHeader) {
     var paintHeader = function () { siteHeader.classList.toggle('is-scrolled', window.scrollY > 8); };

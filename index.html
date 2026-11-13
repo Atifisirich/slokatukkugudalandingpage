@@ -94,12 +94,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=66">
+  <link rel="stylesheet" href="css/styles.css?v=67">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=66"></script>
+  <script defer src="js/main.js?v=67"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -200,8 +200,8 @@
       </a>
       <nav class="site-header__nav" aria-label="Page sections">
         <a href="#campus-story">Campus</a>
-        <a href="#facilities">Facilities</a>
-        <a href="#pathway">Grades &amp; Fees</a>
+        <a href="#pathway">Academics</a>
+        <a href="#pathway">Fees</a>
         <a href="#visit">Transport</a>
         <a href="#faq">FAQ</a>
       </nav>
@@ -213,8 +213,19 @@
         <a class="btn btn--yellow btn--sm" href="#enquiry-form" data-to-form>
           <span class="only-wide">Enquire Now</span><span class="only-narrow">Enquire</span>
         </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu" data-menu-toggle>
+          <span class="menu-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
       </div>
     </div>
+    <!-- Menu for phones and tablets (the links sit in the bar from 1040px up). Academics and Fees share one section. -->
+    <nav class="site-menu" id="site-menu" aria-label="Page sections" data-menu hidden>
+      <a href="#campus-story" data-menu-link>Campus</a>
+      <a href="#pathway" data-menu-link>Academics</a>
+      <a href="#pathway" data-menu-link>Fees</a>
+      <a href="#visit" data-menu-link>Transport</a>
+      <a href="#faq" data-menu-link>FAQ</a>
+    </nav>
   </header>
 
   <main id="main">
@@ -503,7 +514,7 @@
             <button class="facbar__chip" type="button" data-fac-filter="ict" aria-pressed="false"><span class="facbar__group">Learn</span>ICT Lab</button>
             <button class="facbar__chip" type="button" data-fac-filter="library" aria-pressed="false"><span class="facbar__group">Learn</span>Library</button>
             <button class="facbar__chip" type="button" data-fac-filter="classroom" aria-pressed="false"><span class="facbar__group">Learn</span>Classrooms</button>
-            <button class="facbar__chip" type="button" data-fac-filter="hall" aria-pressed="false"><span class="facbar__group">Early Years</span>Activity Hall</button>
+            <button class="facbar__chip" type="button" data-fac-filter="cctv" aria-pressed="false"><span class="facbar__group">Safety</span>CCTV-Secured Campus</button>
             <button class="facbar__chip" type="button" data-fac-filter="playland" aria-pressed="false"><span class="facbar__group">Early Years</span>Play Land</button>
             <button class="facbar__chip" type="button" data-fac-filter="football" aria-pressed="false"><span class="facbar__group">Play</span>Football Ground</button>
             <button class="facbar__chip" type="button" data-fac-filter="cricket" aria-pressed="false"><span class="facbar__group">Play</span>Cricket Nets</button>
@@ -512,7 +523,7 @@
             <button class="facbar__chip" type="button" data-fac-filter="pickleball" aria-pressed="false"><span class="facbar__group">Play</span>Pickleball Court</button>
             <button class="facbar__chip" type="button" data-fac-filter="taekwondo" aria-pressed="false"><span class="facbar__group">Play</span>Taekwondo</button>
             <button class="facbar__chip" type="button" data-fac-filter="athletics" aria-pressed="false"><span class="facbar__group">Play</span>Athletics Track</button>
-            <button class="facbar__chip" type="button" data-fac-filter="cctv" aria-pressed="false"><span class="facbar__group">Safety</span>CCTV-Secured Campus</button>
+            <button class="facbar__chip" type="button" data-fac-filter="hall" aria-pressed="false"><span class="facbar__group">Early Years</span>Activity Hall</button>
         </div>
 
         <ul class="facs" data-facs>
@@ -593,15 +604,15 @@
               <p class="fac__text">Bright classrooms with the Wordsworth AI language app, which builds reading fluency, vocabulary and spoken English, with progress tracking for teachers and parents.</p>
             </div>
           </li>
-          <li class="fac fac--hall" data-reveal>
-            <div class="fac__media" data-slot="activity-hall">
-              <img src="images/activity-hall-sm.webp" srcset="images/activity-hall-sm.webp 480w, images/activity-hall.webp 900w" sizes="(min-width: 1200px) 270px, (min-width: 640px) 50vw, 100vw" width="900" height="675" loading="lazy" decoding="async" alt="The Activity Hall with slides and soft play equipment" style="--focus:50% 50%">
+          <li class="fac fac--cctv" data-reveal>
+            <div class="fac__media" data-slot="campus-walkway">
+              <img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway along the campus buildings">
               <span class="fac__num" aria-hidden="true">08</span>
             </div>
             <div class="fac__cap">
-              <p class="fac__group">Early Years</p>
-              <h3 class="fac__title">Activity Hall</h3>
-              <p class="fac__text">A bright hall for the youngest learners, with slides, a ball pit and soft play equipment for exploration and sensory play.</p>
+              <p class="fac__group">Safety</p>
+              <h3 class="fac__title">CCTV-Secured Campus</h3>
+              <p class="fac__text">CCTV surveillance across classrooms, corridors, entry and exit points and outdoor areas, with a supervised environment throughout the day.</p>
             </div>
           </li>
           <li class="fac fac--playland" data-reveal>
@@ -692,15 +703,15 @@
               <p class="fac__text">A running track for athletics.</p>
             </div>
           </li>
-          <li class="fac fac--cctv fac--wide" data-reveal>
-            <div class="fac__media" data-slot="campus-walkway">
-              <img src="images/campus-walkway.webp" width="765" height="516" loading="lazy" decoding="async" alt="A landscaped walkway along the campus buildings">
+          <li class="fac fac--hall fac--wide" data-reveal>
+            <div class="fac__media" data-slot="activity-hall">
+              <img src="images/activity-hall-sm.webp" srcset="images/activity-hall-sm.webp 480w, images/activity-hall.webp 900w" sizes="(min-width: 1000px) 700px, 100vw" width="900" height="675" loading="lazy" decoding="async" alt="The Activity Hall with slides and soft play equipment" style="--focus:50% 50%">
               <span class="fac__num" aria-hidden="true">17</span>
             </div>
             <div class="fac__cap">
-              <p class="fac__group">Safety</p>
-              <h3 class="fac__title">CCTV-Secured Campus</h3>
-              <p class="fac__text">CCTV surveillance across classrooms, corridors, entry and exit points and outdoor areas, with a supervised environment throughout the day.</p>
+              <p class="fac__group">Early Years</p>
+              <h3 class="fac__title">Activity Hall</h3>
+              <p class="fac__text">A bright hall for the youngest learners, with slides, a ball pit and soft play equipment for exploration and sensory play.</p>
             </div>
           </li>
         </ul>
@@ -722,7 +733,7 @@
           <!-- Step A: choose a grade, or work it out from date of birth -->
           <div class="finder__controls">
             <fieldset class="finder__grades">
-              <legend class="finder__label">Grade for 2027–28</legend>
+              <legend class="finder__label">Select your grade (2027–28)</legend>
               <div class="chips">
                 <label class="chip"><input type="radio" name="finder-grade" value="Nursery" data-stage="early" data-index="0"><span>Nursery</span></label>
                 <label class="chip"><input type="radio" name="finder-grade" value="PP1 / LKG" data-stage="early" data-index="1"><span>PP1 / LKG</span></label>
@@ -741,7 +752,7 @@
             </fieldset>
 
             <div class="agecheck" data-agecheck-box>
-              <p class="finder__label" id="agecheck-label">Not sure? Check by date of birth</p>
+              <p class="finder__label" id="agecheck-label">Enter date of birth</p>
               <div class="agecheck__row" role="group" aria-labelledby="agecheck-label">
                 <label class="visually-hidden" for="dob-month">Birth month</label>
                 <div class="field__select">
@@ -759,7 +770,7 @@
                     <option value="">Year</option>
                   </select>
                 </div>
-                <button class="btn btn--ink btn--sm" type="button" data-agecheck>Check</button>
+                <button class="btn btn--ink btn--sm" type="button" data-agecheck>Check fee</button>
               </div>
               <p class="agecheck__result" data-age-result role="status" hidden></p>
               <p class="agecheck__note">Based on your child's age on 31 March 2027. Final placement is confirmed by the admissions team.</p>

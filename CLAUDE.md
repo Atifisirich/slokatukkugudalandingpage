@@ -19,12 +19,13 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=66`) so returning visitors don't get a cached copy.
+(currently `?v=67`) so returning visitors don't get a cached copy.
 
 ## Page order
 
-1. **Header**: logo, section links (Campus, Facilities, Grades & Fees, Transport, FAQ), phone, Enquire button.
-   Transparent over the hero photo, solid once scrolled. Mobile has a fixed Call / WhatsApp bar.
+1. **Header**: logo, section links (Campus, Academics, Fees, Transport, FAQ; Academics and Fees both go to the one `#pathway`
+   section), phone, Enquire button. Full white at all times. Below 1040px the links move into a menu button (three bars, opens a dropdown;
+   below 760px the call icon is gone, the fixed Call / WhatsApp bar stays).
 2. **Hero**: full-width campus building photo, headline left, CRM enquiry form right.
    On desktop the photo stays pinned and zooms toward the entrance while the copy scrolls away (`.hero--zoom`),
    then "Sloka International School, Tukkuguda" arrives. On phones it is a poster: clear photo with the headline
@@ -44,9 +45,9 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    photos before ads go live. Phones use a shorter scroll per slide (`SLIDE` in `main.js` and the phone `.doorway--live` height).
 5. **Facilities** (`#facilities`): grid of 17 photo cards, one per space (Composite Skill Lab, formerly Aero Bay; Physics, Chemistry and Biology labs, ICT, Library, Classrooms,
    Activity Hall, Play Land, football, cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
-   with a sideways-scrolling picker (All or one space). Real school photos, except the Composite Skill Lab (AI image supplied by the
+   with a sideways-scrolling picker (All or one space). CCTV is card 8 and the Activity Hall is the large card at the end (swapped on client request). Real school photos, except the Composite Skill Lab (AI image supplied by the
    school) and the CCTV walkway. A missing photo shows a maroon tile with its file name.
-6. **Grades** (`#pathway`): grade chips (Nursery to Grade 10) + date-of-birth check, then ONE grade sheet: grade
+6. **Grades** (`#pathway`): grade chips ("Select your grade (2027–28)", Nursery to Grade 10) + date-of-birth check ("Enter date of birth", button "Check fee"), then ONE grade sheet: grade
    header band, stage details (Foundational Nursery to Grade 2, Preparatory Grades 3 to 5, Middle 6 to 8, Secondary
    9 and 10; wording is the client's `content.docx`), the grade's own yearly tuition fee and its parent testimonial. Grades 1 and 2 show a classroom photo
    (`classroom-grade12`, swapped in by `GRADE_PHOTOS` in `main.js`); Nursery, PP1 and PP2 keep the Activity Hall photo.
