@@ -29,6 +29,7 @@
   primary(.webp / -sm.webp)             supplied   grade finder
   science-labs(.webp / -sm.webp)        supplied   grade finder (Middle School); facilities
   classroom-grade12(.webp / -sm.webp)   supplied   grade sheet photo for Grades 1 and 2 (swapped in by main.js)
+  classroom-higher(.webp / -sm.webp)    supplied   facilities (Classrooms: a higher-grade classroom)
   aero-bay-lab-wide(.webp / -sm.webp) supplied   facilities (Composite Skill Lab; file name kept)
   ict-lab(.webp / -sm.webp)           supplied   facilities (ICT lab, real photo)
   skating-rink(.webp / -sm.webp)      supplied   facilities (skating rink, real photo)
@@ -94,12 +95,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Young+Serif&display=swap">
 
-  <link rel="stylesheet" href="css/styles.css?v=67">
+  <link rel="stylesheet" href="css/styles.css?v=68">
 
   <!-- Any image that fails to load gets .img-missing, so its frame shows the placeholder instead of a broken icon. -->
   <script>document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('img-missing')}},true);</script>
 
-  <script defer src="js/main.js?v=67"></script>
+  <script defer src="js/main.js?v=68"></script>
 
   <!-- Structured data: School -->
   <script type="application/ld+json">
@@ -535,7 +536,7 @@
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">Composite Skill Lab</h3>
-              <p class="fac__text">A hands-on lab where students work on robotics, coding, AI projects and STEM challenges.</p>
+              <p class="fac__text">Our Composite Skill Lab, aligned with NEP 2020 and CBSE guidelines, offers an immersive, experiential learning environment that bridges theoretical knowledge with real-world applications.</p>
             </div>
           </li>
           <li class="fac fac--physics" data-reveal>
@@ -546,7 +547,7 @@
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">Physics Lab</h3>
-              <p class="fac__text">A separate Physics lab where concepts from class are tested with real experiments.</p>
+              <p class="fac__text">A specialised learning space equipped with scientific apparatus, enabling students to explore physical principles through practical experiments and scientific investigations.</p>
             </div>
           </li>
           <li class="fac fac--chemistry" data-reveal>
@@ -557,7 +558,7 @@
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">Chemistry Lab</h3>
-              <p class="fac__text">A separate Chemistry lab with benches, sinks and glassware for hands-on experiments.</p>
+              <p class="fac__text">A well-equipped laboratory featuring modern instruments and glassware, offering students opportunities to investigate chemical reactions and understand material properties.</p>
             </div>
           </li>
           <li class="fac fac--biology" data-reveal>
@@ -568,7 +569,7 @@
             <div class="fac__cap">
               <p class="fac__group">Learn</p>
               <h3 class="fac__title">Biology Lab</h3>
-              <p class="fac__text">A separate Biology lab with microscopes and models for hands-on study.</p>
+              <p class="fac__text">An advanced learning environment with microscopes and biological models, encouraging students to explore living organisms, understand life processes, and discover the natural world.</p>
             </div>
           </li>
           <li class="fac fac--ict" data-reveal>
@@ -594,8 +595,8 @@
             </div>
           </li>
           <li class="fac fac--classroom" data-reveal>
-            <div class="fac__media" data-slot="classroom">
-              <img src="images/classroom-sm.webp" srcset="images/classroom-sm.webp 800w, images/classroom.webp 1400w" sizes="(min-width: 1200px) 270px, (min-width: 640px) 50vw, 100vw" width="1400" height="934" loading="lazy" decoding="async" alt="A bright classroom with a wall-mounted display and curved student tables" style="--focus:40% 50%">
+            <div class="fac__media" data-slot="classroom-higher">
+              <img src="images/classroom-higher-sm.webp" srcset="images/classroom-higher-sm.webp 800w, images/classroom-higher.webp 1400w" sizes="(min-width: 1200px) 270px, (min-width: 640px) 50vw, 100vw" width="1400" height="934" loading="lazy" decoding="async" alt="A bright classroom with rows of paired desks and chairs, shelves and a window" style="--focus:50% 55%">
               <span class="fac__num" aria-hidden="true">07</span>
             </div>
             <div class="fac__cap">
@@ -733,7 +734,7 @@
           <!-- Step A: choose a grade, or work it out from date of birth -->
           <div class="finder__controls">
             <fieldset class="finder__grades">
-              <legend class="finder__label">Select your grade (2027–28)</legend>
+              <legend class="finder__label">Select your grade</legend>
               <div class="chips">
                 <label class="chip"><input type="radio" name="finder-grade" value="Nursery" data-stage="early" data-index="0"><span>Nursery</span></label>
                 <label class="chip"><input type="radio" name="finder-grade" value="PP1 / LKG" data-stage="early" data-index="1"><span>PP1 / LKG</span></label>

@@ -19,7 +19,7 @@ npx serve .
 ```
 
 After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both links in `index.html`
-(currently `?v=67`) so returning visitors don't get a cached copy.
+(currently `?v=68`) so returning visitors don't get a cached copy.
 
 ## Page order
 
@@ -47,7 +47,7 @@ After changing `css/styles.css` or `js/main.js`, bump the `?v=` number on both l
    Activity Hall, Play Land, football, cricket, basketball, skating, pickleball, taekwondo, athletics, CCTV)
    with a sideways-scrolling picker (All or one space). CCTV is card 8 and the Activity Hall is the large card at the end (swapped on client request). Real school photos, except the Composite Skill Lab (AI image supplied by the
    school) and the CCTV walkway. A missing photo shows a maroon tile with its file name.
-6. **Grades** (`#pathway`): grade chips ("Select your grade (2027–28)", Nursery to Grade 10) + date-of-birth check ("Enter date of birth", button "Check fee"), then ONE grade sheet: grade
+6. **Grades** (`#pathway`): grade chips ("Select your grade", Nursery to Grade 10) + date-of-birth check ("Enter date of birth", button "Check fee"), then ONE grade sheet: grade
    header band, stage details (Foundational Nursery to Grade 2, Preparatory Grades 3 to 5, Middle 6 to 8, Secondary
    9 and 10; wording is the client's `content.docx`), the grade's own yearly tuition fee and its parent testimonial. Grades 1 and 2 show a classroom photo
    (`classroom-grade12`, swapped in by `GRADE_PHOTOS` in `main.js`); Nursery, PP1 and PP2 keep the Activity Hall photo.
